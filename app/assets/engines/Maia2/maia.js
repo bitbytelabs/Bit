@@ -26,7 +26,7 @@ export default class Maia {
 		switch (cmd) {
 			case 'uci':
 				this.listen('id name Maia 2');
-				this.listen('id author CSSLab (+ A.C.A.S Developers)');
+				this.listen('id author CSSLab (+ Bit Developers)');
 				this.listen('uciok');
 				break;
 	

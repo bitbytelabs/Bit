@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import Sf167Web from '/Bit/app/assets/engines/lila-stockfish/sf16-7.js';
+=======
 import Sf167Web from './sf16-7.js';
+>>>>>>> 74e1161a55318483985827e66e8e15e8a9d7464f
 
 let engine = null;
 

@@ -1,8 +1,7 @@
 /* CommLink.js
  - Version: 1.0.3
- - Author: Haka
+ - Author: Bit
  - Description: A userscript library for cross-window communication via the userscript storage
- - GitHub: https://github.com/AugmentedWeb/CommLink
  */
 
 class CommLinkHandler {

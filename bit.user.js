@@ -1,44 +1,8 @@
 // ==UserScript==
-// @name        🏆 [#1 Chess Assistant] A.C.A.S (Advanced Chess Assistance System)
-// @name:en     🏆 [#1 Chess Assistant] A.C.A.S (Advanced Chess Assistance System)
-// @name:fi     🏆 [#1 Chess Assistant] A.C.A.S (Edistynyt shakkiavustusjärjestelmä)
-// @name:sw     🏆 [#1 Chess Assistant] A.C.A.S (Advanserad Schack Assitant System)
-// @name:zh-CN  🏆 [#1 Chess Assistant] A.C.A.S（高级国际象棋辅助系统）
-// @name:es     🏆 [#1 Chess Assistant] A.C.A.S (Sistema Avanzado de Asistencia al Ajedrez)
-// @name:hi     🏆 [#1 Chess Assistant] A.C.A.S (उन्नत शतरंज सहायता प्रणाली)
-// @name:ar     🏆 [#1 Chess Assistant] A.C.A.S (نظام المساعدة المتقدم في الشطرنج)
-// @name:pt     🏆 [#1 Chess Assistant] A.C.A.S (Sistema Avançado de Assistência ao Xadrez)
-// @name:ja     🏆 [#1 Chess Assistant] A.C.A.S（先進的なチェス支援システム）
-// @name:de     🏆 [#1 Chess Assistant] A.C.A.S (Fortgeschrittenes Schach-Hilfesystem)
-// @name:fr     🏆 [#1 Chess Assistant] A.C.A.S (Système Avancé d'Assistance aux Échecs)
-// @name:it     🏆 [#1 Chess Assistant] A.C.A.S (Sistema Avanzato di Assistenza agli Scacchi)
-// @name:ko     🏆 [#1 Chess Assistant] A.C.A.S (고급 체스 보조 시스템)
-// @name:nl     🏆 [#1 Chess Assistant] A.C.A.S (Geavanceerd Schaakondersteuningssysteem)
-// @name:pl     🏆 [#1 Chess Assistant] A.C.A.S (Zaawansowany System Pomocy Szachowej)
-// @name:tr     🏆 [#1 Chess Assistant] A.C.A.S (Gelişmiş Satranç Yardım Sistemi)
-// @name:vi     🏆 [#1 Chess Assistant] A.C.A.S (Hệ Thống Hỗ Trợ Cờ Vua Nâng Cao)
-// @name:uk     🏆 [#1 Chess Assistant] A.C.A.S (Система передової допомоги в шахах)
-// @name:ru     🏆 [#1 Chess Assistant] A.C.A.S (Система расширенной помощи в шахматах)
+// @name        🏆 [#1 Chess Assistant] Bit
+// @name:en     🏆 [#1 Chess Assistant] Bit
 // @description        Enhance your chess performance with a cutting-edge real-time move analysis and strategy assistance system
 // @description:en     Enhance your chess performance with a cutting-edge real-time move analysis and strategy assistance system
-// @description:fi     Paranna shakkipelisi suorituskykyä huippuluokan reaaliaikaisen siirtoanalyysin ja strategisen avustusjärjestelmän avulla
-// @description:sw     Förbättra dina schackprestationer med ett banbrytande rörelseanalys i realtid och strategiassistans
-// @description:zh-CN  利用尖端实时走法分析和策略辅助系统，提升您的国际象棋水平
-// @description:es     Mejora tu rendimiento en ajedrez con un sistema de análisis de movimientos en tiempo real y asistencia estratégica de vanguardia
-// @description:hi     अपने शतरंज प्रदर्शन को उन्नत करें, एक कटिंग-एज रियल-टाइम मूव विश्लेषण और रणनीति सहायता प्रणाली के साथ
-// @description:ar     قم بتحسين أداءك في الشطرنج مع تحليل حركات اللعب في الوقت الحقيقي ونظام مساعدة استراتيجية حديث
-// @description:pt     Melhore seu desempenho no xadrez com uma análise de movimentos em tempo real e um sistema avançado de assistência estratégica
-// @description:ja     最新のリアルタイムのムーブ分析と戦略支援システムでチェスのパフォーマンスを向上させましょう
-// @description:de     Verbessern Sie Ihre Schachleistung mit einer hochmodernen Echtzeitzug-Analyse- und Strategiehilfe-System
-// @description:fr     Améliorez vos performances aux échecs avec une analyse de mouvement en temps réel de pointe et un système d'assistance stratégique
-// @description:it     Migliora le tue prestazioni agli scacchi con un sistema all'avanguardia di analisi dei movimenti in tempo reale e assistenza strategica
-// @description:ko     최첨단 실시간 움직임 분석 및 전략 지원 시스템으로 체스 성과 향상
-// @description:nl     Verbeter je schaakprestaties met een geavanceerd systeem voor realtime zetanalyse en strategische ondersteuning
-// @description:pl     Popraw swoje osiągnięcia w szachach dzięki zaawansowanemu systemowi analizy ruchów w czasie rzeczywistym i wsparciu strategicznemu
-// @description:tr     Keskinleşmiş gerçek zamanlı hareket analizi ve strateji yardım sistemiyle satranç performansınızı artırın
-// @description:vi     Nâng cao hiệu suất cờ vua của bạn với hệ thống phân tích nước đi và hỗ trợ chiến thuật hiện đại
-// @description:uk     Покращуйте свою шахову гру з використанням передової системи аналізу ходів в режимі реального часу та стратегічної підтримки
-// @description:ru     Слава Украине
 // @homepageURL https://psyyke.github.io/A.C.A.S
 // @supportURL  https://github.com/Psyyke/A.C.A.S/tree/main#why-doesnt-it-work
 // @match       https://psyyke.github.io/A.C.A.S/*
@@ -83,7 +47,7 @@
 // @require     https://update.greasyfork.org/scripts/534637/LegacyGMjs.js?acasv=2
 // @require     https://update.greasyfork.org/scripts/470418/CommLinkjs.js?acasv=2
 // @require     https://update.greasyfork.org/scripts/470417/UniversalBoardDrawerjs.js?acasv=1
-// @icon        https://raw.githubusercontent.com/Psyyke/A.C.A.S/main/assets/images/logo-192.png
+// @icon        https://raw.githubusercontent.com/bitbytelabs/bit/main/assets/images/logo-192.png
 // @version     2.3.6
 // @namespace   HKR
 // @author      HKR
@@ -91,18 +55,12 @@
 // ==/UserScript==
 
 /*
-     e            e88~-_            e           ,d88~~\
-    d8b         d888    \          d8b          8888
-   /Y88b        8888              /Y88b         `Y88b
-  /  Y88b       8888             /  Y88b         `Y88b
- /____Y88b   d88b Y88   / d88b /____Y88b  d88b    8888
-/      Y88b  Y88P "88Y-~   Y88P/      Y88b Y88P \__88P'
-Advanced Chess Assistance System (A.C.A.S) v2 | Q3 2023
+Bit v2 | Q3 2023
 
 [WARNING]
-- Please be advised that the use of A.C.A.S may violate the rules and lead to disqualification or banning from tournaments and online platforms.
-- The developers of A.C.A.S and related systems will NOT be held accountable for any consequences resulting from its use.
-- We strongly advise to use A.C.A.S only in a controlled environment ethically.
+- Please be advised that the use of Bit may violate the rules and lead to disqualification or banning from tournaments and online platforms.
+- The developers of Bit and related systems will NOT be held accountable for any consequences resulting from its use.
+- We strongly advise to use Bit only in a controlled environment ethically.
 
 [ADDITIONAL]
 - Big fonts created with: https://www.patorjk.com/software/taag/ (Tmplr)
@@ -122,8 +80,8 @@ Code below this point runs on any site, including the GUI.
 */
 
 const backendConfig = {
-    'hosts': { 'prod': 'psyyke.github.io', 'dev': 'localhost' },
-    'path': '/A.C.A.S/'
+    'hosts': { 'prod': 'bitbytelabs.github.io', 'dev': 'localhost' },
+    'path': '/bit/'
 };
 
 const currentBackendUrlKey = 'currentBackendURL';
@@ -1000,7 +958,6 @@ function chessCoordinatesToIndex(coord) {
 
 /* Need to make the board matricies more cohesive, right now it's really confusing flipping them
     * differently for each function. I just can't be bothered right now so please don't make fun of it.
-    * Thanks, Haka
     * */
 
 function chessCoordinatesToMatrixIndex(coord) {
@@ -3609,22 +3566,5 @@ setInterval(refreshSettings, 2500);
 ==========================================================
 
 Thank you for reading through this userscript! Please visit GitHub
-Contributions are absolutely welcome >> github.com/Psyyke/A.C.A.S!
-
-//////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
-000000000000000000000000000000000000000000000000000000000000000000
-777777770000000007777777777777770000000077777777700000000077777777
-777777777000000777777777777777777700000077777777770000007777777777
-777077777000007777777000000077777700000777777777777000007777770000
-777077777700007777770000000000000000007777770077777000007777777777
-770007777770077777700000000000000000077777700077777700000777777777
-700000777777007777770000000000000000077777700007777770000000007777
-777777777777007777770000000077777700777777777777777777077777700000
-777777777777700777777777777777777707777777777777777777007777777777
-000000007777770007777777777777770077777770000000077777700777777777
-000000007777777000007777777770000077777700000000007777770000777777
-000000000000000000000000000000000000000000000000000000000000000000
-//////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////*/
+Contributions are absolutely welcome >> github.com/bitbytelabs/bit!
+*/
