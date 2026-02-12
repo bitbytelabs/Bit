@@ -3,9 +3,9 @@
 // @name:en     🏆 [#1 Chess Assistant] Bit
 // @description        Enhance your chess performance with a cutting-edge real-time move analysis and strategy assistance system
 // @description:en     Enhance your chess performance with a cutting-edge real-time move analysis and strategy assistance system
-// @homepageURL https://psyyke.github.io/A.C.A.S
-// @supportURL  https://github.com/Psyyke/A.C.A.S/tree/main#why-doesnt-it-work
-// @match       https://psyyke.github.io/A.C.A.S/*
+// @homepageURL https://bitbytelabs.github.io/Bit/app/
+// @supportURL  https://bitbytelabs.github.io/Bit/app/tree/main#why-doesnt-it-work
+// @match       https://bitbytelabs.github.io/Bit/app/*
 // @match       http://localhost/*
 // @match       https://www.chess.com/*
 // @match       https://lichess.org/*
