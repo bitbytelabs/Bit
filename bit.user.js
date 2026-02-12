@@ -81,7 +81,7 @@ Code below this point runs on any site, including the GUI.
 
 const backendConfig = {
     'hosts': { 'prod': 'bitbytelabs.github.io', 'dev': 'localhost' },
-    'path': '/bit/'
+    'path': '/Bit/app/'
 };
 
 const currentBackendUrlKey = 'currentBackendURL';
