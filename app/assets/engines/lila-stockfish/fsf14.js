@@ -110,9 +110,28 @@ var Fsf14Web = (() => {
             };
             function b(c) {
                 try {
+                    // Validate incoming message structure before processing
+                    if (!c || typeof c !== "object" || typeof c.data !== "object" || c.data === null) {
+                        q && q("worker: received malformed message event");
+                        return;
+                    }
                     var d = c.data,
                         e = d.ka;
+                    // Only allow known command types
+                    var allowedCommands = { load: !0, run: !0, checkMailbox: !0 };
+                    if (!e || !allowedCommands[e]) {
+                        if (d.target !== "setimmediate") {
+                            q && q(`worker: received unexpected command ${String(e)}`);
+                            q && q(d);
+                        }
+                        return;
+                    }
                     if ("load" === e) {
+                        // Basic validation of expected fields for 'load'
+                        if (!Array.isArray(d.Wa) || typeof d.ib !== "object" || d.ib === null) {
+                            q && q("worker: received invalid 'load' payload");
+                            return;
+                        }
                         let f = [];
                         self.onmessage = (g) => f.push(g);
                         self.startWorker = () => {
