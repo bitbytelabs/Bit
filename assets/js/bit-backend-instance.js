@@ -2269,12 +2269,14 @@ class BackendInstance {
                 </div>
                 <div class="gas-container" style="display:${window?.SharedArrayBuffer ? 'none' : 'block'};">
                     <div class="gas" style="width:${instanceWidth};">
-                        <ins class="adsbygoogle"
-                        style="display:block"
-                        data-ad-client="ca-pub-7248123202489335"
-                        data-ad-slot="4278138469"
-                        data-ad-format="auto"
-                        data-full-width-responsive="true"></ins>
+                        <div class="bit-support-card compact">
+                            <div class="bit-support-card-title">Support Bit</div>
+                            <div class="bit-support-card-text">Bit is maintained by a solo developer. Feedback and stars are appreciated.</div>
+                            <div class="bit-support-card-actions">
+                                <a href="https://github.com/bitbytelabs/Bit" target="_blank" rel="noopener">GitHub</a>
+                                <a href="https://greasyfork.org/en/scripts/459137/feedback" target="_blank" rel="noopener">Feedback</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div><div class="pseudoground-x"></div></div>
@@ -2404,7 +2406,6 @@ class BackendInstance {
                 toast.error(msg);
             }
 
-            (adsbygoogle = window.adsbygoogle || []).push({});
 
             this.guiUpdater();
         } catch(e) { 
