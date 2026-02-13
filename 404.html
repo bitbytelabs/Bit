@@ -1,28 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Page Not Found / Bit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <meta name="description" content="We couldn’t find that page. Return to Bit, the open‑source chess assistant and GUI.">
+    <meta name="description" content="We couldn’t find that page. Return to Bit, the open-source chess assistant and GUI.">
     <meta name="keywords" content="404 chess, acas not found, chess assistant site">
     <meta property="og:title" content="Page Not Found / Bit">
     <meta property="og:description" content="404—Page not found. Go back to Bit for chess assistance and learning tools.">
     <meta property="og:image" content="assets/images/mock.png">
     <link rel="preload" href="assets/fonts/IBMPlexSans.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-    <link rel="preload" href="assets/images/mock.webp" as="image">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="stylesheet" type="text/css" href="assets/css/404.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="canonical" href="https://bitbytelabs.github.io/Bit/">
     <meta property="og:type" content="website">
-    <script async="" type="text/javascript" src="index.js"></script>
-    <script defer="" type="text/javascript" src="assets/libraries/klaro/config.js"></script>
-    <script defer="" type="text/javascript" src="assets/libraries/klaro/klaro.js"></script>
+    <script async type="text/javascript" src="index.js"></script>
+    <script defer type="text/javascript" src="assets/libraries/klaro/config.js"></script>
+    <script defer type="text/javascript" src="assets/libraries/klaro/klaro.js"></script>
 </head>
 <body>
-    <div id="wrapper">
-        <h1>Sorry mate, nothing here.</h1>
-        <a href="/bit/">← Go back home</a>
-    </div>
+    <main class="not-found" role="main" aria-labelledby="not-found-title">
+        <p class="status">Error 404</p>
+        <h1 id="not-found-title">Checkmate. This page is gone.</h1>
+        <p class="description">
+            The page you are looking for may have been moved, renamed, or never existed.
+            Let’s get you back to the board.
+        </p>
+
+        <nav class="actions" aria-label="404 recovery actions">
+            <a class="button primary" href="./">Go to homepage</a>
+            <a class="button secondary" href="./faq/">Open FAQ</a>
+        </nav>
+
+        <p class="helper-text">Tip: verify the URL or start from the homepage.</p>
+    </main>
 </body>
+</html>
