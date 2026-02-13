@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/bitbytelabs/Bit/compare/v1.0.1...v1.1.0) (2026-02-13)
+
+
+### Features
+
+* redesign 404 page experience ([68fb3a4](https://github.com/bitbytelabs/Bit/commit/68fb3a444f3a7c80d208cc442dfa54cb682a62eb))
+
 ## [1.0.1](https://github.com/bitbytelabs/Bit/compare/v1.0.0...v1.0.1) (2026-02-13)
 
 
