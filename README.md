@@ -14,7 +14,7 @@ Bit is an open-source chess assistant (**not a chess cheat**), designed to help 
 > [!CAUTION]
 > Please be advised that the use of Bit may violate the rules and lead to disqualification or banning from tournaments and online platforms. The developers of Bit and related systems will NOT be held accountable for any consequences resulting from its use. We strongly advise to use Bit only in a controlled environment ethically.
 
-| [▶️ Open Bit](https://bitbytelabs.github.io/bit) | [⬇️ Install](https://github.com/bitbytelabs/Bit/blob/main/bit.user.js)  | [💬 Discuss With Community](https://github.com/bitbytelabs/Bit/discussions)
+| [▶️ Open Bit](https://bitbytelabs.github.io/Bit) | [⬇️ Install](https://github.com/bitbytelabs/Bit/blob/main/bit.user.js)  | [💬 Discuss With Community](https://github.com/bitbytelabs/Bit/discussions)
 |-------|-------|-------|
 
 ## Getting Started
@@ -38,7 +38,7 @@ Don't want to get banned again? Don't use Bit against other humans.
 
 Before making an issue, please read these:
 
-- Make sure the [Bit GUI](https://bitbytelabs.github.io/bit/) is active. Do not close the tab. Browsers freeze code execution on inactive pages, you need to visit the Bit GUI tab from time to time or keep it open on a separate window. This prevents Bit from freezing and not giving any move suggestions, for example.
+- Make sure the [Bit GUI](https://bitbytelabs.github.io/Bit/) is active. Do not close the tab. Browsers freeze code execution on inactive pages, you need to visit the Bit GUI tab from time to time or keep it open on a separate window. This prevents Bit from freezing and not giving any move suggestions, for example.
 
 - Do you not see any moves displayed on the chess site? Are you sure you have enabled "Display Moves On External Site" box on the Bit GUI settings? After enabling that setting, please refresh the chess site to see changes.
 
