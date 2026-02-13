@@ -5,8 +5,6 @@
 
 Bit is an open-source chess assistant (**not a chess cheat**), designed to help you make better moves using a chess engine. Just install the userscript, open the Bit GUI, and you're ready to go. No downloads necessary!
 
-![Screenshot of Bit](assets/images/mock.png)
-
 * No anti-features on userscript (*e.g. ads and tracking*)
 * WebAssembly chess engine (faster than regular JavaScript engines)
 * Supports the most popular chess game sites (*e.g. chess.com, lichess.org*)
