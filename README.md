@@ -1,11 +1,11 @@
-# A.C.A.S (Advanced Chess Assistance System)
+# Bit
 
 > [!WARNING]
-> A.C.A.S is currently in development. Expect bugs, especially on variants.
+> Bit is currently in development. Expect bugs, especially on variants.
 
-A.C.A.S (Advanced Chess Assistance System) is an open-source chess assistant (**not a chess cheat**), designed to help you make better moves using a chess engine. Just install the userscript, open the A.C.A.S GUI, and you're ready to go. No downloads necessary!
+Bit is an open-source chess assistant (**not a chess cheat**), designed to help you make better moves using a chess engine. Just install the userscript, open the Bit GUI, and you're ready to go. No downloads necessary!
 
-![Screenshot of A.C.A.S](assets/images/mock.png)
+![Screenshot of Bit](assets/images/mock.png)
 
 * No anti-features on userscript (*e.g. ads and tracking*)
 * WebAssembly chess engine (faster than regular JavaScript engines)
@@ -13,35 +13,18 @@ A.C.A.S (Advanced Chess Assistance System) is an open-source chess assistant (**
 * Supports multiple move suggestions, move arrow markings, chess variants & fonts
 * Translated to 30+ languages
 
-<a href="https://liberapay.com/Haka/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
-
 > [!CAUTION]
-> Please be advised that the use of A.C.A.S may violate the rules and lead to disqualification or banning from tournaments and online platforms. The developers of A.C.A.S and related systems will NOT be held accountable for any consequences resulting from its use. We strongly advise to use A.C.A.S only in a controlled environment ethically.
+> Please be advised that the use of Bit may violate the rules and lead to disqualification or banning from tournaments and online platforms. The developers of Bit and related systems will NOT be held accountable for any consequences resulting from its use. We strongly advise to use Bit only in a controlled environment ethically.
 
-| [▶️ Open A.C.A.S](https://psyyke.github.io/A.C.A.S/) | [⬇️ Install (GreasyFork)](https://greasyfork.org/en/scripts/459137-a-c-a-s-advanced-chess-assistance-system)  | [💬 Discuss With Community](https://hakorr.github.io/Userscripts/community/invite)
+| [▶️ Open Bit](https://bitbytelabs.github.io/bit) | [⬇️ Install](https://github.com/bitbytelabs/Bit/blob/main/bit.user.js)  | [💬 Discuss With Community](https://github.com/bitbytelabs/Bit/discussions)
 |-------|-------|-------|
 
 ## Getting Started
 
-Simply [install the A.C.A.S userscript](https://greasyfork.org/en/scripts/459137-a-c-a-s-advanced-chess-assistance-system), open the [A.C.A.S GUI](https://psyyke.github.io/A.C.A.S/) and a supported chess game site. Then, just start playing!
+Simply [install the Bit userscript](https://github.com/bitbytelabs/Bit/blob/main/bit.user.js), open the [Bit GUI](https://bitbytelabs.github.io/bit/) and a supported chess game site. Then, just start playing!
 
 > [!IMPORTANT]
-> You need to keep the A.C.A.S GUI tab active to keep the whole system functional. Think of the tab as an engine of a car, the userscript alone is simply an empty hull, it won't run, nor move. The A.C.A.S GUI has the chess engine which calculates the moves.
-
-You can find A.C.A.S V1 [here](https://github.com/Hakorr/Userscripts/tree/main/Other/A.C.A.S). It is no longer updated.
-
-## Example Gameplay
-
-### Beating hard bots (Chess.com)
-
-https://github.com/user-attachments/assets/790c91cd-f64b-4d27-b264-9080630b1029
-
-## Fundamental Idea
-
-| A.C.A.S (Tab #1)    | Chess Website (Tab #2)  |
-|----------------------|----------------------|
-| ![A.C.A.S Tab](https://github.com/user-attachments/assets/4d5d80ac-3a1a-4529-889d-64403dd2adbe) | ![Lichess.org Tab](https://github.com/user-attachments/assets/97cb9650-19d5-41dc-bfbf-f071ee39eb92) |
-| The engine runs on a completely different tab than the chess game page, completely isolated from it. The site cannot block the usage of A.C.A.S. | A.C.A.S sends move data via [CommLink](https://github.com/AugmentedWeb/CommLink) and the userscript displays the data on the board using [UniversalBoardDrawer](https://github.com/Hakorr/UniversalBoardDrawer). (*If "Display Moves On External Site" setting is activated!*) |
+> You need to keep the Bit GUI tab active to keep the whole system functional. Think of the tab as an engine of a car, the userscript alone is simply an empty hull, it won't run, nor move. The Bit GUI has the chess engine which calculates the moves.
 
 ## Q&A
 
@@ -49,50 +32,50 @@ https://github.com/user-attachments/assets/790c91cd-f64b-4d27-b264-9080630b1029
 
 Chess engines simply play differently than humans. It's fairly easy to detect by pure statistics. For example, chess.com bans about 16 000 players for fair play abuse each month.
 
-Your ban most likely wasn't because of the site detecting A.C.A.S, it was because of your suspicious behaviour patterns. A.C.A.S cannot fix this, it's your responsiblity to play as a human.
+Your ban most likely wasn't because of the site detecting Bit, it was because of your suspicious behaviour patterns. Bit cannot fix this, it's your responsiblity to play as a human.
 
-Don't want to get banned again? Don't use A.C.A.S against other humans.
+Don't want to get banned again? Don't use Bit against other humans.
 
 ### Why doesn't it work?
 
 Before making an issue, please read these:
 
-- Make sure the [A.C.A.S GUI](https://psyyke.github.io/A.C.A.S/) is active. Do not close the tab. Browsers freeze code execution on inactive pages, you need to visit the A.C.A.S GUI tab from time to time or keep it open on a separate window. This prevents A.C.A.S from freezing and not giving any move suggestions, for example.
+- Make sure the [Bit GUI](https://bitbytelabs.github.io/bit/) is active. Do not close the tab. Browsers freeze code execution on inactive pages, you need to visit the Bit GUI tab from time to time or keep it open on a separate window. This prevents Bit from freezing and not giving any move suggestions, for example.
 
-- Do you not see any moves displayed on the chess site? Are you sure you have enabled "Display Moves On External Site" box on the A.C.A.S GUI settings? After enabling that setting, please refresh the chess site to see changes.
+- Do you not see any moves displayed on the chess site? Are you sure you have enabled "Display Moves On External Site" box on the Bit GUI settings? After enabling that setting, please refresh the chess site to see changes.
 
-- Are you trying to play variants on Chess.com? If so, it's not currently supported very well since I had to rush the project, sorry! Other sites with variants might also be buggy, you can make an issue about that if you want.
+- Are you trying to play variants on Chess.com? If so, it's not currently supported very well. Other sites with variants might also be buggy, you can make an issue about that if you want.
 
-- Make sure you did NOT set "Piece Animations" to "Arcade" on Chess.com board settings! Set the "Piece Animations" to "None" so that A.C.A.S can parse the board correctly.
+- Make sure you did NOT set "Piece Animations" to "Arcade" on Chess.com board settings! Set the "Piece Animations" to "None" so that Bit can parse the board correctly.
 
-- If A.C.A.S complains having no userscript even though it is installed, press down the "shift" key, and then click your browser's refresh button to perform a hard refresh, hopefully clearing the wrongly cached state.
+- If Bit complains having no userscript even though it is installed, press down the "shift" key, and then click your browser's refresh button to perform a hard refresh, hopefully clearing the wrongly cached state.
 
 - Nothing is helping? Restart your PC. Try Violentmonkey and a Chromium based browser, such as Brave. Use the default config. Keep two windows open at the same time next to each other, one having the GUI and one the chess site.
 
-Otherwise, it could be a bug, please make an issue [here](https://github.com/psyyke/A.C.A.S/issues/new). 
+Otherwise, it could be a bug, please make an issue [here](https://github.com/bitbytelabs/bit/issues/new). 
 
 > [!NOTE]
 > When making an issue, please be descriptive! Mention,
 > - The chess site and the variant you were playing.
 > - The browser and the userscript manager you were using.
 > - What did you do for the bug to happen, does it happen often? How could I reproduce it?
-> - You can also include a screenshot of the browser console (e.g. `CTRL + SHIFT + I` or right click, inspect, and go to the console tab), look for **grey underlined text** at the beginning of a red background area, on the right side of the screen, which has the word 'A.C.A.S'. That's an error from the userscript.
+> - You can also include a screenshot of the browser console (e.g. `CTRL + SHIFT + I` or right click, inspect, and go to the console tab), look for **grey underlined text** at the beginning of a red background area, on the right side of the screen, which has the word 'Bit'. That's an error from the userscript.
 
 ## Development
 
-### A.C.A.S GUI
+### Bit GUI
 
 #### Hosting on localhost
 
-1) Install the A.C.A.S userscript.
+1) Install the Bit userscript.
 2) Select a webserver of your choosing, e.g. [UwAmp](https://www.uwamp.com/en/).
-3) Create a folder named `A.C.A.S` to the root folder of your webserver. (e.g. `www/A.C.A.S`)
+3) Create a folder named `Bit` to the root folder of your webserver. (e.g. `www/Bit`)
 4) Clone the repository and put the files inside the folder you just created.
-6) You should now see A.C.A.S running on `http://localhost/A.C.A.S/`.
-7) Make sure the A.C.A.S userscript is on and you should be good to go!
+6) You should now see Bit running on `http://localhost/Bit/`.
+7) Make sure the Bit userscript is on and you should be good to go!
 
 > [!WARNING]
-> Make sure there are no additional folders which would make the URL like `http://localhost/A.C.A.S/A.C.A.S/`.
+> Make sure there are no additional folders which would make the URL like `http://localhost/Bit/Bit/`.
 
 > [!TIP]
 > You can show hidden features by adding `?hidden=true`. For only developers, no updates guaranteed.
@@ -100,29 +83,12 @@ Otherwise, it could be a bug, please make an issue [here](https://github.com/psy
 > [!TIP]
 > You can use [GitHub Desktop](https://desktop.github.com/) to make Git actions such as cloning easy.
 
-### A.C.A.S Userscript
+### Bit Userscript
 
 Developing the userscript is easy, simply develop it as you'd any other userscripts.
 
 > [!NOTE]
 > Browsers might cache userscripts after you've refreshed the site enough times. If you notice your userscript being cached, disable the userscript, refresh the page, then enable the userscript and refresh the page again.
-
-## More examples
-
-### Playing Xiangqi (Chinese Chess), Playstrategy.org
-
-![GIF of a different chess variant](https://github.com/Psyyke/A.C.A.S/assets/76921756/af4af26b-d5e9-4502-ac6a-8921d34c3cfa)
-
-### Two A.C.A.S's engines playing against each other, Freechess.club
-
-![GIF of two engines playing](https://github.com/user-attachments/assets/40e78bf2-b695-44df-9ef8-490e42df7c97)
-
-### A.C.A.S is powerful and supports lots of games at once
-
-#### (Example has 8 engines running at the same time at 2500 ELO)
-
-![GIF of A.C.A.S playing 4 games at once](https://github.com/user-attachments/assets/a7013e48-bee0-44c3-910c-3d6643b968ec)
-
 ## Used Libraries ❤︎
 
 * [Fairy Stockfish WASM](https://github.com/fairy-stockfish/fairy-stockfish.wasm) (*the chess engine of A.C.A.S*)
@@ -141,7 +107,3 @@ Developing the userscript is easy, simply develop it as you'd any other userscri
 * [SnapDOM](https://github.com/zumerlab/snapdom) (*for DOM screenshots (e.g. turning the board into image)*)
 * [UniversalBoardDrawer](https://github.com/Hakorr/UniversalBoardDrawer) (*for drawing arrows on the GUI and the chess site chessboards*)
 * [CommLink](https://github.com/AugmentedWeb/CommLink) (*for cross-window communication between the GUI tab and chess sites*)
-
-## GUI Overview
-
-<img width="1903" height="1676" alt="acas" src="https://github.com/user-attachments/assets/cbb510f0-5083-4a6b-9bd5-a7b91d390e68" />
