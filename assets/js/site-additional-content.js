@@ -1,33 +1,22 @@
 function insertGas(elem) {
-    const text = elem?.dataset?.t;
-    const rect = elem?.dataset?.r;
-
     elem.dataset.processed = true;
 
-    const pubId = "ca-pub-7248123202489335";
+    const compact = elem?.dataset?.r;
+    const title = compact ? 'Support Bit' : 'Keep Bit Growing';
+    const text = compact
+        ? 'If Bit helps your games, consider leaving feedback or starring the repository.'
+        : 'Bit is maintained by a solo developer. Feedback and stars help keep updates coming.';
 
-    if(text) {
-        elem.innerHTML = `<ins class="adsbygoogle"
-        style="display:block"
-        data-ad-format="fluid"
-        data-ad-layout-key="-gw-3+1f-3d+2z"
-        data-ad-client="${pubId}"
-        data-ad-slot="1668980906"></ins>`;
-    } else if(rect) {
-        elem.innerHTML = `<ins class="adsbygoogle"
-        style="display:inline-block;width:320px;height:100px"
-        data-ad-client="${pubId}"
-        data-ad-slot="9586999372"></ins>`;
-    } else {
-        elem.innerHTML = `<ins class="adsbygoogle"
-        style="display:block; text-align:center;"
-        data-ad-layout="in-article"
-        data-ad-format="fluid"
-        data-ad-client="${pubId}"
-        data-ad-slot="4819810311"></ins>`;
-    }
-
-    (adsbygoogle = window.adsbygoogle || []).push({});
+    elem.innerHTML = `
+        <div class="bit-support-card ${compact ? 'compact' : ''}">
+            <div class="bit-support-card-title">${title}</div>
+            <div class="bit-support-card-text">${text}</div>
+            <div class="bit-support-card-actions">
+                <a href="https://github.com/bitbytelabs/Bit" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://greasyfork.org/en/scripts/459137/feedback" target="_blank" rel="noopener">Feedback</a>
+            </div>
+        </div>
+    `;
 }
 
 function initLottieAndGas() {
@@ -41,7 +30,7 @@ function initLottieAndGas() {
             autoplay: true,
             path: '../assets/json/lottie.json'
         });
-        lottieElement.dataset.lottieLoaded = "true"; // Prevent duplicate loading
+        lottieElement.dataset.lottieLoaded = "true";
     }
 
     [...document.querySelectorAll('.gas')]
@@ -51,7 +40,7 @@ function initLottieAndGas() {
 
 initLottieAndGas();
 
-const observer = new MutationObserver((mutations, obs) => {
+const observer = new MutationObserver(() => {
     initLottieAndGas();
 });
 

@@ -86,10 +86,15 @@
 body {
 	font-family: "Rubik", "IBM Plex Sans", "Mona Sans", sans-serif;
 	margin: 0;
-	background-color: rgb(39 60 67);
+	background-color: #0a111d;
+	background-image:
+		radial-gradient(circle at 20% 20%, rgb(0 209 255 / 18%) 0%, transparent 35%),
+		radial-gradient(circle at 80% 0%, rgb(133 80 255 / 12%) 0%, transparent 40%),
+		linear-gradient(135deg, #070c14 0%, #0f172a 45%, #070d16 100%);
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
+	color: #d6f1ff;
 }
 cg-board {
 	background-color: rgb(255 255 255 / 70%);
@@ -134,7 +139,7 @@ cg-container {
 }
 #acas-header {
 	padding: 15px 20px 20px;
-	background-color: rgb(0 0 0 / 70%);
+	background-color: rgb(6 12 20 / 85%);
 	height: 50px;
 	display: flex;
 	justify-content: space-between;
@@ -142,7 +147,8 @@ cg-container {
     position: sticky;
     top: 0;
 	backdrop-filter: blur(10px);
-	border-bottom: 4px solid rgb(0 0 0 / 35%);
+	border-bottom: 2px solid rgb(0 229 255 / 45%);
+	box-shadow: 0 0 24px rgb(0 166 255 / 15%);
 }
 #acas-logo {
 	font-size: 30px;
@@ -203,8 +209,9 @@ cg-container {
 	border-radius: 5px;
 	transition: all 150ms ease;
 	z-index: 10;
-	border: 2px solid rgb(255 255 255 / 25%);
+	border: 1px solid rgb(69 198 255 / 45%);
 	border-bottom-width: 5px;
+	box-shadow: 0 14px 32px rgb(0 0 0 / 35%), inset 0 0 0 1px rgb(122 222 255 / 8%);
 }
 #acas-instance-container {
 	display: flex;
@@ -220,7 +227,7 @@ cg-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: rgb(0 0 0 / 56%);
+	background-color: rgb(7 12 23 / 82%);
 	padding: 10px 20px 20px 20px;
 	border-radius: 0 0 5px 5px;
 }
@@ -247,7 +254,7 @@ cg-container {
 	padding: 10px;
 	color: white;
 	height: fit-content;
-	background-color: rgb(0 0 0 / 73%);
+	background: linear-gradient(135deg, rgb(7 16 28 / 92%), rgb(6 20 33 / 86%));
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -628,7 +635,7 @@ cg-container {
 	display: none !important;
 }
 #no-instances-container {
-	background-color: rgb(0 0 0 / 20%);
+	background: linear-gradient(145deg, rgb(8 14 24 / 72%), rgb(11 20 35 / 55%));
 	color: rgb(255 255 255 / 75%);
 	padding: 30px 10px 10px 10px;
 	display: flex;
@@ -639,7 +646,8 @@ cg-container {
 	text-align: center;
 	z-index: 5;
 	backdrop-filter: blur(20px);
-	border: 2px solid rgb(255 255 255 / 10%);
+	border: 1px solid rgb(75 193 255 / 40%);
+	box-shadow: 0 18px 30px rgb(0 0 0 / 40%), inset 0 0 0 1px rgb(0 225 255 / 8%);
 }
 #no-instances-title {
     font-size: 28px;
@@ -730,14 +738,14 @@ cg-container {
 #acas-settings-container {
 	display: flex;
 	height: fit-content;
-	background-color: rgb(0 0 0 / 50%);
+	background: linear-gradient(180deg, rgb(8 14 24 / 85%), rgb(7 12 22 / 72%));
 	color: white;
 	flex-direction: column;
 	align-items: flex-start;
 	backdrop-filter: blur(2px);
 	flex-grow: 1;
 	z-index: 10;
-	border-bottom: 3px solid rgb(255 255 255 / 5%);
+	border-bottom: 2px solid rgb(85 183 255 / 25%);
 }
 #settings-navbar {
 	width: fit-content;
@@ -749,7 +757,8 @@ cg-container {
 	color: white;
 	font-size: 17px;
 	text-align: center;
-	border: 2px solid rgb(255 255 255 / 15%);
+	border: 1px solid rgb(70 191 255 / 45%);
+	box-shadow: inset 0 0 0 1px rgb(0 210 255 / 15%);
 	padding: 1px;
 }
 #settings-navbar-subtitle {
@@ -768,8 +777,8 @@ cg-container {
     justify-content: space-between;
     flex-direction: row;
     box-sizing: border-box;
-    background-color: rgb(0 0 0 / 20%);
-    border-bottom: 3px solid rgb(255 255 255 / 5%);
+	background-color: rgb(5 11 19 / 46%);
+	border-bottom: 2px solid rgb(67 189 255 / 20%);
     flex-wrap: wrap;
 	grid-gap: 10px;
 }
@@ -784,21 +793,22 @@ cg-container {
 	width: 40px;
 	height: 40px;
 	border-radius: 5px;
-	background-color: rgb(255 255 255 / 10%);
+	background-color: rgb(12 35 54 / 62%);
 	font-size: 26px;
 	display: flex;
 	align-content: center;
 	justify-content: center;
 	align-items: center;
-	border: 2px solid rgb(255 255 255 / 15%);
+	border: 1px solid rgb(68 191 255 / 35%);
+	box-shadow: inset 0 0 0 1px rgb(0 210 255 / 10%);
 }
 .control-panel-btn:hover {
 	transform: scale(1.1);
-	background-color: rgb(255 255 255 / 20%);
+	background-color: rgb(16 46 70 / 80%);
 }
 .control-panel-btn:active {
 	transform: scale(0.9);
-	background-color: rgb(255 255 255 / 30%);
+	background-color: rgb(31 71 102 / 85%);
 }
 .horizontal-strip {
 	width: 100%;
@@ -830,12 +840,13 @@ cg-container {
 	color: rgb(255, 255, 255, 0.75);
 }
 .setting-panel {
-	background-color: rgb(0 0 0 / 20%);
+	background: linear-gradient(160deg, rgb(7 17 30 / 78%), rgb(11 23 40 / 62%));
 	border-radius: 5px;
 	padding: 20px;
-	border: 2px solid rgb(255 255 255 / 10%);
+	border: 1px solid rgb(81 199 255 / 35%);
 	max-width: 300px;
 	border-bottom-width: 5px;
+	box-shadow: 0 10px 24px rgb(0 0 0 / 28%);
 }
 .setting-panel>*:not(:last-child) {
 	margin-bottom: 10px;
@@ -854,15 +865,16 @@ cg-container {
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
-	background-color: rgb(0 0 0 / 25%);
+	background-color: rgb(4 21 33 / 75%);
 }
 #settings-navbar #settings-navbar-global:hover,
 #settings-navbar-instance:hover {
-	background-color: rgba(255, 255, 255, 0.5);
+	background-color: rgb(24 78 113 / 82%);
 }
 #settings-navbar .selected {
-	background-color: rgba(255, 255, 255, 0.8) !important;
-	color: rgba(0, 0, 0, 0.8) !important;
+	background-color: rgb(72 218 255 / 85%) !important;
+	color: rgb(0 34 53 / 95%) !important;
+	text-shadow: 0 0 8px rgb(204 251 255 / 45%);
 }
 #settings-navbar-global {
 	padding: 0 20px 0 20px;
@@ -1505,9 +1517,6 @@ cg-container {
 .setting-panel-highlight {
 	opacity: 1 !important;
 }
-ins.adsbygoogle[data-ad-status="unfilled"] {
-    display: none !important;
-}
 input[disabled] {
 	opacity: 0.25;
 	filter: blur(1px);
@@ -1567,4 +1576,37 @@ p[data-translation-ffs-instructions] {
 }
 video {
 	border-radius: 5px;
+}
+
+.bit-support-card {
+	border: 1px solid rgb(78 196 255 / 35%);
+	border-radius: 8px;
+	background: linear-gradient(155deg, rgb(6 19 33 / 88%), rgb(9 28 45 / 82%));
+	padding: 10px 12px;
+	color: rgb(221 245 255 / 90%);
+	box-sizing: border-box;
+}
+.bit-support-card.compact {
+	font-size: 13px;
+}
+.bit-support-card-title {
+	font-weight: 700;
+	margin-bottom: 4px;
+}
+.bit-support-card-text {
+	line-height: 1.35;
+	margin-bottom: 6px;
+}
+.bit-support-card-actions {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+.bit-support-card-actions a {
+	text-decoration: none;
+	padding: 3px 8px;
+	border: 1px solid rgb(94 201 255 / 40%);
+	border-radius: 5px;
+	color: rgb(193 237 255 / 95%);
+	background-color: rgb(10 39 61 / 55%);
 }
