@@ -108,7 +108,23 @@ var Sf167Web = (() => {
             self.onunhandledrejection = (c) => {
                 throw c.reason || c;
             };
+            function Qa(c) {
+                if (!c || typeof c !== "object") return !1;
+                var d = c.data;
+                if (!d || typeof d !== "object") return !1;
+                var e = d.ka;
+                if (typeof e !== "string") return !1;
+                return (
+                    e === "load" ||
+                    e === "run" ||
+                    e === "checkMailbox" ||
+                    // allow other known internal targets, but still require an object payload
+                    (e === "" && typeof d.target === "string") ||
+                    e === "setimmediate"
+                );
+            }
             function b(c) {
+                if (!Qa(c)) return;
                 try {
                     var d = c.data,
                         e = d.ka;
