@@ -133,7 +133,25 @@ var Fsf14Web = (() => {
                             return;
                         }
                         let f = [];
-                        self.onmessage = (g) => f.push(g);
+                        self.onmessage = (g) => {
+                            // Basic validation of incoming message before queuing
+                            if (!g || typeof g !== "object" || typeof g.data !== "object" || g.data === null) {
+                                q && q("worker: received malformed message event (pre-start)");
+                                return;
+                            }
+                            const msg = g.data;
+                            const cmd = msg.ka;
+                            const allowedCommands = { load: !0, run: !0, checkMailbox: !0 };
+                            if (!cmd && msg.target === "setimmediate") {
+                                // Allow internal setImmediate messages
+                                f.push(g);
+                            } else if (cmd && allowedCommands[cmd]) {
+                                f.push(g);
+                            } else {
+                                q && q(`worker: rejected unexpected command ${String(cmd)} (pre-start)`);
+                                q && q(msg);
+                            }
+                        };
                         self.startWorker = () => {
                             postMessage({ ka: "loaded" });
                             for (let g of f) b(g);
