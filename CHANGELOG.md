@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/bitbytelabs/Bit/compare/v1.3.2...v1.3.3) (2026-02-14)
+
+
+### Bug Fixes
+
+* rename A.C.A.S to Bit in i18n assets ([4ad4583](https://github.com/bitbytelabs/Bit/commit/4ad45834c98b891c1f30e0abc92db4cd860cbcf9))
+
 ## [1.3.2](https://github.com/bitbytelabs/Bit/compare/v1.3.1...v1.3.2) (2026-02-14)
 
 
