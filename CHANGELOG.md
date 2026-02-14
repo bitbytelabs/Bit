@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/bitbytelabs/Bit/compare/v1.5.0...v1.5.1) (2026-02-14)
+
+
+### Bug Fixes
+
+* prevent undefined firebase match fields ([baf0898](https://github.com/bitbytelabs/Bit/commit/baf0898c4a7393bc02e7f1eb0ef47aac6703cbbc))
+
 # [1.5.0](https://github.com/bitbytelabs/Bit/compare/v1.4.1...v1.5.0) (2026-02-14)
 
 
