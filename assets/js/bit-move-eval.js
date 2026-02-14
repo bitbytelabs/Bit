@@ -1,4 +1,4 @@
-/* [A.C.A.S MoveEvaluator]
+/* [Bit MoveEvaluator]
  * - License: GPLv3
  * - Version: 0.2
  * - Notes: Currently doesn't support chess variations
