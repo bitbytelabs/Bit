@@ -5,6 +5,12 @@ queue_rules:
     update_bot_account: updatify[bot]
     autoqueue: true
 pull_request_rules:
+  - name: Automatic merge
+    description: Merge when PR passes all branch protection
+    conditions:
+      - base = main
+    actions:
+      merge:
   - name: Ping PR author when conflicting
     description: Warn the pull request author when their PR are conflicting
     conditions:
