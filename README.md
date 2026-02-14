@@ -89,12 +89,12 @@ Developing the userscript is easy, simply develop it as you'd any other userscri
 > Browsers might cache userscripts after you've refreshed the site enough times. If you notice your userscript being cached, disable the userscript, refresh the page, then enable the userscript and refresh the page again.
 ## Used Libraries ❤︎
 
-* [Fairy Stockfish WASM](https://github.com/fairy-stockfish/fairy-stockfish.wasm) (*the chess engine of A.C.A.S*)
-* [Stockfish WASM](https://github.com/nmrugg/stockfish.js/) (*another chess engine of A.C.A.S*)
-* [ZeroFish](https://github.com/schlawg/zerofish) (*WASM port of Lc0 and the latest Stockfish, another chess engine of A.C.A.S*)
+* [Fairy Stockfish WASM](https://github.com/fairy-stockfish/fairy-stockfish.wasm) (*the chess engine of Bit*)
+* [Stockfish WASM](https://github.com/nmrugg/stockfish.js/) (*another chess engine of Bit*)
+* [ZeroFish](https://github.com/schlawg/zerofish) (*WASM port of Lc0 and the latest Stockfish, another chess engine of Bit*)
 * [Maia-Chess](https://github.com/CSSLab/maia-chess) (*legit looking weights for Lc0*)
 * [Maia-Platform-Frontend](https://github.com/CSSLab/maia-platform-frontend) (*source for the Maia 2 engine*)
-* [Lozza](https://github.com/op12no2/lozza) (*another chess engine of A.C.A.S*)
+* [Lozza](https://github.com/op12no2/lozza) (*another chess engine of Bit*)
 * [COI-Serviceworker](https://github.com/gzuidhof/coi-serviceworker) (*allowing WASM on GitHub pages, extremely important library*)
 * [ChessgroundX](https://github.com/gbtami/chessgroundx) (*for displaying a board on the GUI. Modified the library a bit*)
 * [FileSaver](http://purl.eligrey.com/github/FileSaver.js) (*for saving the config file*)
