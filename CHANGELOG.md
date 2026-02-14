@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/bitbytelabs/Bit/compare/v1.1.6...v1.1.7) (2026-02-14)
+
+
+### Bug Fixes
+
+* Update index.html ([9205d98](https://github.com/bitbytelabs/Bit/commit/9205d9865ebc6af2c90fff19f6a4d4d79fec69c0))
+
 ## [1.1.6](https://github.com/bitbytelabs/Bit/compare/v1.1.5...v1.1.6) (2026-02-14)
 
 
