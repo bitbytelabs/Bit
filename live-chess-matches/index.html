@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Chess Matches / Bit</title>
+    <link rel="stylesheet" href="live-chess-matches.css">
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+    <script src="../assets/js/bit-live-chess-firebase.js"></script>
+</head>
+<body>
+    <main class="container">
+        <h1>Live Chess Matches</h1>
+        <p class="subtitle">Matches detected by Bit in real time.</p>
+        <section id="setup-panel" class="setup-panel hidden">
+            <h2>Setup Firebase</h2>
+            <p>Paste your Firebase web config JSON or just your Realtime Database URL.</p>
+            <textarea id="config-input" rows="6" placeholder='{"databaseURL":"https://your-project-default-rtdb.firebaseio.com"}'></textarea>
+            <div class="setup-actions">
+                <button id="save-config" type="button">Save Config</button>
+                <button id="clear-config" type="button" class="secondary">Clear Saved Config</button>
+            </div>
+            <p id="setup-status" class="small"></p>
+        </section>
+        <div id="config-warning" class="warning hidden">
+            Firebase is not configured yet. Use the setup panel below and reload this page.
+        </div>
+        <section id="matches" class="matches"></section>
+        <p id="empty-state" class="empty-state">No active matches detected yet.</p>
+    </main>
+
+    <script src="live-chess-matches.js"></script>
+</body>
+</html>
