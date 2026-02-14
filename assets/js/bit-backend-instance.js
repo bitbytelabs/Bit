@@ -531,7 +531,7 @@ class BackendInstance {
                         const fensString = fens.map(x => x.split(' ')[0]).join(',');
     
                         console.warn('%c[ NEW FEN RECEIVED! ]', 'color: neon; font-weight: bold; font-size: 50px;');
-                        console.warn('[Logical Change Detection] New board FEN received:', `${origin}/A.C.A.S/board/?fens=${fensString}&o=${this.lastOrientation}`, { fen, moveObj });
+                        console.warn('[Logical Change Detection] New board FEN received:', `${origin}/Bit/board/?fens=${fensString}&o=${this.lastOrientation}`, { fen, moveObj });
                     }
 
                     if(!(moveObj?.from && moveObj?.to && moveObj?.color) && this.activeVariant !== 'atomic') {
@@ -1251,7 +1251,7 @@ class BackendInstance {
         if(this.debugLogsEnabled) console.warn('[Logical Change Detection] Changed pieces:', countChange);
     
         // Large abnormal piece changes are allowed, as they usually mean something significant has happened
-        // Smaller abnormal piece changes are most likely caused by a faulty newFen provided by the A.C.A.S on the site
+        // Smaller abnormal piece changes are most likely caused by a faulty newFen provided by the Bit on the site
         return (-3 < countChange && countChange < -1) || (0 < countChange && countChange < 2);
     }
 
@@ -1478,7 +1478,7 @@ class BackendInstance {
 
             if(this.isPawnOnPromotionSquare(currentFen) && currentEngineName === 'lc0') return;
             // Engine is still calculating, do not start any new calculation since,
-            // that will not give us 'bestmove' which A.C.A.S' logic EXPECTS.
+            // that will not give us 'bestmove' which Bit' logic EXPECTS.
             // The best moves will be calculated after we get the 'bestmove'.
             if(!this.isEngineNotCalculating(profileName)) return;
 
@@ -1536,7 +1536,7 @@ class BackendInstance {
     
                 default:
                     // The search is "infinite" if the searchDepth is null. The engine's max depth seems to be 245 on 'go infinite',
-                    // but if it reaches that max depth on 'go infinite' it does not give 'bestmove'. A.C.A.S expects a bestmove, so that is no good.
+                    // but if it reaches that max depth on 'go infinite' it does not give 'bestmove'. Bit expects a bestmove, so that is no good.
                     // That is why we limit the infinite search depth ourselves.
                     const depth = this.pV[profileName].searchDepth || 100;
 
@@ -1768,7 +1768,7 @@ class BackendInstance {
             // Check if the board has changed while we were finishing up a move calculation.
             if(oldestUnfinishedCalcRequestObj?.fen !== this.currentFen) {
                 // Let's start the new move calculation since we have now received the old 'bestmove'.
-                // A.C.A.S expects 'bestmove' to appear to finish up the calculation which is why we do this.
+                // Bit expects 'bestmove' to appear to finish up the calculation which is why we do this.
                 // (Starting a new best move calculation while the old one was running, there would be no 'bestmove')
                 this.calculateBestMoves(this.currentFen);
             }
@@ -1838,7 +1838,7 @@ class BackendInstance {
         if(isReload && this.debugLogsEnabled) console.warn('RELOAD ATTEMPT', attempt, '-> Loading engine', engineName, profileName);
 
         if(engineName && attempt > 100) {
-            toast.warning(`Restarting the engine ${engineName} failed despite many attempts :(\n\nRefresh A.C.A.S!`);
+            toast.warning(`Restarting the engine ${engineName} failed despite many attempts :(\n\nRefresh Bit!`);
             
             return;
         }
@@ -1852,7 +1852,7 @@ class BackendInstance {
         };
 
         if(await isEngineIncompatible(profileChessEngine, profileName)) {
-            toast.warning(`The engine "${profileChessEngine}" you have selected on profile "${profileName}" is incompatible with the mode A.C.A.S was launched in.` 
+            toast.warning(`The engine "${profileChessEngine}" you have selected on profile "${profileName}" is incompatible with the mode Bit was launched in.` 
                 + '\n\nPlease change the engine on the settings.', 3e4);
             return;
         }
@@ -2454,7 +2454,7 @@ class BackendInstance {
             this.instanceReady = true;
 
             if(fen.includes('8/8/8/8/8/8/8/8') && this.domain === 'chess.com') {
-                const msg = transObj?.emptyBoardChesscomWarning ?? 'Oh, the board seems to be empty. This is most likely caused by the site displaying the board as an image which A.C.A.S cannot parse.\n\nPlease disable "Piece Animations: Arcade" on Chess.com settings! (Set to "None")';
+                const msg = transObj?.emptyBoardChesscomWarning ?? 'Oh, the board seems to be empty. This is most likely caused by the site displaying the board as an image which Bit cannot parse.\n\nPlease disable "Piece Animations: Arcade" on Chess.com settings! (Set to "None")';
                 toast.error(msg);
             }
 
