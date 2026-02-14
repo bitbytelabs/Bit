@@ -110,8 +110,19 @@ var Sf17179Web = (() => {
             };
             function b(c) {
                 try {
-                    var d = c.data,
-                        e = d.la;
+                    // Basic validation of incoming message event before using its data.
+                    if (!c || typeof c !== "object") return;
+                    // In workers, c.data is typically the payload; ensure it is an object.
+                    var d = c.data;
+                    if (!d || (typeof d !== "object" && typeof d !== "function")) return;
+                    var e = d.la;
+                    if (typeof e !== "string") return;
+                    // If an origin property exists (e.g. when used in a window context),
+                    // perform a minimal sanity check. We avoid hardcoding a specific origin
+                    // to prevent breaking existing valid callers but ignore clearly invalid ones.
+                    if ("origin" in c && typeof c.origin === "string") {
+                        if (!c.origin || c.origin === "null") return;
+                    }
                     if ("load" === e) {
                         let f = [];
                         self.onmessage = (g) => f.push(g);
