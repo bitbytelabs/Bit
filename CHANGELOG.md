@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/bitbytelabs/Bit/compare/v1.5.1...v1.5.2) (2026-02-14)
+
+
+### Bug Fixes
+
+* use staunty piece assets in live match board previews ([92b776f](https://github.com/bitbytelabs/Bit/commit/92b776f9b2107563575e5289b23a07e9e3900fc6))
+
 ## [1.5.1](https://github.com/bitbytelabs/Bit/compare/v1.5.0...v1.5.1) (2026-02-14)
 
 
