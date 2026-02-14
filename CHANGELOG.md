@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/bitbytelabs/Bit/compare/v1.7.0...v1.8.0) (2026-02-14)
+
+
+### Features
+
+* add firebase login and signup ([a43f1a3](https://github.com/bitbytelabs/Bit/commit/a43f1a32f38ec08c8341edbfbb3f80668c0b1958))
+
 # [1.7.0](https://github.com/bitbytelabs/Bit/compare/v1.6.0...v1.7.0) (2026-02-14)
 
 
