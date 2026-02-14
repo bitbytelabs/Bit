@@ -129,7 +129,7 @@ async function refreshPipView() {
     // Header title
     ctxQueue.push(['fillStyle', 'white']);
     ctxQueue.push(['font', `800 ${pipFontSizes.medium}px Mona Sans`]);
-    ctxQueue.push(['fillText', ['A.C.A.S', 12, 32]]);
+    ctxQueue.push(['fillText', ['Bit', 12, 32]]);
 
     // Subtext font
     ctxQueue.push(['fillStyle', 'rgba(255, 255, 255, 0.7)']);
