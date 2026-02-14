@@ -1,0 +1,6 @@
+queue_rules:
+  - name: Auto Merge
+    commit_message_template: "fix: patch"
+    draft_bot_account: draftify[bot]
+    update_bot_account: updatify[bot]
+    autoqueue: true
