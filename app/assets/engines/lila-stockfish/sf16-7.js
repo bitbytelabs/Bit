@@ -101,6 +101,7 @@ var Sf167Web = (() => {
         if (l) {
             var Ha,
                 Ia = !1;
+            const TRUSTED_MESSAGE_TOKEN = "sf16-7-pthread-message";
             function a(...c) {
                 console.error(...c);
             }
@@ -112,6 +113,7 @@ var Sf167Web = (() => {
                 if (!c || typeof c !== "object") return !1;
                 var d = c.data;
                 if (!d || typeof d !== "object") return !1;
+                if (d.trustedToken !== TRUSTED_MESSAGE_TOKEN) return !1;
                 var e = d.ka;
                 if (typeof e !== "string") return !1;
                 return (
@@ -132,14 +134,14 @@ var Sf167Web = (() => {
                         let f = [];
                         self.onmessage = (g) => f.push(g);
                         self.startWorker = () => {
-                            postMessage({ ka: "loaded" });
+                            postMessage({ ka: "loaded", trustedToken: TRUSTED_MESSAGE_TOKEN });
                             for (let g of f) b(g);
                             self.onmessage = b;
                         };
                         for (const g of d.Wa)
                             if (!h[g] || h[g].proxy)
                                 (h[g] = (...m) => {
-                                    postMessage({ ka: "callHandler", Va: g, Ta: m });
+                                    postMessage({ ka: "callHandler", Va: g, Ta: m, trustedToken: TRUSTED_MESSAGE_TOKEN });
                                 }),
                                     "print" == g && (wa = h[g]),
                                     "printErr" == g && (q = h[g]);
