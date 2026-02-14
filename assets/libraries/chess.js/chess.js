@@ -1724,7 +1724,7 @@ export const Chess = function (fen) {
         .replace(header_string, '')
         .replace(
           /* encode comments so they don't get deleted below */
-          new RegExp(`(\{[^}]*\})+?|;([^${mask(newline_char)}]*)`, 'g'),
+          new RegExp(`(\\{[^}]*\\})+?|;([^${mask(newline_char)}]*)`, 'g'),
           function (match, bracket, semicolon) {
             return bracket !== undefined
               ? encode_comment(bracket)
