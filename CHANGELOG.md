@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/bitbytelabs/Bit/compare/v1.2.2...v1.3.0) (2026-02-14)
+
+
+### Features
+
+* auto-fix dependabot security pull requests ([c4e05b0](https://github.com/bitbytelabs/Bit/commit/c4e05b0011f1b9e0a7b34cca3a38abe6f74fdd54))
+
 ## [1.2.2](https://github.com/bitbytelabs/Bit/compare/v1.2.1...v1.2.2) (2026-02-14)
 
 
