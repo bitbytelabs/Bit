@@ -2352,12 +2352,21 @@ class BackendInstance {
             const chessgroundElem = this.instanceElem.querySelector('.chessground-x');
 
             chessboardComponentsElem.classList.add(chessFont);
+
+            const updateBoardSize = containerWidth => {
+                const fileSizePx = Math.max(1, Math.floor(containerWidth / boardDimensions.width));
+                const boardWidthPx = fileSizePx * boardDimensions.width;
+                const boardHeightPx = fileSizePx * boardDimensions.height;
+
+                chessgroundElem.style.width = `${boardWidthPx}px`;
+                chessgroundElem.style.height = `${boardHeightPx}px`;
+            };
             
             new ResizeObserver(entries => {
                 const width = entries[0].target.getBoundingClientRect().width;
 
-                chessgroundElem.style.height = `${getBoardHeightFromWidth(width, boardDimensions)}px`;
-            }).observe(chessgroundElem);
+                updateBoardSize(width);
+            }).observe(chessboardComponentsElem);
 
             this.chessground = window.ChessgroundX(chessgroundElem, { 
                 disableContextMenu: true,
