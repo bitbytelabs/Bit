@@ -13,8 +13,18 @@
     <main class="container">
         <h1>Live Chess Matches</h1>
         <p class="subtitle">Matches detected by Bit in real time.</p>
+        <section id="setup-panel" class="setup-panel hidden">
+            <h2>Setup Firebase</h2>
+            <p>Paste your Firebase web config JSON or just your Realtime Database URL.</p>
+            <textarea id="config-input" rows="6" placeholder='{"databaseURL":"https://your-project-default-rtdb.firebaseio.com"}'></textarea>
+            <div class="setup-actions">
+                <button id="save-config" type="button">Save Config</button>
+                <button id="clear-config" type="button" class="secondary">Clear Saved Config</button>
+            </div>
+            <p id="setup-status" class="small"></p>
+        </section>
         <div id="config-warning" class="warning hidden">
-            Firebase is not configured. Set <code>window.BIT_FIREBASE_CONFIG</code> before loading this page.
+            Firebase is not configured yet. Use the setup panel below and reload this page.
         </div>
         <section id="matches" class="matches"></section>
         <p id="empty-state" class="empty-state">No active matches detected yet.</p>

@@ -1,4 +1,6 @@
 (function() {
+    const STORAGE_KEY = 'bit-live-chess-firebase-config';
+
     const DEFAULT_CONFIG = {
         apiKey: 'REPLACE_WITH_FIREBASE_API_KEY',
         authDomain: 'REPLACE_WITH_FIREBASE_AUTH_DOMAIN',
@@ -9,11 +11,48 @@
         appId: 'REPLACE_WITH_FIREBASE_APP_ID'
     };
 
-    const config = window.BIT_FIREBASE_CONFIG || DEFAULT_CONFIG;
-    const hasValidConfig = config.databaseURL && !config.databaseURL.includes('REPLACE_WITH_FIREBASE');
+    function parseConfigInput(rawValue) {
+        if(!rawValue || typeof rawValue !== 'string') {
+            return null;
+        }
+
+        const trimmedValue = rawValue.trim();
+
+        if(!trimmedValue) {
+            return null;
+        }
+
+        if(trimmedValue.startsWith('{')) {
+            try {
+                return JSON.parse(trimmedValue);
+            } catch(error) {
+                console.error('[Bit/Firebase] Failed to parse config JSON:', error);
+                return null;
+            }
+        }
+
+        if(trimmedValue.startsWith('http://') || trimmedValue.startsWith('https://')) {
+            return {
+                ...DEFAULT_CONFIG,
+                databaseURL: trimmedValue
+            };
+        }
+
+        return null;
+    }
+
+    function getStoredConfig() {
+        return parseConfigInput(window.localStorage.getItem(STORAGE_KEY));
+    }
+
+    let config = window.BIT_FIREBASE_CONFIG || getStoredConfig() || DEFAULT_CONFIG;
+
+    function hasValidConfig(configObj) {
+        return configObj?.databaseURL && !configObj.databaseURL.includes('REPLACE_WITH_FIREBASE');
+    }
 
     function isFirebaseReady() {
-        return typeof window.firebase !== 'undefined' && hasValidConfig;
+        return typeof window.firebase !== 'undefined' && hasValidConfig(config);
     }
 
     function initFirebase() {
@@ -84,7 +123,25 @@
     }
 
     window.bitLiveChessFirebase = {
-        isConfigured: hasValidConfig,
+        isConfigured: hasValidConfig(config),
+        configStorageKey: STORAGE_KEY,
+        parseConfigInput,
+        saveConfig(rawValue) {
+            const parsedConfig = parseConfigInput(rawValue);
+
+            if(!parsedConfig || !hasValidConfig(parsedConfig)) {
+                return false;
+            }
+
+            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(parsedConfig));
+            config = parsedConfig;
+
+            return true;
+        },
+        clearConfig() {
+            window.localStorage.removeItem(STORAGE_KEY);
+            config = DEFAULT_CONFIG;
+        },
         publishMatch,
         removeMatch,
         subscribeLiveMatches
