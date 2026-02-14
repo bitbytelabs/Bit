@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/bitbytelabs/Bit/compare/v1.5.3...v1.6.0) (2026-02-14)
+
+
+### Features
+
+* add firebase initialization script to all html pages ([0e89100](https://github.com/bitbytelabs/Bit/commit/0e89100e781609f27ee871bf728bcda469858ac0))
+
 ## [1.5.3](https://github.com/bitbytelabs/Bit/compare/v1.5.2...v1.5.3) (2026-02-14)
 
 
