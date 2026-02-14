@@ -90,6 +90,12 @@
             lastSeenAt: Date.now()
         };
 
+        Object.keys(payload).forEach(key => {
+            if(typeof payload[key] === 'undefined') {
+                delete payload[key];
+            }
+        });
+
         await ref.update(payload);
 
         return true;
