@@ -1,3 +1,38 @@
+# [1.5.0](https://github.com/bitbytelabs/Bit/compare/v1.4.1...v1.5.0) (2026-02-14)
+
+
+### Features
+
+* add live chess firebase setup panel ([92012c2](https://github.com/bitbytelabs/Bit/commit/92012c2cad573db497c26ca8a79f719e261ff8ab))
+
+## [1.4.1](https://github.com/bitbytelabs/Bit/compare/v1.4.0...v1.4.1) (2026-02-14)
+
+
+### Bug Fixes
+
+* accept realtime database url for live chess setup ([8bc0ef9](https://github.com/bitbytelabs/Bit/commit/8bc0ef9f798275f4094462e1c29dc3219606e9a5))
+
+# [1.4.0](https://github.com/bitbytelabs/Bit/compare/v1.3.7...v1.4.0) (2026-02-14)
+
+
+### Features
+
+* add firebase-powered live chess matches page ([e637810](https://github.com/bitbytelabs/Bit/commit/e637810d4a0a9f744a82d1a2fb2b15c75a66b1d5))
+
+## [1.3.7](https://github.com/bitbytelabs/Bit/compare/v1.3.6...v1.3.7) (2026-02-14)
+
+
+### Bug Fixes
+
+* auto refresh pages when GitHub updates ([760d609](https://github.com/bitbytelabs/Bit/commit/760d60914f16e73dcd3cbddb9a4aa700507f1445))
+
+## [1.3.6](https://github.com/bitbytelabs/Bit/compare/v1.3.5...v1.3.6) (2026-02-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency probot to v14 ([e96e46f](https://github.com/bitbytelabs/Bit/commit/e96e46fd288e846cfe6d361dd7a490618c9e4d0f))
+
 ## [1.3.5](https://github.com/bitbytelabs/Bit/compare/v1.3.4...v1.3.5) (2026-02-14)
 
 
