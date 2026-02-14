@@ -1,3 +1,10 @@
+## [1.9.4](https://github.com/bitbytelabs/Bit/compare/v1.9.3...v1.9.4) (2026-02-14)
+
+
+### Bug Fixes
+
+* Update bit-backend-manager.js ([f5b48ed](https://github.com/bitbytelabs/Bit/commit/f5b48ed05914d9df9211fb6444e9916c88ec02c8))
+
 ## [1.9.3](https://github.com/bitbytelabs/Bit/compare/v1.9.2...v1.9.3) (2026-02-14)
 
 
