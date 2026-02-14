@@ -1,3 +1,31 @@
+## [1.3.1](https://github.com/bitbytelabs/Bit/compare/v1.3.0...v1.3.1) (2026-02-14)
+
+
+### Bug Fixes
+
+* document how to run the maintainer bot ([35dbe26](https://github.com/bitbytelabs/Bit/commit/35dbe2645b276cb92b8d3283a6461a6b0a0cacc0))
+
+# [1.3.0](https://github.com/bitbytelabs/Bit/compare/v1.2.2...v1.3.0) (2026-02-14)
+
+
+### Features
+
+* auto-fix dependabot security pull requests ([c4e05b0](https://github.com/bitbytelabs/Bit/commit/c4e05b0011f1b9e0a7b34cca3a38abe6f74fdd54))
+
+## [1.2.2](https://github.com/bitbytelabs/Bit/compare/v1.2.1...v1.2.2) (2026-02-14)
+
+
+### Bug Fixes
+
+* Potential fix for code scanning alert no. 42: Missing origin verification in `postMessage` handler ([bedf762](https://github.com/bitbytelabs/Bit/commit/bedf762a3dad378bd3c5b8c529d60375ca02c1ce))
+
+## [1.2.1](https://github.com/bitbytelabs/Bit/compare/v1.2.0...v1.2.1) (2026-02-14)
+
+
+### Bug Fixes
+
+* remove vendored bot dependencies ([4b40138](https://github.com/bitbytelabs/Bit/commit/4b401380e2a6c6866f7323ae34ace759a8b5e964))
+
 # [1.2.0](https://github.com/bitbytelabs/Bit/compare/v1.1.8...v1.2.0) (2026-02-14)
 
 

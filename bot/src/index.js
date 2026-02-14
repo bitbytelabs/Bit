@@ -1,11 +1,4 @@
-import {
-  BOT_MARKER,
-  buildPrFeedback,
-  buildSecurityFixComment,
-  findInvalidMessages,
-  inferIssueLabels,
-  isSecurityUpdatePullRequest
-} from './rules.js';
+import { BOT_MARKER, buildPrFeedback, findInvalidMessages, inferIssueLabels } from './rules.js';
 
 async function upsertBotComment(github, params, body) {
   const comments = await github.paginate(github.rest.issues.listComments, params);
@@ -40,39 +33,6 @@ async function upsertBotComment(github, params, body) {
   });
 }
 
-async function handleSecurityAutoFix(context) {
-  const pullRequest = context.payload.pull_request;
-  if (!isSecurityUpdatePullRequest(pullRequest)) {
-    return;
-  }
-
-  const { owner, repo } = context.repo();
-  const pull_number = pullRequest.number;
-
-  try {
-    await context.octokit.rest.pulls.createReview({
-      owner,
-      repo,
-      pull_number,
-      event: 'APPROVE',
-      body: 'Auto-approved by Bit maintainer bot for Dependabot security update.'
-    });
-
-    await context.octokit.graphql(
-      `mutation EnableAutoMerge($pullRequestId: ID!) {
-        enablePullRequestAutoMerge(input: { pullRequestId: $pullRequestId, mergeMethod: SQUASH }) {
-          pullRequest { id number }
-        }
-      }`,
-      { pullRequestId: pullRequest.node_id }
-    );
-
-    await upsertBotComment(context.octokit, { owner, repo, issue_number: pull_number }, buildSecurityFixComment());
-  } catch (error) {
-    context.log.warn({ err: error, pull_number }, 'Unable to auto-approve or auto-merge security update PR.');
-  }
-}
-
 export default (app) => {
   app.on(['pull_request.opened', 'pull_request.edited', 'pull_request.synchronize'], async (context) => {
     const { owner, repo } = context.repo();
@@ -94,7 +54,6 @@ export default (app) => {
     });
 
     await upsertBotComment(context.octokit, { owner, repo, issue_number: pull_number }, feedback);
-    await handleSecurityAutoFix(context);
   });
 
   app.on('issues.opened', async (context) => {

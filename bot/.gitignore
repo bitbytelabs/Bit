@@ -1,7 +1,3 @@
 node_modules/
 .vitest/
 coverage/
-.env
-.env.local
-.env.*
-!.env.example
