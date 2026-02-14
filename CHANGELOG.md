@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/bitbytelabs/Bit/compare/v1.2.0...v1.2.1) (2026-02-14)
+
+
+### Bug Fixes
+
+* remove vendored bot dependencies ([4b40138](https://github.com/bitbytelabs/Bit/commit/4b401380e2a6c6866f7323ae34ace759a8b5e964))
+
 # [1.2.0](https://github.com/bitbytelabs/Bit/compare/v1.1.8...v1.2.0) (2026-02-14)
 
 
