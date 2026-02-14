@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bit | Sign in</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="description" content="Sign in to Bit with Firebase authentication.">
+    <link rel="stylesheet" type="text/css" href="../assets/css/home.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <style>
+        .auth-grid { display:grid; gap: 12px; }
+        .auth-card { max-width: 720px; margin: 24px auto; padding: 24px; border: 1px solid rgba(255,255,255,.2); border-radius: 12px; background: rgba(0,0,0,.25); }
+        .auth-row { display:grid; gap: 10px; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); }
+        .auth-card input { padding: 10px 12px; border-radius: 8px; border: 1px solid #494949; background: #1c1c1c; color: #fff; }
+        #auth-status { margin-top: 10px; }
+        #recaptcha-container { margin-top: 6px; }
+    </style>
+</head>
+<body>
+<main>
+    <header>
+        <div><a href="../" class="acas-logo-main fancy-btn">Bit<span>V2</span></a></div>
+        <div>
+            <a href="../install/" class="fancy-btn"><i class="bi bi-download"></i>Install</a>
+            <a href="../" class="fancy-btn"><i class="bi bi-house"></i>Home</a>
+        </div>
+    </header>
+    <section class="content">
+        <article class="markdown-section">
+            <section class="auth-card">
+                <h1>Sign in / Sign up</h1>
+                <p>Choose any method below: passwordless email link, email and password, phone, anonymous, or GitHub.</p>
+                <div class="auth-grid">
+                    <div class="auth-row">
+                        <input id="auth-email" type="email" placeholder="Email" autocomplete="email" />
+                        <input id="auth-password" type="password" placeholder="Password" autocomplete="current-password" />
+                    </div>
+                    <div class="auth-row">
+                        <button id="auth-email-link" class="fancy-btn" type="button">Send passwordless email link</button>
+                        <button id="auth-login" class="fancy-btn" type="button">Sign in with email + password</button>
+                        <button id="auth-signup" class="fancy-btn" type="button">Sign up with email + password</button>
+                    </div>
+                    <div class="auth-row">
+                        <input id="auth-phone" type="tel" placeholder="Phone (+15555555555)" autocomplete="tel" />
+                        <input id="auth-phone-code" type="text" placeholder="SMS code" autocomplete="one-time-code" />
+                    </div>
+                    <div class="auth-row">
+                        <button id="auth-phone-send" class="fancy-btn" type="button">Send phone code</button>
+                        <button id="auth-phone-verify" class="fancy-btn" type="button">Verify phone code</button>
+                        <button id="auth-anon" class="fancy-btn" type="button">Sign in anonymously</button>
+                        <button id="auth-github" class="fancy-btn" type="button">Sign in with GitHub</button>
+                        <button id="auth-logout" class="fancy-btn" type="button">Logout</button>
+                    </div>
+                </div>
+                <div id="recaptcha-container"></div>
+                <p id="auth-status">Not signed in.</p>
+            </section>
+        </article>
+    </section>
+</main>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAyku_mtqjtN2fhsHweQ8C5rh5nZT4X9ec",
+    authDomain: "bitbytelabs-56eb1.firebaseapp.com",
+    databaseURL: "https://bitbytelabs-56eb1-default-rtdb.firebaseio.com",
+    projectId: "bitbytelabs-56eb1",
+    storageBucket: "bitbytelabs-56eb1.firebasestorage.app",
+    messagingSenderId: "925575010294",
+    appId: "1:925575010294:web:ac7e7aafabf8b05bce99d7",
+    measurementId: "G-EQ53N2L5E9"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+<script type="module">
+    import { getApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        signOut,
+        onAuthStateChanged,
+        sendSignInLinkToEmail,
+        isSignInWithEmailLink,
+        signInWithEmailLink,
+        RecaptchaVerifier,
+        signInWithPhoneNumber,
+        signInAnonymously,
+        GithubAuthProvider,
+        signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+    const app = getApp();
+    const auth = getAuth(app);
+
+    const emailInput = document.getElementById('auth-email');
+    const passwordInput = document.getElementById('auth-password');
+    const phoneInput = document.getElementById('auth-phone');
+    const phoneCodeInput = document.getElementById('auth-phone-code');
+    const statusText = document.getElementById('auth-status');
+
+    let phoneConfirmation = null;
+
+    function setStatus(message) { statusText.textContent = message; }
+    function getCredentials() {
+        return { email: emailInput.value.trim(), password: passwordInput.value };
+    }
+
+    document.getElementById('auth-signup').addEventListener('click', async () => {
+        const { email, password } = getCredentials();
+        if(!email || !password) return setStatus('Please enter email and password.');
+        try {
+            const credential = await createUserWithEmailAndPassword(auth, email, password);
+            setStatus(`Signed up as ${credential.user.email}.`);
+        } catch(error) { setStatus(`Signup failed: ${error.message}`); }
+    });
+
+    document.getElementById('auth-login').addEventListener('click', async () => {
+        const { email, password } = getCredentials();
+        if(!email || !password) return setStatus('Please enter email and password.');
+        try {
+            const credential = await signInWithEmailAndPassword(auth, email, password);
+            setStatus(`Signed in as ${credential.user.email}.`);
+        } catch(error) { setStatus(`Sign in failed: ${error.message}`); }
+    });
+
+    document.getElementById('auth-email-link').addEventListener('click', async () => {
+        const email = emailInput.value.trim();
+        if(!email) return setStatus('Enter an email to send a passwordless sign-in link.');
+        try {
+            const actionCodeSettings = { url: window.location.href, handleCodeInApp: true };
+            await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+            window.localStorage.setItem('authEmailForSignIn', email);
+            setStatus(`Passwordless sign-in link sent to ${email}.`);
+        } catch(error) { setStatus(`Failed to send sign-in link: ${error.message}`); }
+    });
+
+    document.getElementById('auth-anon').addEventListener('click', async () => {
+        try {
+            const credential = await signInAnonymously(auth);
+            setStatus(`Signed in anonymously as ${credential.user.uid}.`);
+        } catch(error) { setStatus(`Anonymous sign-in failed: ${error.message}`); }
+    });
+
+    document.getElementById('auth-github').addEventListener('click', async () => {
+        try {
+            const provider = new GithubAuthProvider();
+            const credential = await signInWithPopup(auth, provider);
+            setStatus(`Signed in with GitHub as ${credential.user.displayName || credential.user.email || credential.user.uid}.`);
+        } catch(error) { setStatus(`GitHub sign-in failed: ${error.message}`); }
+    });
+
+    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { size: 'normal' });
+
+    document.getElementById('auth-phone-send').addEventListener('click', async () => {
+        const phone = phoneInput.value.trim();
+        if(!phone) return setStatus('Enter phone number in international format, e.g. +15555555555.');
+        try {
+            phoneConfirmation = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+            setStatus('SMS code sent. Enter it and click Verify phone code.');
+        } catch(error) { setStatus(`Phone sign-in failed: ${error.message}`); }
+    });
+
+    document.getElementById('auth-phone-verify').addEventListener('click', async () => {
+        if(!phoneConfirmation) return setStatus('Send phone code first.');
+        const code = phoneCodeInput.value.trim();
+        if(!code) return setStatus('Enter the SMS code.');
+        try {
+            const result = await phoneConfirmation.confirm(code);
+            setStatus(`Signed in with phone as ${result.user.phoneNumber}.`);
+        } catch(error) { setStatus(`Code verification failed: ${error.message}`); }
+    });
+
+    document.getElementById('auth-logout').addEventListener('click', async () => {
+        try {
+            await signOut(auth);
+            setStatus('Logged out.');
+        } catch(error) { setStatus(`Logout failed: ${error.message}`); }
+    });
+
+    if(isSignInWithEmailLink(auth, window.location.href)) {
+        const savedEmail = window.localStorage.getItem('authEmailForSignIn') || emailInput.value.trim();
+        if(savedEmail) {
+            signInWithEmailLink(auth, savedEmail, window.location.href)
+                .then((result) => {
+                    window.localStorage.removeItem('authEmailForSignIn');
+                    setStatus(`Passwordless sign-in complete for ${result.user.email}.`);
+                })
+                .catch((error) => setStatus(`Email link sign-in failed: ${error.message}`));
+        } else {
+            setStatus('Complete passwordless sign-in by entering your email and re-opening the link.');
+        }
+    }
+
+    onAuthStateChanged(auth, (user) => {
+        if(!user) return;
+        const label = user.email || user.phoneNumber || user.displayName || user.uid;
+        setStatus(`Current user: ${label}`);
+    });
+</script>
+</body>
+</html>

@@ -32,6 +32,7 @@
                 <a href="usage/" aria-label="How to use Bit" class="fancy-btn"><i class="bi bi-journals"></i>Usage</a>
                 <a href="troubleshoot/" aria-label="Fixing Bit" class="fancy-btn"><i class="bi bi-tools"></i>Troubleshoot</a>
                 <a href="faq/" aria-label="Frequently Asked Questions" class="fancy-btn"><i class="bi bi-chat-square-quote"></i>FAQ</a>
+                <a href="auth/" aria-label="Sign in or sign up" class="fancy-btn"><i class="bi bi-person-circle"></i>Account</a>
                 <a href="blog/" aria-label="View Bit blog" class="fancy-btn"><i class="bi bi-pen"></i>Blog</a>
                 <a href="contributing/" aria-label="Contribute to Bit" class="fancy-btn"><i class="bi bi-heart"></i></a>
                 <a href="https://github.com/bitbytelabs/Bit" target="_blank" class="github-corner fancy-btn" aria-label="View source on Github"><i class="bi bi-github"></i></a>
@@ -146,20 +147,7 @@
                     <p class="install-suggestion">Ready to begin? <a href="install/" class="install-button fancy-btn">Let's get it!</a></p>
                 </section>
                 <section>
-                    <div id="firebase-auth" style="max-width: 520px; margin: 0 auto; padding: 20px; border: 1px solid rgba(255,255,255,.15); border-radius: 12px; background: rgba(0,0,0,.2);">
-                        <h2 style="margin-top: 0;">Firebase Login / Signup</h2>
-                        <p style="margin-bottom: 14px;">Create an account or sign in with your email and password.</p>
-                        <div style="display: grid; gap: 10px;">
-                            <input id="auth-email" type="email" placeholder="Email" autocomplete="email" style="padding: 10px 12px; border-radius: 8px; border: 1px solid #494949; background: #1c1c1c; color: #fff;" />
-                            <input id="auth-password" type="password" placeholder="Password" autocomplete="current-password" style="padding: 10px 12px; border-radius: 8px; border: 1px solid #494949; background: #1c1c1c; color: #fff;" />
-                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                                <button id="auth-login" class="fancy-btn" type="button">Login</button>
-                                <button id="auth-signup" class="fancy-btn" type="button">Sign up</button>
-                                <button id="auth-logout" class="fancy-btn" type="button">Logout</button>
-                            </div>
-                        </div>
-                        <p id="auth-status" style="margin-bottom: 0; margin-top: 12px;">Not signed in.</p>
-                    </div>
+                    <p class="install-suggestion">Need an account? <a href="auth/" class="install-button fancy-btn">Open sign in / sign up</a></p>
                 </section>
             </article>
             <!-- PAGE CONTENT ENDS -->
@@ -174,7 +162,6 @@
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -194,73 +181,6 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-  const auth = getAuth(app);
-
-  const emailInput = document.getElementById('auth-email');
-  const passwordInput = document.getElementById('auth-password');
-  const loginButton = document.getElementById('auth-login');
-  const signupButton = document.getElementById('auth-signup');
-  const logoutButton = document.getElementById('auth-logout');
-  const statusText = document.getElementById('auth-status');
-
-  function setStatus(message) {
-    statusText.textContent = message;
-  }
-
-  function getCredentials() {
-    return {
-      email: emailInput.value.trim(),
-      password: passwordInput.value
-    };
-  }
-
-  signupButton.addEventListener('click', async () => {
-    const { email, password } = getCredentials();
-
-    if(!email || !password) {
-      setStatus('Please enter both email and password.');
-      return;
-    }
-
-    try {
-      const credential = await createUserWithEmailAndPassword(auth, email, password);
-      setStatus(`Signed up as ${credential.user.email}.`);
-    } catch(error) {
-      setStatus(`Signup failed: ${error.message}`);
-    }
-  });
-
-  loginButton.addEventListener('click', async () => {
-    const { email, password } = getCredentials();
-
-    if(!email || !password) {
-      setStatus('Please enter both email and password.');
-      return;
-    }
-
-    try {
-      const credential = await signInWithEmailAndPassword(auth, email, password);
-      setStatus(`Logged in as ${credential.user.email}.`);
-    } catch(error) {
-      setStatus(`Login failed: ${error.message}`);
-    }
-  });
-
-  logoutButton.addEventListener('click', async () => {
-    try {
-      await signOut(auth);
-      setStatus('Logged out.');
-    } catch(error) {
-      setStatus(`Logout failed: ${error.message}`);
-    }
-  });
-
-  onAuthStateChanged(auth, (user) => {
-    if(user)
-      setStatus(`Signed in as ${user.email}.`);
-    else
-      setStatus('Not signed in.');
-  });
 </script>
 </body>
 </html>
