@@ -108,6 +108,15 @@ var Sf1779Web = (() => {
             self.onunhandledrejection = (c) => {
                 throw c.reason || c;
             };
+            function isTrustedMessage(event) {
+                if (!event || !event.data) return !1;
+                var data = event.data;
+                var cmd = data.la;
+                if (!data || "object" != typeof data || "string" != typeof cmd) return !1;
+                const Ra = new Set(["load", "run", "checkMailbox", "setimmediate"]);
+                if (!Ra.has(cmd) && data.target !== "setimmediate") return !1;
+                return !0;
+            }
             function b(c) {
                 try {
                     var d = c.data,
@@ -123,7 +132,10 @@ var Sf1779Web = (() => {
                     }
                     if ("load" === e) {
                         let f = [];
-                        self.onmessage = (g) => f.push(g);
+                        self.onmessage = (g) => {
+                            if (isTrustedMessage(g)) f.push(g);
+                            else q && q("worker: received untrusted or malformed message during load", g && g.data);
+                        };
                         self.startWorker = () => {
                             postMessage({ la: "loaded" });
                             for (let g of f) b(g);
