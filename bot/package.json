@@ -13,7 +13,7 @@
     "node": ">=20"
   },
   "dependencies": {
-    "probot": "^13.1.0"
+    "probot": "^14.0.0"
   },
   "devDependencies": {
     "vitest": "^4.0.18"
