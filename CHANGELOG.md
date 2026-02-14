@@ -1,3 +1,10 @@
+## [1.5.3](https://github.com/bitbytelabs/Bit/compare/v1.5.2...v1.5.3) (2026-02-14)
+
+
+### Bug Fixes
+
+* even board sizing and hardcode firebase url ([098a620](https://github.com/bitbytelabs/Bit/commit/098a62074a8222292a8a540ad88216a22acf24f0))
+
 ## [1.5.2](https://github.com/bitbytelabs/Bit/compare/v1.5.1...v1.5.2) (2026-02-14)
 
 
