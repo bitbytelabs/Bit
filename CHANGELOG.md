@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/bitbytelabs/Bit/compare/v1.3.7...v1.4.0) (2026-02-14)
+
+
+### Features
+
+* add firebase-powered live chess matches page ([e637810](https://github.com/bitbytelabs/Bit/commit/e637810d4a0a9f744a82d1a2fb2b15c75a66b1d5))
+
 ## [1.3.7](https://github.com/bitbytelabs/Bit/compare/v1.3.6...v1.3.7) (2026-02-14)
 
 
