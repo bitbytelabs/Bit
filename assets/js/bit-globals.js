@@ -8,8 +8,8 @@ let transObj = null; // set by acas-i18n-processor.js
 let fullTransObj = null;
 
 const log = {
-    info: (...message) => console.log(`[A.C.A.S]%c ${message.join(' ')}`, 'color: #67a9ef;'),
-    success: (...message) => console.log(`[A.C.A.S]%c ${message.join(' ')}`, 'color: #67f08a;')
+    info: (...message) => console.log(`[Bit]%c ${message.join(' ')}`, 'color: #67a9ef;'),
+    success: (...message) => console.log(`[Bit]%c ${message.join(' ')}`, 'color: #67f08a;')
 };
 
 function geoGebraDotCommands(data) {
