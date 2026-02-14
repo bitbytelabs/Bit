@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/bitbytelabs/Bit/compare/v1.3.3...v1.3.4) (2026-02-14)
+
+
+### Bug Fixes
+
+* Potential fix for code scanning alert no. 4: Useless regular-expression character escape ([924b278](https://github.com/bitbytelabs/Bit/commit/924b27860f4ff26142e8a0e7d5e000c8bac828c6))
+
 ## [1.3.3](https://github.com/bitbytelabs/Bit/compare/v1.3.2...v1.3.3) (2026-02-14)
 
 
