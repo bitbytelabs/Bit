@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/bitbytelabs/Bit/compare/v1.3.0...v1.3.1) (2026-02-14)
+
+
+### Bug Fixes
+
+* document how to run the maintainer bot ([35dbe26](https://github.com/bitbytelabs/Bit/commit/35dbe2645b276cb92b8d3283a6461a6b0a0cacc0))
+
 # [1.3.0](https://github.com/bitbytelabs/Bit/compare/v1.2.2...v1.3.0) (2026-02-14)
 
 
