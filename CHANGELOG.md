@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/bitbytelabs/Bit/compare/v1.9.0...v1.9.1) (2026-02-14)
+
+
+### Bug Fixes
+
+* remove duplicated firebase init scripts ([76fbf4f](https://github.com/bitbytelabs/Bit/commit/76fbf4fe4fe9bcdfbcb326e76070b958e4b944c6))
+
 # [1.9.0](https://github.com/bitbytelabs/Bit/compare/v1.8.0...v1.9.0) (2026-02-14)
 
 
