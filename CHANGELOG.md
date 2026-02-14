@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/bitbytelabs/Bit/compare/v1.4.0...v1.4.1) (2026-02-14)
+
+
+### Bug Fixes
+
+* accept realtime database url for live chess setup ([8bc0ef9](https://github.com/bitbytelabs/Bit/commit/8bc0ef9f798275f4094462e1c29dc3219606e9a5))
+
 # [1.4.0](https://github.com/bitbytelabs/Bit/compare/v1.3.7...v1.4.0) (2026-02-14)
 
 
