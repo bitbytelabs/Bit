@@ -83,6 +83,22 @@ function prelongInstanceLife(domain, instanceID, chessVariant) {
 function removeInstance(instance) {
     instances = instances.filter(x => x.id != instance.instanceID);
 
+    const replayFrames = Array.isArray(instance?.replayFrames) ? instance.replayFrames : [];
+
+    if(replayFrames.length > 1) {
+        window.bitLiveChessFirebase?.saveReplay({
+            id: instance.instanceID,
+            domain: instance.domain,
+            variant: instance.activeVariant,
+            orientation: instance.lastOrientation,
+            detectedAt: replayFrames[0]?.at,
+            endedAt: Date.now(),
+            frames: replayFrames
+        }).catch(err => {
+            console.error('[Bit/Firebase] Failed to save game replay:', err);
+        });
+    }
+
     window.bitLiveChessFirebase?.removeMatch(instance.instanceID).catch(err => {
         console.error('[Bit/Firebase] Failed to remove live match:', err);
     });

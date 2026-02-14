@@ -113,6 +113,7 @@ class BackendInstance {
         this.MoveEval = null;
 
         this.moveDiffHistory = [];
+        this.replayFrames = [];
 
         this.logEngineMessages = false;
         this.debugLogsEnabled = false;
@@ -211,6 +212,20 @@ class BackendInstance {
         };
 
         this.loadEngines();
+    }
+
+    addReplayFrame(fen) {
+        if(!fen) return;
+
+        const lastFrame = this.replayFrames[this.replayFrames.length - 1];
+
+        if(lastFrame?.fen === fen)
+            return;
+
+        this.replayFrames.push({
+            fen,
+            at: Date.now()
+        });
     }
 
     async loadEngines() {
@@ -536,6 +551,7 @@ class BackendInstance {
                     fen = modifyFenCastleRights(fen, this.kingMoved);
 
                     this.currentFen = fen;
+                    this.addReplayFrame(fen);
 
                     USERSCRIPT.instanceVars.fen.set(this.instanceID, fen);
 
@@ -2236,6 +2252,7 @@ class BackendInstance {
             const instanceIdQuery = `[data-instance-id="${this.instanceID}"]`;
 
             this.currentFen = fen;
+            this.addReplayFrame(fen);
 
             if(this.debugLogsEnabled) log.info(`Variant: "${variantText}"\n\nFen: "${fen}"\n\nDimension: "${boardDimensions.width}x${boardDimensions.height}"`);
 
