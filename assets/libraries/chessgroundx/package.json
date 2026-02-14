@@ -16,7 +16,7 @@
     "jsdom-global": "^3.0.2",
     "mocha": "^8.4.0",
     "prettier": "^2",
-    "rollup": "^2",
+    "rollup": "^4.0.0",
     "@rollup/plugin-terser": "^0.1.0",
     "tslib": "^2",
     "typescript": "^4"
