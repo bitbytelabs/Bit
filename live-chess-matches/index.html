@@ -13,26 +13,9 @@
     <main class="container">
         <h1>Live Chess Matches</h1>
         <p class="subtitle">Matches detected by Bit in real time.</p>
-
-        <details class="setup-box">
-            <summary>How to connect Firebase</summary>
-            <ol>
-                <li>Create a Firebase project and enable Realtime Database.</li>
-                <li>Paste your Firebase web config JSON <em>or just your Realtime Database URL</em> below and click <strong>Save Config</strong>.</li>
-                <li>Open the Bit app and detected games will appear here automatically.</li>
-            </ol>
-            <textarea id="firebase-config-input" rows="10" spellcheck="false" placeholder='https://your-project-default-rtdb.firebaseio.com/'></textarea>
-            <div class="setup-actions">
-                <button id="save-config-btn" type="button">Save Config</button>
-                <button id="clear-config-btn" type="button" class="secondary">Clear Saved Config</button>
-            </div>
-            <p id="setup-status" class="small"></p>
-        </details>
-
         <div id="config-warning" class="warning hidden">
-            Firebase is not configured yet. Add your config in the setup box above and refresh this page.
+            Firebase is not configured. Set <code>window.BIT_FIREBASE_CONFIG</code> before loading this page.
         </div>
-
         <section id="matches" class="matches"></section>
         <p id="empty-state" class="empty-state">No active matches detected yet.</p>
     </main>

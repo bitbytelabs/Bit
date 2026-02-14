@@ -25,53 +25,6 @@ h1 {
     color: #9ba7b4;
 }
 
-.setup-box {
-    margin-top: 1rem;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    background: #161b22;
-    padding: .75rem 1rem;
-}
-
-.setup-box summary {
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.setup-box ol {
-    color: #c9d1d9;
-}
-
-textarea {
-    width: 100%;
-    background: #0d1117;
-    color: #e6edf3;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    padding: .7rem;
-    box-sizing: border-box;
-}
-
-.setup-actions {
-    display: flex;
-    gap: .5rem;
-    margin-top: .5rem;
-}
-
-button {
-    border: 1px solid #238636;
-    background: #238636;
-    color: white;
-    border-radius: 6px;
-    padding: .45rem .8rem;
-    cursor: pointer;
-}
-
-button.secondary {
-    background: transparent;
-    border-color: #6e7681;
-}
-
 .warning {
     background: #472203;
     border: 1px solid #d29922;

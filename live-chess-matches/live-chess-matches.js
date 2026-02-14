@@ -2,10 +2,6 @@
     const matchesElem = document.getElementById('matches');
     const emptyStateElem = document.getElementById('empty-state');
     const configWarningElem = document.getElementById('config-warning');
-    const configInputElem = document.getElementById('firebase-config-input');
-    const saveConfigBtn = document.getElementById('save-config-btn');
-    const clearConfigBtn = document.getElementById('clear-config-btn');
-    const setupStatusElem = document.getElementById('setup-status');
 
     function relativeTime(timestamp) {
         if(!timestamp) return 'Unknown';
@@ -41,46 +37,9 @@
         });
     }
 
-    function setStatus(text) {
-        setupStatusElem.textContent = text;
-    }
-
-    function parseConfigInput(rawValue) {
-        const trimmedValue = rawValue.trim();
-
-        if(trimmedValue.startsWith('http://') || trimmedValue.startsWith('https://')) {
-            return trimmedValue;
-        }
-
-        return JSON.parse(trimmedValue);
-    }
-
-    saveConfigBtn.addEventListener('click', () => {
-        try {
-            const configObj = parseConfigInput(configInputElem.value);
-            const saved = window.bitLiveChessFirebase?.saveConfig(configObj);
-
-            if(!saved) {
-                setStatus('Invalid config. Paste either a full Firebase config JSON or just the Realtime Database URL.');
-                return;
-            }
-
-            setStatus('Config saved. Refresh this page to connect.');
-        } catch(error) {
-            setStatus('Config is not valid JSON or URL.');
-        }
-    });
-
-    clearConfigBtn.addEventListener('click', () => {
-        window.bitLiveChessFirebase?.clearSavedConfig();
-        setStatus('Saved Firebase config removed.');
-    });
-
     if(!window.bitLiveChessFirebase?.isConfigured) {
         configWarningElem.classList.remove('hidden');
     }
-
-    configInputElem.value = JSON.stringify(window.bitLiveChessFirebase?.configTemplate || {}, null, 2);
 
     window.bitLiveChessFirebase?.subscribeLiveMatches(renderMatches);
 })();

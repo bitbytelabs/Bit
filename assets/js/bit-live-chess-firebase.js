@@ -1,5 +1,4 @@
 (function() {
-    const STORAGE_KEY = 'bit-firebase-config';
     const DEFAULT_CONFIG = {
         apiKey: 'REPLACE_WITH_FIREBASE_API_KEY',
         authDomain: 'REPLACE_WITH_FIREBASE_AUTH_DOMAIN',
@@ -10,55 +9,17 @@
         appId: 'REPLACE_WITH_FIREBASE_APP_ID'
     };
 
-    function readStoredConfig() {
-        try {
-            const rawConfig = window.localStorage.getItem(STORAGE_KEY);
-
-            if(!rawConfig) return null;
-
-            return JSON.parse(rawConfig);
-        } catch(error) {
-            console.error('[Bit/Firebase] Failed to parse local config:', error);
-            return null;
-        }
-    }
-
-    function resolveConfig() {
-        return window.BIT_FIREBASE_CONFIG || readStoredConfig() || DEFAULT_CONFIG;
-    }
-
-    function hasValidConfig(config) {
-        if(!config || typeof config !== 'object') return false;
-
-        const databaseURL = config.databaseURL;
-
-        return typeof databaseURL === 'string'
-            && databaseURL.length > 0
-            && !databaseURL.includes('REPLACE_WITH_FIREBASE');
-    }
-
-    function normalizeConfig(configObj) {
-        if(typeof configObj === 'string') {
-            return { databaseURL: configObj };
-        }
-
-        if(configObj && typeof configObj === 'object') {
-            return { ...configObj };
-        }
-
-        return null;
-    }
+    const config = window.BIT_FIREBASE_CONFIG || DEFAULT_CONFIG;
+    const hasValidConfig = config.databaseURL && !config.databaseURL.includes('REPLACE_WITH_FIREBASE');
 
     function isFirebaseReady() {
-        return typeof window.firebase !== 'undefined' && hasValidConfig(resolveConfig());
+        return typeof window.firebase !== 'undefined' && hasValidConfig;
     }
 
     function initFirebase() {
         if(!isFirebaseReady()) return null;
 
         try {
-            const config = resolveConfig();
-
             if(!window.firebase.apps.length) {
                 window.firebase.initializeApp(config);
             }
@@ -70,19 +31,12 @@
         }
     }
 
-    function sanitizeMatchId(matchId) {
-        if(typeof matchId !== 'string' && typeof matchId !== 'number') return null;
-
-        return String(matchId).replace(/[.#$/\[\]]/g, '_');
-    }
-
     function getMatchRef(matchId) {
         const db = initFirebase();
-        const safeMatchId = sanitizeMatchId(matchId);
 
-        if(!db || !safeMatchId) return null;
+        if(!db || !matchId) return null;
 
-        return db.ref(`liveChessMatches/${safeMatchId}`);
+        return db.ref(`liveChessMatches/${matchId}`);
     }
 
     async function publishMatch(matchData) {
@@ -93,14 +47,9 @@
 
         const payload = {
             ...matchData,
-            id: sanitizeMatchId(id),
             status: 'active',
             lastSeenAt: Date.now()
         };
-
-        if(!payload.detectedAt) {
-            payload.detectedAt = payload.lastSeenAt;
-        }
 
         await ref.update(payload);
 
@@ -134,28 +83,10 @@
         return () => ref.off('value', listener);
     }
 
-    function saveConfig(configObj) {
-        const normalizedConfig = normalizeConfig(configObj);
-
-        if(!hasValidConfig(normalizedConfig)) {
-            return false;
-        }
-
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizedConfig));
-        return true;
-    }
-
-    function clearSavedConfig() {
-        window.localStorage.removeItem(STORAGE_KEY);
-    }
-
     window.bitLiveChessFirebase = {
-        isConfigured: hasValidConfig(resolveConfig()),
+        isConfigured: hasValidConfig,
         publishMatch,
         removeMatch,
-        subscribeLiveMatches,
-        saveConfig,
-        clearSavedConfig,
-        configTemplate: DEFAULT_CONFIG
+        subscribeLiveMatches
     };
 })();
