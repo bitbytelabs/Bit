@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/bitbytelabs/Bit/compare/v1.3.1...v1.3.2) (2026-02-14)
+
+
+### Bug Fixes
+
+* add bot env template and ignore local env files ([6d73330](https://github.com/bitbytelabs/Bit/commit/6d73330ad54435694d5229b96ada867d54da6b7e))
+
 ## [1.3.1](https://github.com/bitbytelabs/Bit/compare/v1.3.0...v1.3.1) (2026-02-14)
 
 
