@@ -2,8 +2,6 @@ const FIX_RE = /^fix:\s.+/;
 const FEAT_RE = /^feat:\s.+/;
 const FEAT_BREAKING_RE = /^feat!:\s.+/;
 
-export const BOT_MARKER = '<!-- bit-maintainer-bot -->';
-
 export function isValidConventionalMessage(message) {
   if (!message || typeof message !== 'string') {
     return false;
@@ -36,6 +34,8 @@ export function inferIssueLabels(title = '', body = '') {
   return labels;
 }
 
+export const BOT_MARKER = '<!-- bit-maintainer-bot -->';
+
 export function buildPrFeedback({ title, invalidCommitMessages }) {
   const invalidTitle = !isValidConventionalMessage(title);
 
@@ -67,26 +67,4 @@ export function buildPrFeedback({ title, invalidCommitMessages }) {
 
   lines.push('', 'Please rename the title/commits to match the release workflow requirements.');
   return lines.join('\n');
-}
-
-export function isSecurityUpdatePullRequest(pullRequest) {
-  const title = (pullRequest.title ?? '').toLowerCase();
-  const labels = (pullRequest.labels ?? []).map((label) => (label.name ?? '').toLowerCase());
-  const author = (pullRequest.user?.login ?? '').toLowerCase();
-
-  const titleLooksSecurity = /\bsecurity\b|\bvulnerability\b|\bcve-\d{4}-\d+/i.test(title);
-  const labelLooksSecurity = labels.some((label) => /\bsecurity\b|\bvulnerability\b/.test(label));
-  const isDependabotAuthor = author === 'dependabot[bot]';
-
-  return (titleLooksSecurity || labelLooksSecurity) && isDependabotAuthor;
-}
-
-export function buildSecurityFixComment() {
-  return [
-    BOT_MARKER,
-    '🔒 This is a Dependabot security update.',
-    '',
-    '- I approved this pull request automatically.',
-    '- I enabled auto-merge so the fix can land after required checks pass.'
-  ].join('\n');
 }

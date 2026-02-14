@@ -8,7 +8,6 @@ A GitHub bot (Probot app) that helps maintain this repository by:
   - `feat!: something` → major
 - Checking both PR title and commit subjects.
 - Auto-labeling issues (`bug`, `enhancement`, `documentation`) based on issue text.
-- Auto-fixing security updates by approving Dependabot security PRs and enabling auto-merge (after required checks pass).
 
 ## Run locally
 
