@@ -1,3 +1,10 @@
+## [1.3.6](https://github.com/bitbytelabs/Bit/compare/v1.3.5...v1.3.6) (2026-02-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency probot to v14 ([e96e46f](https://github.com/bitbytelabs/Bit/commit/e96e46fd288e846cfe6d361dd7a490618c9e4d0f))
+
 ## [1.3.5](https://github.com/bitbytelabs/Bit/compare/v1.3.4...v1.3.5) (2026-02-14)
 
 
