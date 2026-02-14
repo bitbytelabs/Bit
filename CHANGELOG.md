@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/bitbytelabs/Bit/compare/v1.4.1...v1.5.0) (2026-02-14)
+
+
+### Features
+
+* add live chess firebase setup panel ([92012c2](https://github.com/bitbytelabs/Bit/commit/92012c2cad573db497c26ca8a79f719e261ff8ab))
+
 ## [1.4.1](https://github.com/bitbytelabs/Bit/compare/v1.4.0...v1.4.1) (2026-02-14)
 
 
