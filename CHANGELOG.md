@@ -1,3 +1,10 @@
+## [1.1.8](https://github.com/bitbytelabs/Bit/compare/v1.1.7...v1.1.8) (2026-02-14)
+
+
+### Bug Fixes
+
+* prevent string execution in stockfish worker ([ffb42f4](https://github.com/bitbytelabs/Bit/commit/ffb42f4c38a9ef7a8ca2d2760dca883c45c07e9c))
+
 ## [1.1.7](https://github.com/bitbytelabs/Bit/compare/v1.1.6...v1.1.7) (2026-02-14)
 
 
