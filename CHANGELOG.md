@@ -1,3 +1,10 @@
+## [1.9.5](https://github.com/bitbytelabs/Bit/compare/v1.9.4...v1.9.5) (2026-02-14)
+
+
+### Bug Fixes
+
+* Update bit-board-analyzer.js ([b3c6bf0](https://github.com/bitbytelabs/Bit/commit/b3c6bf09c08f2f56c38351d7d15491081583009b))
+
 ## [1.9.4](https://github.com/bitbytelabs/Bit/compare/v1.9.3...v1.9.4) (2026-02-14)
 
 
