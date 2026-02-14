@@ -5,6 +5,16 @@ if (typeof window === 'undefined') {
     self.addEventListener("activate", (event) => event.waitUntil(self.clients.claim()));
 
     self.addEventListener("message", (ev) => {
+        const workerOrigin = self.location && self.location.origin ? self.location.origin : null;
+        const eventOrigin = typeof ev.origin === "string" ? ev.origin : null;
+        const isTrustedOrigin =
+            workerOrigin !== null &&
+            eventOrigin === workerOrigin;
+
+        if (!isTrustedOrigin) {
+            return;
+        }
+
         if (!ev.data) {
             return;
         } else if (ev.data.type === "deregister") {
