@@ -1,3 +1,10 @@
+## [1.9.6](https://github.com/bitbytelabs/Bit/compare/v1.9.5...v1.9.6) (2026-02-14)
+
+
+### Bug Fixes
+
+* Update bit-move-eval.js ([9989d6b](https://github.com/bitbytelabs/Bit/commit/9989d6b5fd1dddf124f15ea9d73d3e4d3caa42f4))
+
 ## [1.9.5](https://github.com/bitbytelabs/Bit/compare/v1.9.4...v1.9.5) (2026-02-14)
 
 
