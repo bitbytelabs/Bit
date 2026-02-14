@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/bitbytelabs/Bit/compare/v1.1.8...v1.2.0) (2026-02-14)
+
+
+### Features
+
+* add community health documentation ([fd6d433](https://github.com/bitbytelabs/Bit/commit/fd6d433ffcf2aae7e5536dda65d9128a6609d780))
+
 ## [1.1.8](https://github.com/bitbytelabs/Bit/compare/v1.1.7...v1.1.8) (2026-02-14)
 
 
