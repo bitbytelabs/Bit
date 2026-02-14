@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/bitbytelabs/Bit/compare/v1.8.0...v1.9.0) (2026-02-14)
+
+
+### Features
+
+* move auth to dedicated page with multi-provider sign-in ([25cc989](https://github.com/bitbytelabs/Bit/commit/25cc989ff4c7ce35d95c640bb86302cb47db2b9a))
+
 # [1.8.0](https://github.com/bitbytelabs/Bit/compare/v1.7.0...v1.8.0) (2026-02-14)
 
 
