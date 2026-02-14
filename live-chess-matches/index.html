@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Chess Matches / Bit</title>
+    <link rel="stylesheet" href="live-chess-matches.css">
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+    <script src="../assets/js/bit-live-chess-firebase.js"></script>
+</head>
+<body>
+    <main class="container">
+        <h1>Live Chess Matches</h1>
+        <p class="subtitle">Matches detected by Bit in real time.</p>
+        <div id="config-warning" class="warning hidden">
+            Firebase is not configured. Set <code>window.BIT_FIREBASE_CONFIG</code> before loading this page.
+        </div>
+        <section id="matches" class="matches"></section>
+        <p id="empty-state" class="empty-state">No active matches detected yet.</p>
+    </main>
+
+    <script src="live-chess-matches.js"></script>
+</body>
+</html>

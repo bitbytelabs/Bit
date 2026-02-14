@@ -16,6 +16,15 @@ function createInstance(domain, instanceID, chessVariant) {
             'date': Date.now(),
         });
 
+        window.bitLiveChessFirebase?.publishMatch({
+            id: instanceID,
+            domain,
+            variant: chessVariant,
+            detectedAt: Date.now()
+        }).catch(err => {
+            console.error('[Bit/Firebase] Failed to publish match:', err);
+        });
+
         log.success(`New engine instance created! (DOMAIN: ${domain}, ID: ${instanceID})`);
     } else {
         prelongInstanceLife(domain, instanceID, chessVariant);
@@ -33,6 +42,14 @@ function prelongInstanceLife(domain, instanceID, chessVariant) {
 
     if(instanceObj) {
         instanceObj.date = Date.now();
+
+        window.bitLiveChessFirebase?.publishMatch({
+            id: instanceID,
+            domain,
+            variant: chessVariant
+        }).catch(err => {
+            console.error('[Bit/Firebase] Failed to update match heartbeat:', err);
+        });
 
         const i = instanceObj.instance;
         const instanceProfiles = Object.keys(i.pV);
@@ -61,6 +78,10 @@ function prelongInstanceLife(domain, instanceID, chessVariant) {
 
 function removeInstance(instance) {
     instances = instances.filter(x => x.id != instance.instanceID);
+
+    window.bitLiveChessFirebase?.removeMatch(instance.instanceID).catch(err => {
+        console.error('[Bit/Firebase] Failed to remove live match:', err);
+    });
 
     removeInstanceFromSettingsDropdown(instance.instanceID);
 }
