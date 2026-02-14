@@ -1,3 +1,10 @@
+## [1.3.7](https://github.com/bitbytelabs/Bit/compare/v1.3.6...v1.3.7) (2026-02-14)
+
+
+### Bug Fixes
+
+* auto refresh pages when GitHub updates ([760d609](https://github.com/bitbytelabs/Bit/commit/760d60914f16e73dcd3cbddb9a4aa700507f1445))
+
 ## [1.3.6](https://github.com/bitbytelabs/Bit/compare/v1.3.5...v1.3.6) (2026-02-14)
 
 
