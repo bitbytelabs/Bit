@@ -1,10 +1,14 @@
 function messageUserscript(type, args = []) {
     return new Promise((resolve, reject) => {
+        const messageOrigin = window.location.origin;
         const messageId = getUniqueID();
         let timeoutId;
 
         const listener = (event) => {
-            if(event.data.messageId === messageId && event.data.sender !== 'GUI') {
+            if(event.source === window
+                && event.origin === messageOrigin
+                && event.data?.sender === 'USERSCRIPT'
+                && event.data.messageId === messageId) {
                 clearTimeout(timeoutId);
                 window.removeEventListener('message', listener);
 
@@ -25,7 +29,7 @@ function messageUserscript(type, args = []) {
             type,
             messageId,
             args
-        }, '*');
+        }, messageOrigin);
     });
 }
 
@@ -63,7 +67,7 @@ if(typeof window?.USERSCRIPT !== 'object') {
                 type: 'USERSCRIPT_setValue',
                 messageId: null,
                 args: [key, value]
-            }, '*');
+            }, window.location.origin);
         }
     };
 } else {

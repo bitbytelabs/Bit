@@ -178,35 +178,37 @@ const instanceVars = {
 };
 
 function exposeViaMessages() {
+    const messageOrigin = window.location.origin;
+
     const handlers = {
         USERSCRIPT_getValue: (args, messageId) => {
             const [key] = args;
             const value = GM_getValue(key);
-            window.postMessage({ messageId, value }, '*');
+            window.postMessage({ sender: 'USERSCRIPT', messageId, value }, messageOrigin);
         },
         USERSCRIPT_setValue: (args, messageId) => {
             const [key, value] = args;
             GM_setValue(key, value);
-            window.postMessage({ messageId, value: true }, '*');
+            window.postMessage({ sender: 'USERSCRIPT', messageId, value: true }, messageOrigin);
         },
         USERSCRIPT_deleteValue: (args, messageId) => {
             const [key] = args;
             GM_deleteValue(key);
-            window.postMessage({ messageId, value: true }, '*');
+            window.postMessage({ sender: 'USERSCRIPT', messageId, value: true }, messageOrigin);
         },
         USERSCRIPT_listValues: (args, messageId) => {
             const value = GM_listValues();
-            window.postMessage({ messageId, value }, '*');
+            window.postMessage({ sender: 'USERSCRIPT', messageId, value }, messageOrigin);
         },
         USERSCRIPT_getInfo: (args, messageId) => {
             const value = typeof GM_info !== 'undefined' ? JSON.parse(JSON.stringify(GM_info)) : {};
-            window.postMessage({ messageId, value }, '*');
+            window.postMessage({ sender: 'USERSCRIPT', messageId, value }, messageOrigin);
         },
         USERSCRIPT_instanceVars: (args, messageId) => {
             const [instanceId, key, value] = args;
 
             if (!instanceVars.hasOwnProperty(key)) {
-                window.postMessage({ messageId, value: false }, '*');
+                window.postMessage({ sender: 'USERSCRIPT', messageId, value: false }, messageOrigin);
                 return;
             }
 
@@ -214,11 +216,13 @@ function exposeViaMessages() {
                 ? instanceVars[key].set(instanceId, value)
                 : instanceVars[key].get(instanceId);
 
-            window.postMessage({ messageId, value: result }, '*');
+            window.postMessage({ sender: 'USERSCRIPT', messageId, value: result }, messageOrigin);
         }
     };
 
     window.addEventListener('message', (event) => {
+        if(event.source !== window || event.origin !== messageOrigin || event.data?.sender !== 'GUI') return;
+
         const handler = handlers[event.data?.type];
         if(handler) handler(event.data.args, event.data.messageId);
     });
