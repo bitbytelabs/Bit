@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/bitbytelabs/Bit/compare/v1.1.5...v1.1.6) (2026-02-14)
+
+
+### Bug Fixes
+
+* add changes ([9c39513](https://github.com/bitbytelabs/Bit/commit/9c395136ab5c2e2ad193b31c300f87aee7406979))
+
 ## [1.1.5](https://github.com/bitbytelabs/Bit/compare/v1.1.4...v1.1.5) (2026-02-14)
 
 
