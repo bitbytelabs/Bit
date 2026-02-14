@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/bitbytelabs/Bit/compare/v1.6.0...v1.7.0) (2026-02-14)
+
+
+### Features
+
+* save completed game replays to firestore ([57d4c38](https://github.com/bitbytelabs/Bit/commit/57d4c383ea660e630248a0dde6fda5a0b08f8b8a))
+
 # [1.6.0](https://github.com/bitbytelabs/Bit/compare/v1.5.3...v1.6.0) (2026-02-14)
 
 
