@@ -1,3 +1,10 @@
+## [1.9.2](https://github.com/bitbytelabs/Bit/compare/v1.9.1...v1.9.2) (2026-02-14)
+
+
+### Bug Fixes
+
+* Potential fix for code scanning alert no. 47: Missing origin verification in `postMessage` handler ([3725dbc](https://github.com/bitbytelabs/Bit/commit/3725dbc4f73f206058b33b655c94addb3a5b10ed))
+
 ## [1.9.1](https://github.com/bitbytelabs/Bit/compare/v1.9.0...v1.9.1) (2026-02-14)
 
 
