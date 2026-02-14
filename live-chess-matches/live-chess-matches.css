@@ -133,3 +133,42 @@ button.secondary {
 .status-error {
     color: #ff8f8f;
 }
+
+
+.board-container {
+    margin-top: .8rem;
+}
+
+.mini-board {
+    width: min(320px, 100%);
+    aspect-ratio: 1;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.mini-square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mini-piece {
+    width: 86%;
+    height: 86%;
+    object-fit: contain;
+    user-select: none;
+    pointer-events: none;
+}
+
+.mini-square.light {
+    background: #f0d9b5;
+    color: #121212;
+}
+
+.mini-square.dark {
+    background: #b58863;
+    color: #f5f5f5;
+}
