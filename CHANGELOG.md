@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/bitbytelabs/Bit/compare/v1.1.4...v1.1.5) (2026-02-14)
+
+
+### Bug Fixes
+
+* harden userscript postMessage bridge ([450e59f](https://github.com/bitbytelabs/Bit/commit/450e59f237b3df90b0d9fda47ec00337df63208d))
+
 ## [1.1.4](https://github.com/bitbytelabs/Bit/compare/v1.1.3...v1.1.4) (2026-02-14)
 
 
