@@ -28,6 +28,20 @@ self.onunhandledrejection = e => {
 };
 
 function handleMessage(e) {
+  // Verify message origin when available to avoid processing messages
+  // from unexpected sources.
+  if (typeof e.origin !== "undefined" && e.origin) {
+    // In a worker, self.location.origin represents the expected origin.
+    var expectedOrigin = (typeof self.location !== "undefined" && self.location && self.location.origin)
+      ? self.location.origin
+      : null;
+
+    if (expectedOrigin && e.origin !== expectedOrigin) {
+      err && err(`Ignored message from unexpected origin: ${e.origin}`);
+      return;
+    }
+  }
+
   try {
     if(e.data.cmd === "load") {
       const messageQueue = [];
