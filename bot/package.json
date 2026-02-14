@@ -6,7 +6,6 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "start": "probot run ./src/index.js",
     "test": "vitest run",
     "test:watch": "vitest"
   },

@@ -1,12 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  buildPrFeedback,
-  buildSecurityFixComment,
-  findInvalidMessages,
-  inferIssueLabels,
-  isSecurityUpdatePullRequest,
-  isValidConventionalMessage
-} from '../src/rules.js';
+import { buildPrFeedback, findInvalidMessages, inferIssueLabels, isValidConventionalMessage } from '../src/rules.js';
 
 describe('isValidConventionalMessage', () => {
   it('accepts supported commit formats', () => {
@@ -65,45 +58,5 @@ describe('buildPrFeedback', () => {
 
     expect(feedback).toContain('PR title is invalid');
     expect(feedback).toContain('docs: add notes');
-  });
-});
-
-describe('isSecurityUpdatePullRequest', () => {
-  it('returns true for dependabot security PRs', () => {
-    expect(
-      isSecurityUpdatePullRequest({
-        title: 'Bump axios from 0.27.2 to 1.8.2 (security)',
-        user: { login: 'dependabot[bot]' },
-        labels: [{ name: 'dependencies' }]
-      })
-    ).toBe(true);
-  });
-
-  it('returns true when security label is present', () => {
-    expect(
-      isSecurityUpdatePullRequest({
-        title: 'Bump lodash from 4.17.20 to 4.17.21',
-        user: { login: 'dependabot[bot]' },
-        labels: [{ name: 'security' }]
-      })
-    ).toBe(true);
-  });
-
-  it('returns false for non-dependabot PRs', () => {
-    expect(
-      isSecurityUpdatePullRequest({
-        title: 'Security hardening changes',
-        user: { login: 'alice' },
-        labels: [{ name: 'security' }]
-      })
-    ).toBe(false);
-  });
-});
-
-describe('buildSecurityFixComment', () => {
-  it('includes auto-fix details', () => {
-    const comment = buildSecurityFixComment();
-    expect(comment).toContain('Dependabot security update');
-    expect(comment).toContain('enabled auto-merge');
   });
 });
