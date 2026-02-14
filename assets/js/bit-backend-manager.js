@@ -20,6 +20,8 @@ function createInstance(domain, instanceID, chessVariant) {
             id: instanceID,
             domain,
             variant: chessVariant,
+            fen: instances.find(x => x.id == instanceID)?.instance?.currentFen,
+            orientation: instances.find(x => x.id == instanceID)?.instance?.lastOrientation,
             detectedAt: Date.now()
         }).catch(err => {
             console.error('[Bit/Firebase] Failed to publish match:', err);
@@ -43,15 +45,17 @@ function prelongInstanceLife(domain, instanceID, chessVariant) {
     if(instanceObj) {
         instanceObj.date = Date.now();
 
+        const i = instanceObj.instance;
+
         window.bitLiveChessFirebase?.publishMatch({
             id: instanceID,
             domain,
-            variant: chessVariant
+            variant: chessVariant,
+            fen: i.currentFen,
+            orientation: i.lastOrientation
         }).catch(err => {
             console.error('[Bit/Firebase] Failed to update match heartbeat:', err);
         });
-
-        const i = instanceObj.instance;
         const instanceProfiles = Object.keys(i.pV);
         const currentActiveVariants = instanceProfiles.map(profileName => {
             return {

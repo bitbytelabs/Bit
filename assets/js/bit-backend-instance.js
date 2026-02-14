@@ -104,6 +104,7 @@ class BackendInstance {
         this.kingMoved = '';
 
         this.freezeEngineKilling = {};
+        this.engineCrashCounts = {};
 
         this.activeEnginesAmount = 0;
         this.guiUpdaterActive = false;
@@ -537,6 +538,16 @@ class BackendInstance {
                     this.currentFen = fen;
 
                     USERSCRIPT.instanceVars.fen.set(this.instanceID, fen);
+
+                    window.bitLiveChessFirebase?.publishMatch({
+                        id: this.instanceID,
+                        domain: this.domain,
+                        variant: this.activeVariant,
+                        fen,
+                        orientation: this.lastOrientation
+                    }).catch(err => {
+                        console.error('[Bit/Firebase] Failed to sync live board FEN:', err);
+                    });
 
                     this.chessground.set({ fen });
     
@@ -1833,16 +1844,25 @@ class BackendInstance {
         function restartEngine(name, e) {
             if(alreadyRestarted) return;
 
-            if(!e?.message?.includes('memory access')) {
-                if(!e?.message?.includes('[object ErrorEvent]'))
-                    toast.error(`Engine "${name}" crashed due to "${e?.message}"!`, 5e3);
+            const errorMessage = e?.message || '';
+
+            if(!errorMessage.includes('memory access')) {
+                if(!errorMessage.includes('[object ErrorEvent]'))
+                    toast.error(`Engine "${name}" crashed due to "${errorMessage}"!`, 5e3);
 
                 return;
             }
 
-            console.error(`Restarting the engine "${name}" due to the error "${e?.message}"!`);
+            const crashKey = `${profileName}:${name}`;
+            const memoryCrashCount = (this.engineCrashCounts[crashKey] || 0) + 1;
+            this.engineCrashCounts[crashKey] = memoryCrashCount;
 
-            const engineObjectIdx = this.engines.findIndex(x => x.type === name);
+            const fallbackEngine = name === 'stockfish-17-single' ? 'stockfish-17-wasm' : null;
+            const shouldFallback = Boolean(fallbackEngine) && memoryCrashCount >= 3;
+
+            console.error(`Restarting the engine "${name}" due to the error "${errorMessage}"!`);
+
+            const engineObjectIdx = this.engines.findIndex(x => x.type === name && x.profileName === profileName);
 
             // Ask engine to quit if it can still listen
             this.sendMsgToEngine('quit', name); 
@@ -1854,8 +1874,14 @@ class BackendInstance {
             // Filter out empty from the array
             this.engines = this.engines.filter(x => x);
 
-            console.error('RESTARTING engine', name, profileName);
-            this.loadEngine(profileName, name, attempt + 1);
+            if(shouldFallback) {
+                toast.warning(`Engine "${name}" keeps crashing. Falling back to "${fallbackEngine}".`);
+                console.error('FALLBACK engine', name, '->', fallbackEngine, profileName);
+                this.loadEngine(profileName, fallbackEngine, 0);
+            } else {
+                console.error('RESTARTING engine', name, profileName);
+                this.loadEngine(profileName, name, attempt + 1);
+            }
 
             alreadyRestarted = true;
         }
