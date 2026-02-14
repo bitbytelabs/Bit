@@ -131,7 +131,7 @@ let lastProfileID = null;
         const userscriptManagerData = [GM_info?.scriptHandler, GM_info?.version]?.join(' ');
         const userscriptData = [GM_info?.script?.author, GM_info?.script?.version]?.join(' ');
     
-        document.title = `A.C.A.S (Using ${userscriptData})`;
+        document.title = `Bit (Using ${userscriptData})`;
     
         if(GM_info?.script?.version && isBelowVersion(GM_info?.script?.version, '2.3.0')) {
             updateYourUserscriptElem.classList.remove('hidden');
