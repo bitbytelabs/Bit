@@ -1,3 +1,10 @@
+## [1.9.3](https://github.com/bitbytelabs/Bit/compare/v1.9.2...v1.9.3) (2026-02-14)
+
+
+### Bug Fixes
+
+* turn it into Bit ([c515a82](https://github.com/bitbytelabs/Bit/commit/c515a82e1a5a7984452d74ca2a75142f4978547c))
+
 ## [1.9.2](https://github.com/bitbytelabs/Bit/compare/v1.9.1...v1.9.2) (2026-02-14)
 
 
