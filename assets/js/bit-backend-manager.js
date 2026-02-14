@@ -112,7 +112,7 @@ setInterval(() => {
 
         if(instanceAgeMs > 4000) {
             if(instanceAgeMs > 10000) {
-                const warningMsg = transObj?.instanceConnectionTermination ?? 'Terminated instance due to lost connection.\n\nUnexpected? Visit the tab to reactivate A.C.A.S.';
+                const warningMsg = transObj?.instanceConnectionTermination ?? 'Terminated instance due to lost connection.\n\nUnexpected? Visit the tab to reactivate Bit.';
                 toast.warning(`${warningMsg} (${instanceObj.domain})`, 5000);
 
                 instanceObj.instance.close();
