@@ -86225,11 +86225,10 @@
             function partiallyApplied(handler) {
                 var args = [].slice.call(arguments, 1);
                 return function () {
-                    if (typeof handler === "function") {
-                        handler.apply(undefined, args);
-                    } else {
-                        new Function("" + handler)();
+                    if (typeof handler !== "function") {
+                        throw new TypeError("setImmediate handler must be a function");
                     }
+                    handler.apply(undefined, args);
                 };
             }
             function runIfPresent(handle) {
