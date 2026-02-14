@@ -112,6 +112,15 @@ var Sf1779Web = (() => {
                 try {
                     var d = c.data,
                         e = d.la;
+                    if (!d || "object" != typeof d || "string" != typeof e) {
+                        q && q("worker: received malformed message", d);
+                        return;
+                    }
+                    const Ra = new Set(["load", "run", "checkMailbox", "setimmediate"]);
+                    if (!Ra.has(e) && d.target !== "setimmediate") {
+                        q && q(`worker: received disallowed command ${e}`, d);
+                        return;
+                    }
                     if ("load" === e) {
                         let f = [];
                         self.onmessage = (g) => f.push(g);
