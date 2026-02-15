@@ -1,3 +1,11 @@
+## [1.9.8](https://github.com/bitbytelabs/Bit/compare/v1.9.7...v1.9.8) (2026-02-15)
+
+
+### Bug Fixes
+
+* Merge pull request [#74](https://github.com/bitbytelabs/Bit/issues/74) from bitbytelabs/alert-autofix-7 ([ca4f1a6](https://github.com/bitbytelabs/Bit/commit/ca4f1a6d0ab388aaa107d9c9efed728dee3b3a86))
+* Potential fix for code scanning alert no. 7: Incomplete string escaping or encoding ([3b60229](https://github.com/bitbytelabs/Bit/commit/3b602293932d1ada2988798a81a92469f237e517))
+
 ## [1.9.7](https://github.com/bitbytelabs/Bit/compare/v1.9.6...v1.9.7) (2026-02-15)
 
 
