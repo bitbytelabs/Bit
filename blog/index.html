@@ -62,7 +62,7 @@
                     <p>To establish piece positions, Bit maps them to a coordinate grid. Some sites provide direct chess notation (e.g., <code>e2</code>), while others rely on pixel-based coordinates, transformations, or attribute-based indexing. When dealing with pixel positions, Bit converts them by computing their relative placement on the board. Once all pieces are mapped, Bit compiles the data into a FEN string. Additionally, it monitors board orientation and move sequences, ensuring that captured pieces and new moves are accurately identified.</p>
                     <h2 id="cross-window-communication">Cross-Window Communication</h2>
                     <h4 id="first-tab-acas-gui">First Tab (Bit GUI)</h4>
-                    <p><img src="../assets/images/example.png" height="300" alt="Bit Tab"></p>
+                    <p><img src="../assets/images/logo.png" height="300" alt="Bit Tab"></p>
                     <p>The engine runs on a completely different tab than the chess game page, completely isolated from it. This is done so that the site cannot block the usage of Bit. Since Bit is a userscript, it has certain restrictions and cannot operate in the same way as a proper browser extension. Well, why isn't Bit just a browser extension then? The challenge was fun, and still is, actually.</p>
                     <p>Bit sends move data via <a href="https://github.com/AugmentedWeb/CommLink" target="_blank" rel="noopener">CommLink</a> (which uses the userscript manager's storage as a kind of middle man). Now imagine some data transfering to the Lichess tab below,</p>
                     <p><em>beep boop (っ＾▿＾)っ</em></p><pre v-pre="" data-lang=""><code class="lang-">
@@ -76,8 +76,8 @@
                      </code></pre>
                     <p><em>beep boop ╰(°▽°)╯</em></p>
                     <h4 id="second-tab-chess-site">Second Tab (Chess Site)</h4>
-                    <p><img src="../assets/images/example2.png" height="300" alt="External Tab"></p>
-                    <p>The userscript displays the data on the board using <a href="example.com" target="_blank" rel="noopener">UniversalBoardDrawer</a>. (<em>If <a target="_about" href="../app?shl=displayMovesOnExternalSite">Moves On External Site</a> is activated!</em>)</p>
+                    <p><img src="../assets/images/logo.png" height="300" alt="External Tab"></p>
+                    <p>The userscript displays the data on the board using <a href="https://example.com" target="_blank" rel="noopener">UniversalBoardDrawer</a>. (<em>If <a target="_about" href="../app?shl=displayMovesOnExternalSite">Moves On External Site</a> is activated!</em>)</p>
                     <hr>
                     <p><em>The <a href="../faq/">FAQ</a> page might have more answers if this wasn't enough for you.</em></p>
                 </section>
