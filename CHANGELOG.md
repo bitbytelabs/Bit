@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/bitbytelabs/Bit/compare/v1.12.0...v1.12.1) (2026-02-15)
+
+
+### Bug Fixes
+
+* resolve broken static page assets ([858469b](https://github.com/bitbytelabs/Bit/commit/858469b9826b58c24d576d4bce051a38de3182f5))
+
 # [1.12.0](https://github.com/bitbytelabs/Bit/compare/v1.11.0...v1.12.0) (2026-02-15)
 
 
