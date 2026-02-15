@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/bitbytelabs/Bit/compare/v1.11.0...v1.12.0) (2026-02-15)
+
+
+### Features
+
+* add Stockfish 8 to engine usage list ([46ffaf1](https://github.com/bitbytelabs/Bit/commit/46ffaf1f283945d83222c5d9144b0102b5294365))
+
 # [1.11.0](https://github.com/bitbytelabs/Bit/compare/v1.10.0...v1.11.0) (2026-02-15)
 
 
