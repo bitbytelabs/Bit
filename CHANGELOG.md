@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/bitbytelabs/Bit/compare/v1.9.8...v1.10.0) (2026-02-15)
+
+
+### Features
+
+* add 20 new app language options ([6b8cc4e](https://github.com/bitbytelabs/Bit/commit/6b8cc4ed5ddc88cad6385062a091ac67da750cb9))
+
 ## [1.9.8](https://github.com/bitbytelabs/Bit/compare/v1.9.7...v1.9.8) (2026-02-15)
 
 
