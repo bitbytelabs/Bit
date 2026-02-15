@@ -134,10 +134,23 @@ var Fsf14Web = (() => {
                         }
                         let f = [];
                         self.onmessage = (g) => {
+                            // Ensure we are handling a genuine MessageEvent when possible
+                            if (typeof MessageEvent !== "undefined" && !(g instanceof MessageEvent)) {
+                                q && q("worker: ignored non-MessageEvent (pre-start)");
+                                return;
+                            }
                             // Basic validation of incoming message before queuing
                             if (!g || typeof g !== "object" || typeof g.data !== "object" || g.data === null) {
                                 q && q("worker: received malformed message event (pre-start)");
                                 return;
+                            }
+                            // Defensive origin check: in worker contexts origin is often empty,
+                            // but if it is present, ensure it is a string with an expected scheme.
+                            if (typeof g.origin !== "undefined" && g.origin !== null) {
+                                if (typeof g.origin !== "string" || (g.origin && !/^https?:\/\//.test(g.origin))) {
+                                    q && q("worker: rejected message from untrusted origin (pre-start)");
+                                    return;
+                                }
                             }
                             const msg = g.data;
                             const cmd = msg.ka;
