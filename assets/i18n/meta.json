@@ -207,6 +207,630 @@
         [
             "uz",
             "Oʻzbekcha"
+        ],
+        [
+            "ha",
+            "(Hausa) هَوُسَ"
+        ],
+        [
+            "om",
+            "Afaan Oromoo"
+        ],
+        [
+            "aa",
+            "Afaraf"
+        ],
+        [
+            "af",
+            "Afrikaans"
+        ],
+        [
+            "ak",
+            "Akan"
+        ],
+        [
+            "an",
+            "aragonés"
+        ],
+        [
+            "ig",
+            "Asụsụ Igbo"
+        ],
+        [
+            "gn",
+            "Avañe'ẽ"
+        ],
+        [
+            "ae",
+            "avesta"
+        ],
+        [
+            "ay",
+            "aymar aru"
+        ],
+        [
+            "ms",
+            "bahasa Melayu, بهاس ملايو‎"
+        ],
+        [
+            "bm",
+            "bamanankan"
+        ],
+        [
+            "su",
+            "Basa Sunda"
+        ],
+        [
+            "bi",
+            "Bislama"
+        ],
+        [
+            "bs",
+            "bosanski jezik"
+        ],
+        [
+            "br",
+            "brezhoneg"
+        ],
+        [
+            "ca",
+            "català"
+        ],
+        [
+            "cs",
+            "čeština, český jazyk"
+        ],
+        [
+            "ch",
+            "Chamoru"
+        ],
+        [
+            "ny",
+            "chiCheŵa, chinyanja"
+        ],
+        [
+            "sn",
+            "chiShona"
+        ],
+        [
+            "co",
+            "corsu, lingua corsa"
+        ],
+        [
+            "cy",
+            "Cymraeg"
+        ],
+        [
+            "da",
+            "dansk"
+        ],
+        [
+            "nv",
+            "Diné bizaad"
+        ],
+        [
+            "na",
+            "Dorerin Naoero"
+        ],
+        [
+            "en",
+            "English"
+        ],
+        [
+            "eo",
+            "Esperanto"
+        ],
+        [
+            "eu",
+            "euskara, euskera"
+        ],
+        [
+            "to",
+            "faka Tonga"
+        ],
+        [
+            "mg",
+            "fiteny malagasy"
+        ],
+        [
+            "fo",
+            "føroyskt"
+        ],
+        [
+            "fy",
+            "Frysk"
+        ],
+        [
+            "ff",
+            "Fulfulde, Pulaar, Pular"
+        ],
+        [
+            "ga",
+            "Gaeilge"
+        ],
+        [
+            "gv",
+            "Gaelg, Gailck"
+        ],
+        [
+            "sm",
+            "gagana fa'a Samoa"
+        ],
+        [
+            "gd",
+            "Gàidhlig"
+        ],
+        [
+            "gl",
+            "galego"
+        ],
+        [
+            "ki",
+            "Gĩkũyũ"
+        ],
+        [
+            "ho",
+            "Hiri Motu"
+        ],
+        [
+            "hr",
+            "hrvatski jezik"
+        ],
+        [
+            "io",
+            "Ido"
+        ],
+        [
+            "rw",
+            "Ikinyarwanda"
+        ],
+        [
+            "rn",
+            "Ikirundi"
+        ],
+        [
+            "ia",
+            "Interlingua"
+        ],
+        [
+            "ik",
+            "Iñupiaq, Iñupiatun"
+        ],
+        [
+            "nd",
+            "isiNdebele"
+        ],
+        [
+            "nr",
+            "isiNdebele"
+        ],
+        [
+            "xh",
+            "isiXhosa"
+        ],
+        [
+            "zu",
+            "isiZulu"
+        ],
+        [
+            "is",
+            "Íslenska"
+        ],
+        [
+            "mh",
+            "Kajin M̧ajeļ"
+        ],
+        [
+            "kl",
+            "kalaallisut, kalaallit oqaasii"
+        ],
+        [
+            "kr",
+            "Kanuri"
+        ],
+        [
+            "kw",
+            "Kernewek"
+        ],
+        [
+            "kg",
+            "Kikongo"
+        ],
+        [
+            "sw",
+            "Kiswahili"
+        ],
+        [
+            "ht",
+            "Kreyòl ayisyen"
+        ],
+        [
+            "kj",
+            "Kuanyama"
+        ],
+        [
+            "ku",
+            "Kurdî, كوردی‎"
+        ],
+        [
+            "la",
+            "latine, lingua latina"
+        ],
+        [
+            "lb",
+            "Lëtzebuergesch"
+        ],
+        [
+            "li",
+            "Limburgs"
+        ],
+        [
+            "ln",
+            "Lingála"
+        ],
+        [
+            "lg",
+            "Luganda"
+        ],
+        [
+            "mt",
+            "Malti"
+        ],
+        [
+            "nb",
+            "Norsk bokmål"
+        ],
+        [
+            "nn",
+            "Norsk nynorsk"
+        ],
+        [
+            "oc",
+            "occitan, lenga d'òc"
+        ],
+        [
+            "ie",
+            "Originally called Occidental; then Interlingue after WWII"
+        ],
+        [
+            "hz",
+            "Otjiherero"
+        ],
+        [
+            "ty",
+            "Reo Tahiti"
+        ],
+        [
+            "rm",
+            "rumantsch grischun"
+        ],
+        [
+            "qu",
+            "Runa Simi, Kichwa"
+        ],
+        [
+            "sc",
+            "sardu"
+        ],
+        [
+            "za",
+            "Saɯ cueŋƅ, Saw cuengh"
+        ],
+        [
+            "st",
+            "Sesotho"
+        ],
+        [
+            "tn",
+            "Setswana"
+        ],
+        [
+            "sq",
+            "Shqip"
+        ],
+        [
+            "ss",
+            "SiSwati"
+        ],
+        [
+            "sl",
+            "slovenski jezik, slovenščina"
+        ],
+        [
+            "so",
+            "Soomaaliga, af Soomaali"
+        ],
+        [
+            "sv",
+            "svenska"
+        ],
+        [
+            "mi",
+            "te reo Māori"
+        ],
+        [
+            "vi",
+            "Tiếng Việt"
+        ],
+        [
+            "lu",
+            "Tshiluba"
+        ],
+        [
+            "ve",
+            "Tshivenḓa"
+        ],
+        [
+            "tk",
+            "Türkmen, Түркмен"
+        ],
+        [
+            "tw",
+            "Twi"
+        ],
+        [
+            "vo",
+            "Volapük"
+        ],
+        [
+            "fj",
+            "vosa Vakaviti"
+        ],
+        [
+            "wa",
+            "walon"
+        ],
+        [
+            "tl",
+            "Wikang Tagalog"
+        ],
+        [
+            "wo",
+            "Wollof"
+        ],
+        [
+            "ts",
+            "Xitsonga"
+        ],
+        [
+            "sg",
+            "yângâ tî sängö"
+        ],
+        [
+            "yo",
+            "Yorùbá"
+        ],
+        [
+            "el",
+            "ελληνικά"
+        ],
+        [
+            "av",
+            "авар мацӀ, магӀарул мацӀ"
+        ],
+        [
+            "ab",
+            "аҧсуа бызшәа, аҧсшәа"
+        ],
+        [
+            "be",
+            "беларуская мова"
+        ],
+        [
+            "os",
+            "ирон æвзаг"
+        ],
+        [
+            "kv",
+            "коми кыв"
+        ],
+        [
+            "ky",
+            "Кыргызча, Кыргыз тили"
+        ],
+        [
+            "kk",
+            "қазақ тілі"
+        ],
+        [
+            "mk",
+            "македонски јазик"
+        ],
+        [
+            "mn",
+            "Монгол хэл"
+        ],
+        [
+            "ce",
+            "нохчийн мотт"
+        ],
+        [
+            "sr",
+            "српски језик"
+        ],
+        [
+            "tt",
+            "татар теле, tatar tele"
+        ],
+        [
+            "tg",
+            "тоҷикӣ, toçikī, تاجیکی‎"
+        ],
+        [
+            "uk",
+            "Українська"
+        ],
+        [
+            "cv",
+            "чӑваш чӗлхи"
+        ],
+        [
+            "cu",
+            "ѩзыкъ словѣньскъ"
+        ],
+        [
+            "ka",
+            "ქართული"
+        ],
+        [
+            "hy",
+            "Հայերեն"
+        ],
+        [
+            "yi",
+            "ייִדיש"
+        ],
+        [
+            "he",
+            "עברית"
+        ],
+        [
+            "ug",
+            "ئۇيغۇرچە‎, Uyghurche"
+        ],
+        [
+            "ur",
+            "اردو"
+        ],
+        [
+            "ar",
+            "العربية"
+        ],
+        [
+            "ps",
+            "پښتو"
+        ],
+        [
+            "fa",
+            "فارسی"
+        ],
+        [
+            "dv",
+            "ދިވެހި"
+        ],
+        [
+            "ti",
+            "ትግርኛ"
+        ],
+        [
+            "am",
+            "አማርኛ"
+        ],
+        [
+            "ks",
+            "कश्मीरी, كشميري‎"
+        ],
+        [
+            "ne",
+            "नेपाली"
+        ],
+        [
+            "pi",
+            "पाऴि"
+        ],
+        [
+            "bh",
+            "भोजपुरी"
+        ],
+        [
+            "mr",
+            "मराठी"
+        ],
+        [
+            "sa",
+            "संस्कृतम्"
+        ],
+        [
+            "sd",
+            "सिन्धी, سنڌي، سندھی‎"
+        ],
+        [
+            "hi",
+            "हिन्दी, हिंदी"
+        ],
+        [
+            "as",
+            "অসমীয়া"
+        ],
+        [
+            "bn",
+            "বাংলা"
+        ],
+        [
+            "pa",
+            "ਪੰਜਾਬੀ"
+        ],
+        [
+            "gu",
+            "ગુજરાતી"
+        ],
+        [
+            "or",
+            "ଓଡ଼ିଆ"
+        ],
+        [
+            "ta",
+            "தமிழ்"
+        ],
+        [
+            "te",
+            "తెలుగు"
+        ],
+        [
+            "kn",
+            "ಕನ್ನಡ"
+        ],
+        [
+            "ml",
+            "മലയാളം"
+        ],
+        [
+            "lo",
+            "ພາສາລາວ"
+        ],
+        [
+            "bo",
+            "བོད་ཡིག"
+        ],
+        [
+            "dz",
+            "རྫོང་ཁ"
+        ],
+        [
+            "km",
+            "ខ្មែរ, ខេមរភាសា, ភាសាខ្មែរ"
+        ],
+        [
+            "jv",
+            "ꦧꦱꦗꦮ, Basa Jawa"
+        ],
+        [
+            "iu",
+            "ᐃᓄᒃᑎᑐᑦ"
+        ],
+        [
+            "oj",
+            "ᐊᓂᔑᓈᐯᒧᐎᓐ"
+        ],
+        [
+            "cr",
+            "ᓀᐦᐃᔭᐍᐏᐣ"
+        ],
+        [
+            "ko",
+            "한국어"
+        ],
+        [
+            "ii",
+            "ꆈꌠ꒿ Nuosuhxop"
+        ],
+        [
+            "zh",
+            "中文 (Zhōngwén), 汉语, 漢語"
+        ],
+        [
+            "ja",
+            "日本語 (にほんご)"
         ]
     ]
 }
