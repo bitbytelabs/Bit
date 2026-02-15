@@ -16,7 +16,14 @@
 	}, 1000);
 
 	function getFlagPath(languageCode) {
-		return `../assets/images/flags/${languageCode}.svg`;
+		const additionalPrefix = isSecondaryPage ? '../' : '';
+		const isIsoLanguageCode = /^[a-z]{2,3}$/i.test(languageCode);
+
+		if(isIsoLanguageCode) {
+			return `${additionalPrefix}../assets/images/flags/us.svg`;
+		}
+
+		return `${additionalPrefix}../assets/images/flags/${languageCode}.svg`;
 	}
 
 	function initializeLanguageDropdown(dropdownElem) {
@@ -62,7 +69,14 @@
 			const additionalPrefix = isSecondaryPage ? '../' : '';
 
 			const response = await fetch(additionalPrefix + `../assets/i18n/${lang}.json`);
-			const translationObj = await response.json();
+			let translationObj;
+
+			if(response.ok) {
+				translationObj = await response.json();
+			} else {
+				const fallbackResponse = await fetch(additionalPrefix + '../assets/i18n/us.json');
+				translationObj = await fallbackResponse.json();
+			}
 
 			const metaResponse = await fetch(additionalPrefix + `../assets/i18n/meta.json`);
 			const metaObj = await metaResponse.json();
