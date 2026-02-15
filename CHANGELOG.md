@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/bitbytelabs/Bit/compare/v1.10.0...v1.11.0) (2026-02-15)
+
+
+### Features
+
+* add missing world language translation files ([11b20b8](https://github.com/bitbytelabs/Bit/commit/11b20b8f9af64e013a29e5730f2e974b8ef8465d))
+
 # [1.10.0](https://github.com/bitbytelabs/Bit/compare/v1.9.8...v1.10.0) (2026-02-15)
 
 
