@@ -13,17 +13,24 @@ permissions:
 
 jobs:
   fix:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success')
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
+      # Only download SARIF if triggered from CodeQL
       - name: Download CodeQL SARIF
+        if: github.event_name == 'workflow_run'
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
+
             const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -31,7 +38,10 @@ jobs:
             });
 
             const sarif = artifacts.data.artifacts.find(a => a.name.includes("codeql"));
-            if (!sarif) return;
+            if (!sarif) {
+              console.log("No SARIF artifact found.");
+              return;
+            }
 
             const download = await github.rest.actions.downloadArtifact({
               owner: context.repo.owner,
@@ -43,8 +53,8 @@ jobs:
             fs.writeFileSync('sarif.zip', Buffer.from(download.data));
 
       - name: Extract SARIF
-        run: |
-          unzip sarif.zip || true
+        if: github.event_name == 'workflow_run'
+        run: unzip sarif.zip || true
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -54,7 +64,7 @@ jobs:
       - name: Install Babel
         run: npm install @babel/parser @babel/traverse @babel/generator @babel/types
 
-      - name: Patch Only Flagged Files
+      - name: Create Fix Script
         run: |
           cat << 'EOF' > fix.js
           const fs = require("fs");
@@ -63,28 +73,26 @@ jobs:
           const generate = require("@babel/generator").default;
           const t = require("@babel/types");
 
-          const sarifFile = fs.readdirSync(".").find(f => f.endsWith(".sarif"));
-          if (!sarifFile) {
-            console.log("No SARIF file found.");
-            process.exit(0);
-          }
+          function getFlaggedFiles() {
+            const sarifFile = fs.readdirSync(".").find(f => f.endsWith(".sarif"));
+            if (!sarifFile) {
+              console.log("No SARIF found. Running in manual mode.");
+              return [];
+            }
 
-          const sarif = JSON.parse(fs.readFileSync(sarifFile, "utf8"));
+            const sarif = JSON.parse(fs.readFileSync(sarifFile, "utf8"));
+            const files = new Set();
 
-          const flaggedFiles = new Set();
-
-          for (const run of sarif.runs) {
-            for (const result of run.results || []) {
-              if (result.ruleId === "js/remote-property-injection") {
-                const location = result.locations?.[0]?.physicalLocation?.artifactLocation?.uri;
-                if (location) flaggedFiles.add(location);
+            for (const run of sarif.runs || []) {
+              for (const result of run.results || []) {
+                if (result.ruleId === "js/remote-property-injection") {
+                  const uri = result.locations?.[0]?.physicalLocation?.artifactLocation?.uri;
+                  if (uri) files.add(uri);
+                }
               }
             }
-          }
 
-          if (flaggedFiles.size === 0) {
-            console.log("No remote property injection issues found.");
-            process.exit(0);
+            return [...files];
           }
 
           function injectValidator(ast) {
@@ -104,12 +112,13 @@ jobs:
                   return /^[a-zA-Z0-9_]+$/.test(key);
                 }
               `);
+
               ast.program.body.unshift(...validator.program.body);
             }
           }
 
-          for (const file of flaggedFiles) {
-            if (!fs.existsSync(file)) continue;
+          function fixFile(file) {
+            if (!fs.existsSync(file)) return;
 
             const code = fs.readFileSync(file, "utf8");
 
@@ -121,7 +130,7 @@ jobs:
               });
             } catch {
               console.log("Skipped (parse error):", file);
-              continue;
+              return;
             }
 
             let modified = false;
@@ -164,12 +173,22 @@ jobs:
             }
           }
 
+          const files = getFlaggedFiles();
+
+          if (files.length === 0) {
+            console.log("No flagged files found.");
+            process.exit(0);
+          }
+
+          files.forEach(fixFile);
+
           console.log("Finished.");
           EOF
 
-          node fix.js
+      - name: Run Fixer
+        run: node fix.js
 
-      - name: Commit & PR
+      - name: Commit Changes
         run: |
           git config user.name "security-bot"
           git config user.email "security-bot@users.noreply.github.com"
@@ -183,9 +202,11 @@ jobs:
             echo "No changes to commit."
           fi
 
-      - uses: peter-evans/create-pull-request@v6
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v6
         with:
           branch: security/fix-remote-property
           title: "Fix js/remote-property-injection"
           body: |
-            Automatically fixes CodeQL js/remote-property-injection findings.
+            Automatically fixes CodeQL rule:
+            js/remote-property-injection
