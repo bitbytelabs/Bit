@@ -73,11 +73,35 @@ jobs:
           const generate = require("@babel/generator").default;
           const t = require("@babel/types");
 
+          function getAllCandidateFiles(rootDir = ".") {
+            const ignored = new Set([".git", "node_modules"]);
+            const exts = new Set([".js", ".mjs", ".cjs", ".ts", ".tsx", ".jsx"]);
+            const out = [];
+
+            function walk(dir) {
+              for (const name of fs.readdirSync(dir)) {
+                if (ignored.has(name)) continue;
+                const full = `${dir}/${name}`;
+                const stat = fs.statSync(full);
+                if (stat.isDirectory()) {
+                  walk(full);
+                  continue;
+                }
+                const ext = name.slice(name.lastIndexOf('.'));
+                if (exts.has(ext)) out.push(full.replace(/^\.\//, ""));
+              }
+            }
+
+            walk(rootDir);
+            return out;
+          }
+
           function getFlaggedFiles() {
             const sarifFile = fs.readdirSync(".").find(f => f.endsWith(".sarif"));
             if (!sarifFile) {
-              console.log("No SARIF found. Running in manual mode.");
-              return [];
+              const all = getAllCandidateFiles();
+              console.log(`No SARIF found. Manual mode scanning ${all.length} source files.`);
+              return all;
             }
 
             const sarif = JSON.parse(fs.readFileSync(sarifFile, "utf8"));
@@ -90,6 +114,12 @@ jobs:
                   if (uri) files.add(uri);
                 }
               }
+            }
+
+            if (files.size === 0) {
+              const all = getAllCandidateFiles();
+              console.log(`SARIF had no js/remote-property-injection results. Manual mode scanning ${all.length} source files.`);
+              return all;
             }
 
             return [...files];
@@ -139,7 +169,8 @@ jobs:
               AssignmentExpression(path) {
                 if (
                   t.isMemberExpression(path.node.left) &&
-                  path.node.left.computed
+                  path.node.left.computed &&
+                  path.parentPath?.isExpressionStatement()
                 ) {
                   const obj = path.node.left.object;
                   const prop = path.node.left.property;
@@ -158,7 +189,7 @@ jobs:
                     ])
                   );
 
-                  path.replaceWith(wrapped);
+                  path.parentPath.replaceWith(wrapped);
                   path.skip();
                   modified = true;
                 }
