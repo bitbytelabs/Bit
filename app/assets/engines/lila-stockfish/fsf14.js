@@ -110,8 +110,27 @@ var Fsf14Web = (() => {
             };
             function b(c) {
                 try {
+                    // Best-effort origin / event validation. In worker contexts `origin`
+                    // may be undefined, so we only reject clearly invalid origins when present.
+                    if (!c || typeof c !== "object") {
+                        q && q("worker: received non-object message event");
+                        return;
+                    }
+                    if ("origin" in c && typeof c.origin === "string") {
+                        var origin = c.origin;
+                        // Allow typical browser/extension schemes; reject others.
+                        var allowedOriginScheme =
+                            origin === "null" ||
+                            origin.startsWith("http://") ||
+                            origin.startsWith("https://") ||
+                            origin.startsWith("chrome-extension://");
+                        if (!allowedOriginScheme) {
+                            q && q("worker: rejected message from untrusted origin: " + origin);
+                            return;
+                        }
+                    }
                     // Validate incoming message structure before processing
-                    if (!c || typeof c !== "object" || typeof c.data !== "object" || c.data === null) {
+                    if (typeof c.data !== "object" || c.data === null) {
                         q && q("worker: received malformed message event");
                         return;
                     }
