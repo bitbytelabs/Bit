@@ -1,3 +1,10 @@
+## [1.12.4](https://github.com/bitbytelabs/Bit/compare/v1.12.3...v1.12.4) (2026-02-16)
+
+
+### Bug Fixes
+
+* Potential fix for code scanning alert no. 13: Unvalidated dynamic method call ([a754791](https://github.com/bitbytelabs/Bit/commit/a7547915ce70a43f614d1ea19d1e4b790d1d6921))
+
 ## [1.12.3](https://github.com/bitbytelabs/Bit/compare/v1.12.2...v1.12.3) (2026-02-16)
 
 
