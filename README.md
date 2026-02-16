@@ -108,3 +108,6 @@ Developing the userscript is easy, simply develop it as you'd any other userscri
 * [SnapDOM](https://github.com/zumerlab/snapdom) (*for DOM screenshots (e.g. turning the board into image)*)
 * [UniversalBoardDrawer](https://github.com/Hakorr/UniversalBoardDrawer) (*for drawing arrows on the GUI and the chess site chessboards*)
 * [CommLink](https://github.com/AugmentedWeb/CommLink) (*for cross-window communication between the GUI tab and chess sites*)
+* 
+Contubution timeline:
+https://www.visualsource.net/watch/ac120615-e452-4a3a-b88b-99c561a73764
