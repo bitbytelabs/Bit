@@ -1,3 +1,10 @@
+## [1.12.23](https://github.com/bitbytelabs/Bit/compare/v1.12.22...v1.12.23) (2026-02-16)
+
+
+### Bug Fixes
+
+* Delete .github/workflows/autofix.yml ([27d2425](https://github.com/bitbytelabs/Bit/commit/27d24259324e5b4f0d7465d8f1d09968002d776c))
+
 ## [1.12.22](https://github.com/bitbytelabs/Bit/compare/v1.12.21...v1.12.22) (2026-02-16)
 
 
