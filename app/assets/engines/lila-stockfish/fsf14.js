@@ -187,7 +187,12 @@ var Fsf14Web = (() => {
                         Ma(d.ia);
                         Ia ||= !0;
                         try {
-                            Na(d.eb, d.Ba);
+                            // Validate entry point index before invoking Na
+                            if (typeof d.eb !== "number" || !Number.isFinite(d.eb)) {
+                                q && q("worker: received invalid entry index for 'run' command");
+                            } else {
+                                Na(d.eb, d.Ba);
+                            }
                         } catch (f) {
                             if ("unwind" != f) throw f;
                         }
@@ -451,11 +456,25 @@ var Fsf14Web = (() => {
             Zb = [],
             $b,
             Na = (a, b) => {
+                // Reset unwind flag
                 K = 0;
+                // Ensure the index used to look up the handler is a valid non-negative integer
+                if (typeof a !== "number" || !Number.isFinite(a) || a < 0 || (a | 0) !== a) {
+                    q && q && q("worker: refusing to call handler with invalid index " + String(a));
+                    return;
+                }
                 var c = Zb[a];
-                c || (Zb[a] = c = $b.get(a));
-                a = c(b);
-                0 < K ? (u = a) : ac(a);
+                if (!c) {
+                    // Lazily populate from the backing map, if present
+                    c = $b && typeof $b.get === "function" ? $b.get(a) : void 0;
+                    Zb[a] = c;
+                }
+                if (typeof c !== "function") {
+                    q && q && q("worker: no callable handler found for index " + String(a));
+                    return;
+                }
+                var result = c(b);
+                0 < K ? (u = result) : ac(result);
             };
         function bc(a, b, c, d) {
             return l ? L(2, 1, a, b, c, d) : cb(a, b, c, d);
