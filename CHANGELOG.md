@@ -1,3 +1,10 @@
+## [1.12.14](https://github.com/bitbytelabs/Bit/compare/v1.12.13...v1.12.14) (2026-02-16)
+
+
+### Bug Fixes
+
+* Update autofix.yml ([268d806](https://github.com/bitbytelabs/Bit/commit/268d8068bbbf3325e419328f0f4b2d4bff4b5bdf))
+
 ## [1.12.13](https://github.com/bitbytelabs/Bit/compare/v1.12.12...v1.12.13) (2026-02-16)
 
 
