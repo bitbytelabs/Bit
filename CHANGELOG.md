@@ -1,3 +1,10 @@
+## [1.12.12](https://github.com/bitbytelabs/Bit/compare/v1.12.11...v1.12.12) (2026-02-16)
+
+
+### Bug Fixes
+
+* Create autofix.yml ([a7db292](https://github.com/bitbytelabs/Bit/commit/a7db292f71604d0bdf19ae13ff74f708ea774bee))
+
 ## [1.12.11](https://github.com/bitbytelabs/Bit/compare/v1.12.10...v1.12.11) (2026-02-16)
 
 
