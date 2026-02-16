@@ -1,3 +1,24 @@
+## [1.12.20](https://github.com/bitbytelabs/Bit/compare/v1.12.19...v1.12.20) (2026-02-16)
+
+
+### Bug Fixes
+
+* correct autofix pull request branch handling ([1aa8fb5](https://github.com/bitbytelabs/Bit/commit/1aa8fb54af17c01ac1dbdcc1a4e64a88a9923627))
+
+## [1.12.19](https://github.com/bitbytelabs/Bit/compare/v1.12.18...v1.12.19) (2026-02-16)
+
+
+### Bug Fixes
+
+* resolve autofix branch push conflicts ([d761aac](https://github.com/bitbytelabs/Bit/commit/d761aacc69860142950544e42582db309feb80f6))
+
+## [1.12.18](https://github.com/bitbytelabs/Bit/compare/v1.12.17...v1.12.18) (2026-02-16)
+
+
+### Bug Fixes
+
+* Potential fix for code scanning alert no. 76: Uncontrolled data used in path expression ([24da887](https://github.com/bitbytelabs/Bit/commit/24da887e7a5fd7f561e8f008fa5b34d552b7e552))
+
 ## [1.12.17](https://github.com/bitbytelabs/Bit/compare/v1.12.16...v1.12.17) (2026-02-16)
 
 
