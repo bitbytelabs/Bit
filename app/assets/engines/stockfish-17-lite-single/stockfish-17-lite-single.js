@@ -987,6 +987,30 @@
             e
         );
     }
+    function buildValidatedUrl(baseUrl, partNumber, extension) {
+        try {
+            // Minimal path validation
+            if (baseUrl.includes('/../') || /\/%2e%2e\//i.test(baseUrl)) {
+                throw new Error('Invalid path');
+            }
+            
+            const url = new URL(baseUrl);
+            
+            // Validate part number parameter
+            if (!/^[0-9]+$/.test(partNumber.toString())) {
+                throw new Error('Invalid parameter');
+            }
+            
+            // Rebuild pathname from fixed literals + validated segments
+            const basePath = url.pathname.replace(/\.[^/.]+$/, '');
+            url.pathname = basePath + '-part-' + partNumber + extension;
+            
+            return url.href;
+        } catch {
+            throw new Error('Invalid URL');
+        }
+    }
+    
     function n(t) {
         var e,
             r = 0,
@@ -995,7 +1019,7 @@
             i = a.slice(0, -n.length);
         for (e = 0; e < t; ++e)
             !(function (e, n) {
-                fetch(new Request(e))
+                fetch(new Request(buildValidatedUrl(i + n, e, '')))
                     .then(function (e) {
                         return e.blob();
                     })
@@ -1003,7 +1027,7 @@
                         n(e);
                     });
             })(
-                i + "-part-" + e + n,
+                e,
                 (function (n) {
                     return function (e) {
                         ++r, (o[n] = e), r === t && ((e = URL.createObjectURL(new Blob(o))), u(e));

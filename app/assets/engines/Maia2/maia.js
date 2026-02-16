@@ -83,15 +83,40 @@ export default class Maia {
 		}
 	}
 
+	buildValidatedModelUrl(baseUrl) {
+		try {
+			// Minimal path validation
+			if (baseUrl.includes('/../') || /\/%2e%2e\//i.test(baseUrl)) {
+				throw new Error('Invalid path');
+			}
+
+			const url = new URL(baseUrl);
+
+			// Protocol + host checks
+			const allowedDomains = ['example.com']; // add your allowed domains here
+			if (!allowedDomains.includes(url.hostname)) {
+				throw new Error('Invalid host');
+			}
+			if (!['http:', 'https:'].includes(url.protocol)) {
+				throw new Error('Invalid protocol');
+			}
+
+			return url.href;
+		} catch {
+			throw new Error('Invalid URL');
+		}
+	}
+
 	async getCachedModel(url) {
+		const validatedUrl = this.buildValidatedModelUrl(url);
 		const cache = await caches.open('maia-model');
-		let res = await cache.match(url);
+		let res = await cache.match(validatedUrl);
 		if(res) return res.arrayBuffer();
 
-		res = await fetch(url);
+		res = await fetch(validatedUrl);
 		if(!res.ok) throw new Error('Failed to fetch model');
 
-		await cache.put(url, res.clone());
+		await cache.put(validatedUrl, res.clone());
 		return res.arrayBuffer();
 	}
 

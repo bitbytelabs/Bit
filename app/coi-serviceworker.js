@@ -31,19 +31,53 @@ if (typeof window === 'undefined') {
         }
     });
 
+    function buildValidatedUrl(requestUrl) {
+        try {
+            const url = new URL(requestUrl);
+            
+            // Protocol check
+            if (!['http:', 'https:'].includes(url.protocol)) {
+                throw new Error('Invalid protocol');
+            }
+            
+            // Domain validation - allow same origin and common CDNs
+            const allowedDomains = [self.location.hostname]; // add your allowed domains here
+            if (!allowedDomains.includes(url.hostname)) {
+                throw new Error('Invalid host');
+            }
+            
+            return url.href;
+        } catch {
+            throw new Error('Invalid URL');
+        }
+    }
+
     self.addEventListener("fetch", function (event) {
         const r = event.request;
         if (r.cache === "only-if-cached" && r.mode !== "same-origin") {
             return;
         }
 
-        const request = (coepCredentialless && r.mode === "no-cors")
-            ? new Request(r, {
-                credentials: "omit",
-            })
-            : r;
-        event.respondWith(
-            fetch(request)
+        try {
+            // Validate the request URL to prevent SSRF
+            const validatedUrl = buildValidatedUrl(r.url);
+            
+            const request = (coepCredentialless && r.mode === "no-cors")
+                ? new Request(validatedUrl, {
+                    method: r.method,
+                    headers: r.headers,
+                    body: r.body,
+                    credentials: "omit",
+                })
+                : new Request(validatedUrl, {
+                    method: r.method,
+                    headers: r.headers,
+                    body: r.body,
+                    credentials: r.credentials,
+                });
+            
+            event.respondWith(
+                fetch(request)
                 .then((response) => {
                     if (response.status === 0) {
                         return response;
@@ -62,7 +96,13 @@ if (typeof window === 'undefined') {
                     });
                 })
                 .catch((e) => console.error(e))
-        );
+        } catch (error) {
+            // Return a network error response for invalid URLs
+            event.respondWith(Promise.resolve(new Response(null, { 
+                status: 0, 
+                statusText: 'Network Error' 
+            })));
+        }
     });
 
 } else {
