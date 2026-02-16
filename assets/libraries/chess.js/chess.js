@@ -1608,7 +1608,9 @@ export const Chess = function (fen) {
           : false
 
       function mask(str) {
-        return str.replace(/\\/g, '\\')
+        // Escape backslashes so the resulting string can be safely embedded
+        // into a RegExp constructor.
+        return str.replace(/\\/g, '\\\\')
       }
 
       function has_keys(object) {
