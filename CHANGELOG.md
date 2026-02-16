@@ -1,3 +1,10 @@
+## [1.12.11](https://github.com/bitbytelabs/Bit/compare/v1.12.10...v1.12.11) (2026-02-16)
+
+
+### Bug Fixes
+
+* Potential fix for code scanning alert no. 1: Replacement of a substring with itself ([7ca88e5](https://github.com/bitbytelabs/Bit/commit/7ca88e5949a9f8ddca833f128d1b903d205e4c28))
+
 ## [1.12.10](https://github.com/bitbytelabs/Bit/compare/v1.12.9...v1.12.10) (2026-02-16)
 
 
