@@ -1,3 +1,10 @@
+## [1.12.22](https://github.com/bitbytelabs/Bit/compare/v1.12.21...v1.12.22) (2026-02-16)
+
+
+### Bug Fixes
+
+* prevent autofix recursion in remote-property rewrite ([c569395](https://github.com/bitbytelabs/Bit/commit/c5693951296ec6f0c96ddd1a51d5d75e4add8284))
+
 ## [1.12.21](https://github.com/bitbytelabs/Bit/compare/v1.12.20...v1.12.21) (2026-02-16)
 
 
