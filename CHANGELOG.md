@@ -1,3 +1,10 @@
+## [1.12.8](https://github.com/bitbytelabs/Bit/compare/v1.12.7...v1.12.8) (2026-02-16)
+
+
+### Bug Fixes
+
+* Potential fix for code scanning alert no. 5: Incomplete string escaping or encoding ([7f8f993](https://github.com/bitbytelabs/Bit/commit/7f8f99350afcd1cbf03bdeca5f171d34a299c296))
+
 ## [1.12.7](https://github.com/bitbytelabs/Bit/compare/v1.12.6...v1.12.7) (2026-02-16)
 
 
