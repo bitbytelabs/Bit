@@ -1,3 +1,10 @@
+## [1.12.17](https://github.com/bitbytelabs/Bit/compare/v1.12.16...v1.12.17) (2026-02-16)
+
+
+### Bug Fixes
+
+* repair github actions workflow versions ([917097a](https://github.com/bitbytelabs/Bit/commit/917097aa70e2d80a1d4157e7ad5a74b151643fd5))
+
 ## [1.12.16](https://github.com/bitbytelabs/Bit/compare/v1.12.15...v1.12.16) (2026-02-16)
 
 
