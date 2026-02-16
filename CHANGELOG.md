@@ -1,3 +1,10 @@
+## [1.12.26](https://github.com/bitbytelabs/Bit/compare/v1.12.25...v1.12.26) (2026-02-16)
+
+
+### Bug Fixes
+
+* **security:** autofix Prototype pollution vulnerability detected ([47da297](https://github.com/bitbytelabs/Bit/commit/47da2979dc0e555a87c94c58c8021148d7e3c8fd))
+
 ## [1.12.25](https://github.com/bitbytelabs/Bit/compare/v1.12.24...v1.12.25) (2026-02-16)
 
 
