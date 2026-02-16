@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/bitbytelabs/Bit/compare/v1.12.1...v1.12.2) (2026-02-16)
+
+
+### Bug Fixes
+
+* Potential fix for code scanning alert no. 71: Incomplete URL substring sanitization ([3969400](https://github.com/bitbytelabs/Bit/commit/3969400eb423179d264de7196cb61d2c9d4cd2ef))
+
 ## [1.12.1](https://github.com/bitbytelabs/Bit/compare/v1.12.0...v1.12.1) (2026-02-15)
 
 
