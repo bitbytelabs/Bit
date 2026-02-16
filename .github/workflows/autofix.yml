@@ -194,10 +194,11 @@ jobs:
           git config user.email "security-bot@users.noreply.github.com"
 
           if [[ -n $(git status --porcelain) ]]; then
-            git checkout -b security/fix-remote-property
+            git fetch origin security/fix-remote-property || true
+            git checkout -B security/fix-remote-property
             git add .
             git commit -m "fix: js/remote-property-injection"
-            git push origin security/fix-remote-property
+            git push --force-with-lease origin security/fix-remote-property
           else
             echo "No changes to commit."
           fi
