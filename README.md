@@ -1,5 +1,8 @@
 # Bit
 
+> [!NOTE]
+> Bit is a code that is made by half human, half robot.
+
 > [!WARNING]
 > Bit is currently in development. Expect bugs, especially on variants.
 
