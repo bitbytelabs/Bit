@@ -11,13 +11,18 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: autofix-remote-property
+  cancel-in-progress: true
+
 jobs:
   fix:
     runs-on: ubuntu-latest
     if: >
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'workflow_run' &&
-       github.event.workflow_run.conclusion == 'success')
+       github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == github.event.repository.default_branch)
 
     steps:
       - name: Checkout
@@ -73,11 +78,35 @@ jobs:
           const generate = require("@babel/generator").default;
           const t = require("@babel/types");
 
+          function getAllCandidateFiles(rootDir = ".") {
+            const ignored = new Set([".git", "node_modules"]);
+            const exts = new Set([".js", ".mjs", ".cjs", ".ts", ".tsx", ".jsx"]);
+            const out = [];
+
+            function walk(dir) {
+              for (const name of fs.readdirSync(dir)) {
+                if (ignored.has(name)) continue;
+                const full = `${dir}/${name}`;
+                const stat = fs.statSync(full);
+                if (stat.isDirectory()) {
+                  walk(full);
+                  continue;
+                }
+                const ext = name.slice(name.lastIndexOf('.'));
+                if (exts.has(ext)) out.push(full.replace(/^\.\//, ""));
+              }
+            }
+
+            walk(rootDir);
+            return out;
+          }
+
           function getFlaggedFiles() {
             const sarifFile = fs.readdirSync(".").find(f => f.endsWith(".sarif"));
             if (!sarifFile) {
-              console.log("No SARIF found. Running in manual mode.");
-              return [];
+              const all = getAllCandidateFiles();
+              console.log(`No SARIF found. Manual mode scanning ${all.length} source files.`);
+              return all;
             }
 
             const sarif = JSON.parse(fs.readFileSync(sarifFile, "utf8"));
@@ -90,6 +119,12 @@ jobs:
                   if (uri) files.add(uri);
                 }
               }
+            }
+
+            if (files.size === 0) {
+              const all = getAllCandidateFiles();
+              console.log(`SARIF had no js/remote-property-injection results. Manual mode scanning ${all.length} source files.`);
+              return all;
             }
 
             return [...files];
@@ -117,6 +152,17 @@ jobs:
             }
           }
 
+
+          function isAlreadyGuarded(path) {
+            const guardedIf = path.findParent(p => p.isIfStatement());
+            if (!guardedIf) return false;
+            const test = guardedIf.node.test;
+            return (
+              t.isCallExpression(test) &&
+              t.isIdentifier(test.callee, { name: "isSafeKey" })
+            );
+          }
+
           function fixFile(file) {
             if (!fs.existsSync(file)) return;
 
@@ -139,27 +185,30 @@ jobs:
               AssignmentExpression(path) {
                 if (
                   t.isMemberExpression(path.node.left) &&
-                  path.node.left.computed
+                  path.node.left.computed &&
+                  path.parentPath?.isExpressionStatement() &&
+                  !isAlreadyGuarded(path)
                 ) {
-                  const obj = path.node.left.object;
-                  const prop = path.node.left.property;
-                  const value = path.node.right;
+                  const obj = t.cloneNode(path.node.left.object, true);
+                  const prop = t.cloneNode(path.node.left.property, true);
+                  const value = t.cloneNode(path.node.right, true);
 
                   const wrapped = t.ifStatement(
-                    t.callExpression(t.identifier("isSafeKey"), [prop]),
+                    t.callExpression(t.identifier("isSafeKey"), [t.cloneNode(prop, true)]),
                     t.blockStatement([
                       t.expressionStatement(
                         t.assignmentExpression(
                           "=",
-                          t.memberExpression(obj, prop, true),
+                          t.memberExpression(t.cloneNode(obj, true), t.cloneNode(prop, true), true),
                           value
                         )
                       )
                     ])
                   );
 
-                  path.replaceWith(wrapped);
-                  path.skip();
+                  const exprPath = path.parentPath;
+                  exprPath.replaceWith(wrapped);
+                  exprPath.skip();
                   modified = true;
                 }
               }
@@ -188,24 +237,12 @@ jobs:
       - name: Run Fixer
         run: node fix.js
 
-      - name: Commit Changes
-        run: |
-          git config user.name "security-bot"
-          git config user.email "security-bot@users.noreply.github.com"
-
-          if [[ -n $(git status --porcelain) ]]; then
-            git checkout -b security/fix-remote-property
-            git add .
-            git commit -m "fix: js/remote-property-injection"
-            git push origin security/fix-remote-property
-          else
-            echo "No changes to commit."
-          fi
-
       - name: Create PR
         uses: peter-evans/create-pull-request@v6
         with:
+          base: ${{ github.event.repository.default_branch }}
           branch: security/fix-remote-property
+          commit-message: "fix: js/remote-property-injection [skip ci]"
           title: "fix: js/remote-property-injection"
           body: |
             Automatically fixes CodeQL rule:
