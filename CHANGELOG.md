@@ -1,3 +1,10 @@
+## [1.12.20](https://github.com/bitbytelabs/Bit/compare/v1.12.19...v1.12.20) (2026-02-16)
+
+
+### Bug Fixes
+
+* correct autofix pull request branch handling ([1aa8fb5](https://github.com/bitbytelabs/Bit/commit/1aa8fb54af17c01ac1dbdcc1a4e64a88a9923627))
+
 ## [1.12.19](https://github.com/bitbytelabs/Bit/compare/v1.12.18...v1.12.19) (2026-02-16)
 
 
