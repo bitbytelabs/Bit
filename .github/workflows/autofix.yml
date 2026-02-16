@@ -1,163 +1,109 @@
-name: Secure Remote Property Injection
+const fs = require("fs");
+const path = require("path");
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse").default;
+const generate = require("@babel/generator").default;
+const t = require("@babel/types");
 
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+function isJS(file) {
+  return /\.(js|ts|jsx|tsx)$/.test(file);
+}
 
-permissions:
-  contents: write
-  pull-requests: write
-  security-events: write
+function walk(dir) {
+  let results = [];
+  fs.readdirSync(dir).forEach(file => {
+    const full = path.join(dir, file);
+    if (fs.statSync(full).isDirectory()) {
+      if (!full.includes("node_modules"))
+        results = results.concat(walk(full));
+    } else if (isJS(full)) {
+      results.push(full);
+    }
+  });
+  return results;
+}
 
-jobs:
-  secure-js:
-    runs-on: ubuntu-latest
+function fixFile(file) {
+  const code = fs.readFileSync(file, "utf8");
+  const ast = parser.parse(code, {
+    sourceType: "unambiguous",
+    plugins: ["typescript", "jsx"]
+  });
 
-    steps:
-      - uses: actions/checkout@v4
+  let modified = false;
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+  traverse(ast, {
+    AssignmentExpression(path) {
+      // Skip if already processed
+      if (path.node.__secureProcessed) return;
 
-      - name: Install Babel tools
-        run: |
-          npm install @babel/parser @babel/traverse @babel/generator @babel/types
+      if (
+        t.isMemberExpression(path.node.left) &&
+        path.node.left.computed
+      ) {
+        const obj = path.node.left.object;
+        const prop = path.node.left.property;
+        const right = path.node.right;
 
-      - name: Create AST fixer script
-        run: |
-          cat << 'EOF' > fix-remote-property.js
-          const fs = require("fs");
-          const path = require("path");
-          const parser = require("@babel/parser");
-          const traverse = require("@babel/traverse").default;
-          const generate = require("@babel/generator").default;
-          const t = require("@babel/types");
+        const newAssign = t.assignmentExpression(
+          "=",
+          t.memberExpression(obj, prop, true),
+          right
+        );
+        newAssign.__secureProcessed = true;
 
-          const BLOCKED = ["__proto__", "prototype", "constructor"];
+        const safeIf = t.ifStatement(
+          t.callExpression(t.identifier("isSafeKey"), [prop]),
+          t.blockStatement([
+            t.expressionStatement(newAssign)
+          ]),
+          t.blockStatement([
+            t.throwStatement(
+              t.newExpression(t.identifier("Error"), [
+                t.stringLiteral("Unsafe property key detected")
+              ])
+            )
+          ])
+        );
 
-          function isJS(file) {
-            return /\.(js|ts|jsx|tsx)$/.test(file);
-          }
+        path.replaceWith(safeIf);
+        path.skip(); // 🔥 prevents recursive traversal
+        modified = true;
+      }
+    }
+  });
 
-          function walk(dir) {
-            let results = [];
-            fs.readdirSync(dir).forEach(file => {
-              const full = path.join(dir, file);
-              if (fs.statSync(full).isDirectory()) {
-                results = results.concat(walk(full));
-              } else if (isJS(full)) {
-                results.push(full);
-              }
-            });
-            return results;
-          }
+  if (modified) {
+    injectValidator(ast);
+    const output = generate(ast, {}, code);
+    fs.writeFileSync(file, output.code);
+    console.log("Secured:", file);
+  }
+}
 
-          function addValidator(ast) {
-            let exists = false;
+function injectValidator(ast) {
+  let exists = false;
 
-            traverse(ast, {
-              FunctionDeclaration(path) {
-                if (path.node.id.name === "isSafeKey") {
-                  exists = true;
-                }
-              }
-            });
+  traverse(ast, {
+    FunctionDeclaration(path) {
+      if (path.node.id.name === "isSafeKey") {
+        exists = true;
+      }
+    }
+  });
 
-            if (!exists) {
-              const validator = parser.parse(`
-                function isSafeKey(key) {
-                  if (typeof key !== "string") return false;
-                  const blocked = ["__proto__", "prototype", "constructor"];
-                  if (blocked.includes(key)) return false;
-                  return /^[a-zA-Z0-9_]+$/.test(key);
-                }
-              `);
-              ast.program.body.unshift(...validator.program.body);
-            }
-          }
+  if (!exists) {
+    const validator = parser.parse(`
+      function isSafeKey(key) {
+        if (typeof key !== "string") return false;
+        const blocked = ["__proto__", "prototype", "constructor"];
+        if (blocked.includes(key)) return false;
+        return /^[a-zA-Z0-9_]+$/.test(key);
+      }
+    `);
+    ast.program.body.unshift(...validator.program.body);
+  }
+}
 
-          function fixFile(file) {
-            const code = fs.readFileSync(file, "utf8");
-            const ast = parser.parse(code, {
-              sourceType: "unambiguous",
-              plugins: ["typescript", "jsx"]
-            });
-
-            let modified = false;
-
-            traverse(ast, {
-              AssignmentExpression(path) {
-                if (
-                  t.isMemberExpression(path.node.left) &&
-                  path.node.left.computed
-                ) {
-                  const obj = path.node.left.object;
-                  const prop = path.node.left.property;
-                  const right = path.node.right;
-
-                  const safeAssign = t.ifStatement(
-                    t.callExpression(t.identifier("isSafeKey"), [prop]),
-                    t.blockStatement([
-                      t.expressionStatement(
-                        t.assignmentExpression(
-                          "=",
-                          t.memberExpression(obj, prop, true),
-                          right
-                        )
-                      )
-                    ]),
-                    t.blockStatement([
-                      t.throwStatement(
-                        t.newExpression(t.identifier("Error"), [
-                          t.stringLiteral("Unsafe property key detected")
-                        ])
-                      )
-                    ])
-                  );
-
-                  path.replaceWith(safeAssign);
-                  modified = true;
-                }
-              }
-            });
-
-            if (modified) {
-              addValidator(ast);
-              const output = generate(ast, {}, code);
-              fs.writeFileSync(file, output.code);
-              console.log("Secured:", file);
-            }
-          }
-
-          const files = walk(".");
-          files.forEach(fixFile);
-          EOF
-
-      - name: Run Secure Fixer
-        run: node fix-remote-property.js
-
-      - name: Commit Changes
-        run: |
-          git config user.name "security-bot"
-          git config user.email "security-bot@users.noreply.github.com"
-          git checkout -b security/fully-fix-remote-property
-          git add .
-          git commit -m "Fully fix js/remote-property-injection"
-          git push origin security/fully-fix-remote-property || true
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          branch: security/fully-fix-remote-property
-          title: "Security: Fully Fix Remote Property Injection"
-          body: |
-            This PR automatically fixes CodeQL rule:
-            js/remote-property-injection
-
-            - Rewrites unsafe dynamic property assignments
-            - Injects strict key validation
-            - Prevents prototype pollution
+const files = walk(".");
+files.forEach(fixFile);
