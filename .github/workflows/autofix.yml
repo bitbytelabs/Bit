@@ -147,6 +147,17 @@ jobs:
             }
           }
 
+
+          function isAlreadyGuarded(path) {
+            const guardedIf = path.findParent(p => p.isIfStatement());
+            if (!guardedIf) return false;
+            const test = guardedIf.node.test;
+            return (
+              t.isCallExpression(test) &&
+              t.isIdentifier(test.callee, { name: "isSafeKey" })
+            );
+          }
+
           function fixFile(file) {
             if (!fs.existsSync(file)) return;
 
@@ -170,27 +181,29 @@ jobs:
                 if (
                   t.isMemberExpression(path.node.left) &&
                   path.node.left.computed &&
-                  path.parentPath?.isExpressionStatement()
+                  path.parentPath?.isExpressionStatement() &&
+                  !isAlreadyGuarded(path)
                 ) {
-                  const obj = path.node.left.object;
-                  const prop = path.node.left.property;
-                  const value = path.node.right;
+                  const obj = t.cloneNode(path.node.left.object, true);
+                  const prop = t.cloneNode(path.node.left.property, true);
+                  const value = t.cloneNode(path.node.right, true);
 
                   const wrapped = t.ifStatement(
-                    t.callExpression(t.identifier("isSafeKey"), [prop]),
+                    t.callExpression(t.identifier("isSafeKey"), [t.cloneNode(prop, true)]),
                     t.blockStatement([
                       t.expressionStatement(
                         t.assignmentExpression(
                           "=",
-                          t.memberExpression(obj, prop, true),
+                          t.memberExpression(t.cloneNode(obj, true), t.cloneNode(prop, true), true),
                           value
                         )
                       )
                     ])
                   );
 
-                  path.parentPath.replaceWith(wrapped);
-                  path.skip();
+                  const exprPath = path.parentPath;
+                  exprPath.replaceWith(wrapped);
+                  exprPath.skip();
                   modified = true;
                 }
               }
@@ -218,21 +231,6 @@ jobs:
 
       - name: Run Fixer
         run: node fix.js
-
-      - name: Commit Changes
-        run: |
-          git config user.name "security-bot"
-          git config user.email "security-bot@users.noreply.github.com"
-
-          if [[ -n $(git status --porcelain) ]]; then
-            git fetch origin security/fix-remote-property || true
-            git checkout -B security/fix-remote-property
-            git add .
-            git commit -m "fix: js/remote-property-injection"
-            git push --force-with-lease origin security/fix-remote-property
-          else
-            echo "No changes to commit."
-          fi
 
       - name: Create PR
         uses: peter-evans/create-pull-request@v6
