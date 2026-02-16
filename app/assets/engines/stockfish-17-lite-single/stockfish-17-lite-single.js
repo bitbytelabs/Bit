@@ -996,8 +996,20 @@
             
             const url = new URL(baseUrl);
             
-            // Validate part number parameter
-            if (!/^[0-9]+$/.test(partNumber.toString())) {
+            // Protocol + host checks
+            const allowedDomains = ['localhost', '127.0.0.1']; // add your allowed domains here
+            if (!allowedDomains.includes(url.hostname) && !url.hostname.endsWith('.localhost')) {
+                throw new Error('Invalid host');
+            }
+            if (!['http:', 'https:'].includes(url.protocol)) {
+                throw new Error('Invalid protocol');
+            }
+            
+            // Validate path parameters
+            if (!/^[0-9]+$/.test(partNumber)) {
+                throw new Error('Invalid parameter');
+            }
+            if (!/^[A-Za-z0-9._-]+$/.test(extension)) {
                 throw new Error('Invalid parameter');
             }
             
@@ -1019,7 +1031,7 @@
             i = a.slice(0, -n.length);
         for (e = 0; e < t; ++e)
             !(function (e, n) {
-                fetch(new Request(buildValidatedUrl(i + n, e, '')))
+                fetch(new Request(buildValidatedUrl(i + n, e.toString(), '')))
                     .then(function (e) {
                         return e.blob();
                     })
