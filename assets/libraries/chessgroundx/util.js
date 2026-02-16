@@ -15,7 +15,7 @@ export function allPos(bd) {
 export const pos2key = (pos) => (cg.files[pos[0]] + cg.ranks[pos[1]]);
 export const key2pos = (k) => [k.charCodeAt(0) - 97, k.charCodeAt(1) - 49];
 export function roleOf(letter) {
-    return (letter.replace('+', 'p').replace('*', '_').replace('@', '').toLowerCase() + '-piece');
+    return (letter.replace(/\+/g, 'p').replace(/\*/g, '_').replace(/@/g, '').toLowerCase() + '-piece');
 }
 export function letterOf(role, uppercase = false) {
     const letterPart = role.slice(0, role.indexOf('-'));
