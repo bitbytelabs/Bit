@@ -1,3 +1,10 @@
+## [1.12.25](https://github.com/bitbytelabs/Bit/compare/v1.12.24...v1.12.25) (2026-02-16)
+
+
+### Bug Fixes
+
+* Update README.md ([e67689b](https://github.com/bitbytelabs/Bit/commit/e67689b4c2405e4a74358670e2fbfe4f730e860c))
+
 ## [1.12.24](https://github.com/bitbytelabs/Bit/compare/v1.12.23...v1.12.24) (2026-02-16)
 
 
