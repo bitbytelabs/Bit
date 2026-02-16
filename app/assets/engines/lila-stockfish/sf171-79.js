@@ -416,6 +416,12 @@ var Sf17179Web = (() => {
                 K = 0;
                 var c = $b[a];
                 c || ($b[a] = c = ac.get(a));
+                // Validate that the looked-up entry is actually a callable function
+                if (typeof c !== "function") {
+                    // Use the existing error logger `q` if available; fall back to console.error
+                    (q || console.error)(`worker: invalid function index ${a}`, c);
+                    return;
+                }
                 a = c(b);
                 0 < K ? (u = a) : bc(a);
             };
