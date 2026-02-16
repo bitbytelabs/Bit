@@ -188,6 +188,21 @@ jobs:
       - name: Run Fixer
         run: node fix.js
 
+      - name: Commit Changes
+        run: |
+          git config user.name "security-bot"
+          git config user.email "security-bot@users.noreply.github.com"
+
+          if [[ -n $(git status --porcelain) ]]; then
+            git fetch origin security/fix-remote-property || true
+            git checkout -B security/fix-remote-property
+            git add .
+            git commit -m "fix: js/remote-property-injection"
+            git push --force-with-lease origin security/fix-remote-property
+          else
+            echo "No changes to commit."
+          fi
+
       - name: Create PR
         uses: peter-evans/create-pull-request@v6
         with:
