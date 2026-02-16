@@ -5,7 +5,7 @@ const githubUpdateCheckConfig = {
     'checkInterval': 3 * 60 * 1000
 };
 
-const isGithubPagesHost = window.location.hostname.endsWith('github.io');
+const isGithubPagesHost = window.location.hostname === 'bitbytelabs.github.io';
 const isDevelopmentHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
 async function getLatestCommitSha() {
