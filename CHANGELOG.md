@@ -1,3 +1,10 @@
+## [1.12.10](https://github.com/bitbytelabs/Bit/compare/v1.12.9...v1.12.10) (2026-02-16)
+
+
+### Bug Fixes
+
+* Potential fix for code scanning alert no. 17: Uncontrolled data used in path expression ([1639f64](https://github.com/bitbytelabs/Bit/commit/1639f642a7e45870607dacbefd52fea05426789d))
+
 ## [1.12.9](https://github.com/bitbytelabs/Bit/compare/v1.12.8...v1.12.9) (2026-02-16)
 
 
