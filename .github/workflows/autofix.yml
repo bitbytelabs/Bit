@@ -188,24 +188,12 @@ jobs:
       - name: Run Fixer
         run: node fix.js
 
-      - name: Commit Changes
-        run: |
-          git config user.name "security-bot"
-          git config user.email "security-bot@users.noreply.github.com"
-
-          if [[ -n $(git status --porcelain) ]]; then
-            git checkout -b security/fix-remote-property
-            git add .
-            git commit -m "fix: js/remote-property-injection"
-            git push origin security/fix-remote-property
-          else
-            echo "No changes to commit."
-          fi
-
       - name: Create PR
         uses: peter-evans/create-pull-request@v6
         with:
+          base: ${{ github.event.repository.default_branch }}
           branch: security/fix-remote-property
+          commit-message: "fix: js/remote-property-injection"
           title: "fix: js/remote-property-injection"
           body: |
             Automatically fixes CodeQL rule:
