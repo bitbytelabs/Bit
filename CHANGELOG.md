@@ -1,3 +1,10 @@
+## [1.12.19](https://github.com/bitbytelabs/Bit/compare/v1.12.18...v1.12.19) (2026-02-16)
+
+
+### Bug Fixes
+
+* resolve autofix branch push conflicts ([d761aac](https://github.com/bitbytelabs/Bit/commit/d761aacc69860142950544e42582db309feb80f6))
+
 ## [1.12.18](https://github.com/bitbytelabs/Bit/compare/v1.12.17...v1.12.18) (2026-02-16)
 
 
