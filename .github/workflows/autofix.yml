@@ -2,69 +2,96 @@ name: Fix js/remote-property-injection
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
+  workflow_run:
+    workflows: ["CodeQL"]
+    types:
+      - completed
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  secure:
+  fix:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Download CodeQL SARIF
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.payload.workflow_run.id,
+            });
+
+            const sarif = artifacts.data.artifacts.find(a => a.name.includes("codeql"));
+            if (!sarif) return;
+
+            const download = await github.rest.actions.downloadArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: sarif.id,
+              archive_format: 'zip'
+            });
+
+            fs.writeFileSync('sarif.zip', Buffer.from(download.data));
+
+      - name: Extract SARIF
+        run: |
+          unzip sarif.zip || true
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install AST dependencies
+      - name: Install Babel
         run: npm install @babel/parser @babel/traverse @babel/generator @babel/types
 
-      - name: Create Fix Script
+      - name: Patch Only Flagged Files
         run: |
           cat << 'EOF' > fix.js
           const fs = require("fs");
-          const path = require("path");
           const parser = require("@babel/parser");
           const traverse = require("@babel/traverse").default;
           const generate = require("@babel/generator").default;
           const t = require("@babel/types");
 
-          function isTargetFile(file) {
-            return /\.(js|ts|jsx|tsx)$/.test(file);
+          const sarifFile = fs.readdirSync(".").find(f => f.endsWith(".sarif"));
+          if (!sarifFile) {
+            console.log("No SARIF file found.");
+            process.exit(0);
           }
 
-          function walk(dir) {
-            let results = [];
-            for (const file of fs.readdirSync(dir)) {
-              const full = path.join(dir, file);
+          const sarif = JSON.parse(fs.readFileSync(sarifFile, "utf8"));
 
-              if (full.includes("node_modules") || full.includes(".git")) continue;
+          const flaggedFiles = new Set();
 
-              const stat = fs.statSync(full);
-
-              if (stat.isDirectory()) {
-                results = results.concat(walk(full));
-              } else if (isTargetFile(full)) {
-                results.push(full);
+          for (const run of sarif.runs) {
+            for (const result of run.results || []) {
+              if (result.ruleId === "js/remote-property-injection") {
+                const location = result.locations?.[0]?.physicalLocation?.artifactLocation?.uri;
+                if (location) flaggedFiles.add(location);
               }
             }
-            return results;
+          }
+
+          if (flaggedFiles.size === 0) {
+            console.log("No remote property injection issues found.");
+            process.exit(0);
           }
 
           function injectValidator(ast) {
             let exists = false;
-
             traverse(ast, {
               FunctionDeclaration(path) {
-                if (path.node.id?.name === "isSafeKey") {
-                  exists = true;
-                }
+                if (path.node.id?.name === "isSafeKey") exists = true;
               }
             });
 
@@ -81,19 +108,26 @@ jobs:
             }
           }
 
-          function fixFile(file) {
+          for (const file of flaggedFiles) {
+            if (!fs.existsSync(file)) continue;
+
             const code = fs.readFileSync(file, "utf8");
-            const ast = parser.parse(code, {
-              sourceType: "unambiguous",
-              plugins: ["typescript", "jsx"]
-            });
+
+            let ast;
+            try {
+              ast = parser.parse(code, {
+                sourceType: "unambiguous",
+                plugins: ["typescript", "jsx"]
+              });
+            } catch {
+              console.log("Skipped (parse error):", file);
+              continue;
+            }
 
             let modified = false;
 
             traverse(ast, {
               AssignmentExpression(path) {
-                if (path.node._secureWrapped) return;
-
                 if (
                   t.isMemberExpression(path.node.left) &&
                   path.node.left.computed
@@ -102,18 +136,16 @@ jobs:
                   const prop = path.node.left.property;
                   const value = path.node.right;
 
-                  const safeAssign = t.assignmentExpression(
-                    "=",
-                    t.memberExpression(obj, prop, true),
-                    value
-                  );
-
-                  safeAssign._secureWrapped = true;
-
                   const wrapped = t.ifStatement(
                     t.callExpression(t.identifier("isSafeKey"), [prop]),
                     t.blockStatement([
-                      t.expressionStatement(safeAssign)
+                      t.expressionStatement(
+                        t.assignmentExpression(
+                          "=",
+                          t.memberExpression(obj, prop, true),
+                          value
+                        )
+                      )
                     ])
                   );
 
@@ -132,32 +164,28 @@ jobs:
             }
           }
 
-          walk(process.cwd()).forEach(fixFile);
+          console.log("Finished.");
           EOF
 
-      - name: Run Fixer
-        run: node fix.js
+          node fix.js
 
-      - name: Commit & Push If Changes
+      - name: Commit & PR
         run: |
           git config user.name "security-bot"
           git config user.email "security-bot@users.noreply.github.com"
 
           if [[ -n $(git status --porcelain) ]]; then
-            git checkout -b security/remote-property-fix
+            git checkout -b security/fix-remote-property
             git add .
             git commit -m "Fix js/remote-property-injection"
-            git push origin security/remote-property-fix
+            git push origin security/fix-remote-property
           else
-            echo "No changes needed"
+            echo "No changes to commit."
           fi
 
-      - name: Create PR
-        if: success()
-        uses: peter-evans/create-pull-request@v6
+      - uses: peter-evans/create-pull-request@v6
         with:
-          branch: security/remote-property-fix
+          branch: security/fix-remote-property
           title: "Fix js/remote-property-injection"
           body: |
-            Automatically mitigates CodeQL rule js/remote-property-injection
-            by wrapping dynamic property assignments in a safe validator.
+            Automatically fixes CodeQL js/remote-property-injection findings.
