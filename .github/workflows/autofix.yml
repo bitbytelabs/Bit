@@ -196,7 +196,7 @@ jobs:
           if [[ -n $(git status --porcelain) ]]; then
             git checkout -b security/fix-remote-property
             git add .
-            git commit -m "Fix js/remote-property-injection"
+            git commit -m "fix: js/remote-property-injection"
             git push origin security/fix-remote-property
           else
             echo "No changes to commit."
@@ -206,7 +206,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           branch: security/fix-remote-property
-          title: "Fix js/remote-property-injection"
+          title: "fix: js/remote-property-injection"
           body: |
             Automatically fixes CodeQL rule:
             js/remote-property-injection
