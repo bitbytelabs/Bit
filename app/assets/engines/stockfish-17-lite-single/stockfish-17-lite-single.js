@@ -1001,9 +1001,13 @@
                 throw new Error('Invalid parameter');
             }
             
+            // Validate extension parameter
+            if (extension && !/^[A-Za-z0-9._-]+$/.test(extension)) {
+                throw new Error('Invalid parameter');
+            }
+            
             // Rebuild pathname from fixed literals + validated segments
-            const basePath = url.pathname.replace(/\.[^/.]+$/, '');
-            url.pathname = basePath + '-part-' + partNumber + extension;
+            url.pathname = url.pathname + '-part-' + partNumber + (extension || '');
             
             return url.href;
         } catch {
@@ -1019,7 +1023,7 @@
             i = a.slice(0, -n.length);
         for (e = 0; e < t; ++e)
             !(function (e, n) {
-                fetch(new Request(buildValidatedUrl(i + n, e, '')))
+                fetch(new Request(buildValidatedUrl(i, e, n)))
                     .then(function (e) {
                         return e.blob();
                     })
