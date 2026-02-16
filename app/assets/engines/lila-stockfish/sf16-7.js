@@ -422,6 +422,10 @@ var Sf167Web = (() => {
                 K = 0;
                 var c = Zb[a];
                 c || (Zb[a] = c = $b.get(a));
+                if (typeof c !== "function") {
+                    q && q(`worker: invalid handler for index ${a}`);
+                    return;
+                }
                 a = c(b);
                 0 < K ? (u = a) : ac(a);
             };
