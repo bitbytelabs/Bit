@@ -5,7 +5,7 @@ const path = require("path");
 const Stockfish = require("./stockfish.js");
 
 const UCI_NNUE_FILE = process.env.UCI_NNUE_FILE;
-const NNUE_ROOT = process.cwd();
+const NNUE_ROOT = fs.realpathSync(process.cwd());
 
 async function runRepl(stockfish) {
   const iface = readline.createInterface({ input: process.stdin });
@@ -23,10 +23,14 @@ async function main(argv) {
   const FS = stockfish.FS;
   if (UCI_NNUE_FILE) {
     const resolvedPath = path.resolve(NNUE_ROOT, UCI_NNUE_FILE);
-    if (!resolvedPath.startsWith(NNUE_ROOT + path.sep) && resolvedPath !== NNUE_ROOT) {
+    const realResolvedPath = fs.realpathSync(resolvedPath);
+    if (
+      realResolvedPath !== NNUE_ROOT &&
+      !realResolvedPath.startsWith(NNUE_ROOT + path.sep)
+    ) {
       throw new Error("UCI_NNUE_FILE path is outside of allowed root directory");
     }
-    const buffer = await fs.promises.readFile(resolvedPath);
+    const buffer = await fs.promises.readFile(realResolvedPath);
     const filename = "/" + UCI_NNUE_FILE.replace(/^.*[\\\/]/, "");
     FS.writeFile(filename, buffer);
     stockfish.postMessage(`setoption name EvalFile value ${filename}`);
