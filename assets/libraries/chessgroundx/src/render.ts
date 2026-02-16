@@ -1,18 +1,15 @@
+function isSafeKey(key) {
+  if (typeof key !== "string") return false;
+  const blocked = ["__proto__", "prototype", "constructor"];
+  if (blocked.includes(key)) return false;
+  return /^[a-zA-Z0-9_]+$/.test(key);
+}
 import { State } from './state.js';
-import {
-  key2pos,
-  pieceClasses as pieceNameOf,
-  createEl,
-  posToTranslate as posToTranslateFromBounds,
-  translate,
-  dropOrigOf,
-  isKey,
-} from './util.js';
+import { key2pos, pieceClasses as pieceNameOf, createEl, posToTranslate as posToTranslateFromBounds, translate, dropOrigOf, isKey } from './util.js';
 import { whitePov } from './board.js';
 import { AnimCurrent, AnimVectors, AnimVector, AnimFadings } from './anim.js';
 import { DragCurrent } from './drag.js';
 import * as cg from './types.js';
-
 type PieceName = string; // `$color $role`
 
 type SquareClasses = Map<cg.Key, string>;
@@ -33,16 +30,7 @@ export function render(s: State): void {
     sameSquares: Set<cg.Key> = new Set(),
     movedPieces: Map<PieceName, cg.PieceNode[]> = new Map(),
     movedSquares: Map<string, cg.SquareNode[]> = new Map(); // by class name
-  let k: cg.Key,
-    el: cg.PieceNode | cg.SquareNode | undefined,
-    pieceAtKey: cg.Piece | undefined,
-    elPieceName: PieceName,
-    anim: AnimVector | undefined,
-    fading: cg.Piece | undefined,
-    pMvdset: cg.PieceNode[] | undefined,
-    pMvd: cg.PieceNode | undefined,
-    sMvdset: cg.SquareNode[] | undefined,
-    sMvd: cg.SquareNode | undefined;
+  let k: cg.Key, el: cg.PieceNode | cg.SquareNode | undefined, pieceAtKey: cg.Piece | undefined, elPieceName: PieceName, anim: AnimVector | undefined, fading: cg.Piece | undefined, pMvdset: cg.PieceNode[] | undefined, pMvd: cg.PieceNode | undefined, sMvdset: cg.SquareNode[] | undefined, sMvd: cg.SquareNode | undefined;
 
   // walk over all board dom elements, apply animations and flag moved pieces
   el = boardEl.firstChild as cg.PieceNode | cg.SquareNode | undefined;
@@ -70,8 +58,12 @@ export function render(s: State): void {
         // (otherwise it could animate a captured piece)
         if (anim && el.cgAnimating && elPieceName === pieceNameOf(pieceAtKey, s.orientation)) {
           const pos = key2pos(k);
-          pos[0] += anim[2];
-          pos[1] += anim[3];
+          if (isSafeKey(0)) {
+            pos[0] = anim[2];
+          }
+          if (isSafeKey(1)) {
+            pos[1] = anim[3];
+          }
           el.classList.add('anim');
           translate(el, posToTranslate(pos, asWhite));
         } else if (el.cgAnimating) {
@@ -100,8 +92,7 @@ export function render(s: State): void {
       }
     } else if (isSquareNode(el)) {
       const cn = el.className;
-      if (squares.get(k) === cn) sameSquares.add(k);
-      else appendValue(movedSquares, cn, el);
+      if (squares.get(k) === cn) sameSquares.add(k);else appendValue(movedSquares, cn, el);
     }
     el = el.nextSibling as cg.PieceNode | cg.SquareNode | undefined;
   }
@@ -145,8 +136,12 @@ export function render(s: State): void {
         if (anim) {
           pMvd.cgAnimating = true;
           pMvd.classList.add('anim');
-          pos[0] += anim[2];
-          pos[1] += anim[3];
+          if (isSafeKey(0)) {
+            pos[0] = anim[2];
+          }
+          if (isSafeKey(1)) {
+            pos[1] = anim[3];
+          }
         }
         translate(pMvd, posToTranslate(pos, asWhite));
       }
@@ -156,18 +151,19 @@ export function render(s: State): void {
         const pieceName = pieceNameOf(p, s.orientation),
           pieceNode = createEl('piece', pieceName) as cg.PieceNode,
           pos = key2pos(k);
-
         pieceNode.cgPiece = pieceName;
         pieceNode.cgKey = k;
         if (anim) {
           pieceNode.cgAnimating = true;
-          pos[0] += anim[2];
-          pos[1] += anim[3];
+          if (isSafeKey(0)) {
+            pos[0] = anim[2];
+          }
+          if (isSafeKey(1)) {
+            pos[1] = anim[3];
+          }
         }
         translate(pieceNode, posToTranslate(pos, asWhite));
-
         if (s.addPieceZIndex) pieceNode.style.zIndex = posZIndex(pos, asWhite);
-
         boardEl.appendChild(pieceNode);
       }
     }
@@ -177,31 +173,26 @@ export function render(s: State): void {
   for (const nodes of movedPieces.values()) removeNodes(s, nodes);
   for (const nodes of movedSquares.values()) removeNodes(s, nodes);
 }
-
 export function renderResized(s: State): void {
   const asWhite: boolean = whitePov(s),
     posToTranslate = posToTranslateFromBounds(s.dom.bounds(), s.dimensions);
   let el = s.dom.elements.board.firstChild as cg.PieceNode | cg.SquareNode | undefined;
   while (el) {
-    if ((isPieceNode(el) && !el.cgAnimating) || isSquareNode(el)) {
+    if (isPieceNode(el) && !el.cgAnimating || isSquareNode(el)) {
       translate(el, posToTranslate(key2pos(el.cgKey), asWhite));
     }
     el = el.nextSibling as cg.PieceNode | cg.SquareNode | undefined;
   }
 }
-
 export function updateBounds(s: State): void {
   const bounds = s.dom.elements.wrap.getBoundingClientRect();
   const container = s.dom.elements.container;
   const ratio = bounds.height / bounds.width;
-  const width =
-    (Math.floor((bounds.width * window.devicePixelRatio) / s.dimensions.width) * s.dimensions.width) /
-    window.devicePixelRatio;
+  const width = Math.floor(bounds.width * window.devicePixelRatio / s.dimensions.width) * s.dimensions.width / window.devicePixelRatio;
   const height = width * ratio;
   container.style.width = width + 'px';
   container.style.height = height + 'px';
   s.dom.bounds.clear();
-
   s.addDimensionsCssVarsTo?.style.setProperty('--cg-width', width + 'px');
   s.addDimensionsCssVarsTo?.style.setProperty('--cg-height', height + 'px');
   s.dom.elements.pocketTop?.style.setProperty('--cg-width', width + 'px');
@@ -209,64 +200,48 @@ export function updateBounds(s: State): void {
   s.dom.elements.pocketBottom?.style.setProperty('--cg-width', width + 'px');
   s.dom.elements.pocketBottom?.style.setProperty('--cg-height', height + 'px');
 }
-
 const isPieceNode = (el: cg.PieceNode | cg.SquareNode): el is cg.PieceNode => el.tagName === 'PIECE';
 const isSquareNode = (el: cg.PieceNode | cg.SquareNode): el is cg.SquareNode => el.tagName === 'SQUARE';
-
 function removeNodes(s: State, nodes: HTMLElement[]): void {
   for (const node of nodes) s.dom.elements.board.removeChild(node);
 }
-
 function posZIndex(pos: cg.Pos, asWhite: boolean): string {
   const minZ = 3;
   const rank = pos[1];
   const z = asWhite ? minZ + 7 - rank : minZ + rank;
-
   return `${z}`;
 }
-
 function computeSquareClasses(s: State): SquareClasses {
   const squares: SquareClasses = new Map();
-  if (s.lastMove && s.highlight.lastMove)
-    for (const k of s.lastMove) {
-      if (isKey(k) && k !== 'a0') addSquare(squares, k, 'last-move');
-    }
-  if (s.check && s.highlight.check)
-    for (const k of s.check)
-      addSquare(squares, k, 'check');
+  if (s.lastMove && s.highlight.lastMove) for (const k of s.lastMove) {
+    if (isKey(k) && k !== 'a0') addSquare(squares, k, 'last-move');
+  }
+  if (s.check && s.highlight.check) for (const k of s.check) addSquare(squares, k, 'check');
   const selected = s.selectable.selected;
   if (selected) {
     if (isKey(selected)) addSquare(squares, selected, 'selected');
     if (s.movable.showDests) {
       const dests = s.movable.dests?.get(isKey(selected) ? selected : dropOrigOf(selected.role));
-      if (dests)
-        for (const k of dests) {
-          addSquare(squares, k, 'move-dest' + (s.boardState.pieces.has(k) ? ' oc' : ''));
-        }
+      if (dests) for (const k of dests) {
+        addSquare(squares, k, 'move-dest' + (s.boardState.pieces.has(k) ? ' oc' : ''));
+      }
       const pDests = s.premovable.dests;
-      if (pDests)
-        for (const k of pDests) {
-          addSquare(squares, k, 'premove-dest' + (s.boardState.pieces.has(k) ? ' oc' : ''));
-        }
+      if (pDests) for (const k of pDests) {
+        addSquare(squares, k, 'premove-dest' + (s.boardState.pieces.has(k) ? ' oc' : ''));
+      }
     }
   }
   const premove = s.premovable.current;
   if (premove) for (const k of premove) if (isKey(k)) addSquare(squares, k, 'current-premove');
-
   const o = s.exploding;
   if (o) for (const k of o.keys) addSquare(squares, k, 'exploding' + o.stage);
-
   return squares;
 }
-
 function addSquare(squares: SquareClasses, key: cg.Key, klass: string): void {
   const classes = squares.get(key);
-  if (classes) squares.set(key, `${classes} ${klass}`);
-  else squares.set(key, klass);
+  if (classes) squares.set(key, `${classes} ${klass}`);else squares.set(key, klass);
 }
-
 function appendValue<K, V>(map: Map<K, V[]>, key: K, value: V): void {
   const arr = map.get(key);
-  if (arr) arr.push(value);
-  else map.set(key, [value]);
+  if (arr) arr.push(value);else map.set(key, [value]);
 }

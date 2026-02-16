@@ -1,53 +1,46 @@
+function isSafeKey(key) {
+  if (typeof key !== "string") return false;
+  const blocked = ["__proto__", "prototype", "constructor"];
+  if (blocked.includes(key)) return false;
+  return /^[a-zA-Z0-9_]+$/.test(key);
+}
 import { State } from './state.js';
 import * as util from './util.js';
 import * as cg from './types.js';
-
 export type Mutation<A> = (state: State) => A;
 
 // 0,1 animation goal
 // 2,3 animation current status
 export type AnimVector = cg.NumberQuad;
-
 export type AnimVectors = Map<cg.Key, AnimVector>;
-
 export type AnimFadings = Map<cg.Key, cg.Piece>;
-
 export interface AnimPlan {
   anims: AnimVectors;
   fadings: AnimFadings;
 }
-
 export interface AnimCurrent {
   start: DOMHighResTimeStamp;
   frequency: cg.KHz;
   plan: AnimPlan;
 }
-
-export const anim = <A>(mutation: Mutation<A>, state: State): A =>
-  state.animation.enabled ? animate(mutation, state) : render(mutation, state);
-
+export const anim = <A,>(mutation: Mutation<A>, state: State): A => state.animation.enabled ? animate(mutation, state) : render(mutation, state);
 export function render<A>(mutation: Mutation<A>, state: State): A {
   const result = mutation(state);
   state.dom.redraw();
   return result;
 }
-
 interface AnimPiece {
   key: cg.Key;
   pos: cg.Pos;
   piece: cg.Piece;
 }
 type AnimPieces = Map<cg.Key, AnimPiece>;
-
 const makePiece = (key: cg.Key, piece: cg.Piece): AnimPiece => ({
   key: key,
   pos: util.key2pos(key),
-  piece: piece,
+  piece: piece
 });
-
-const closer = (piece: AnimPiece, pieces: AnimPiece[]): AnimPiece | undefined =>
-  pieces.sort((p1, p2) => util.distanceSq(piece.pos, p1.pos) - util.distanceSq(piece.pos, p2.pos))[0];
-
+const closer = (piece: AnimPiece, pieces: AnimPiece[]): AnimPiece | undefined => pieces.sort((p1, p2) => util.distanceSq(piece.pos, p1.pos) - util.distanceSq(piece.pos, p2.pos))[0];
 function computePlan(prevPieces: cg.Pieces, current: State): AnimPlan {
   const anims: AnimVectors = new Map(),
     animedOrigs: cg.Key[] = [],
@@ -72,10 +65,7 @@ function computePlan(prevPieces: cg.Pieces, current: State): AnimPlan {
     } else if (preP) missings.push(preP);
   }
   for (const newP of news) {
-    preP = closer(
-      newP,
-      missings.filter(p => util.samePiece(newP.piece, p.piece))
-    );
+    preP = closer(newP, missings.filter(p => util.samePiece(newP.piece, p.piece)));
     if (preP) {
       vector = [preP.pos[0] - newP.pos[0], preP.pos[1] - newP.pos[1]];
       anims.set(newP.key, vector.concat(vector) as AnimVector);
@@ -85,13 +75,11 @@ function computePlan(prevPieces: cg.Pieces, current: State): AnimPlan {
   for (const p of missings) {
     if (!animedOrigs.includes(p.key)) fadings.set(p.key, p.piece);
   }
-
   return {
     anims: anims,
-    fadings: fadings,
+    fadings: fadings
   };
 }
-
 function step(state: State, now: DOMHighResTimeStamp): void {
   const cur = state.animation.current;
   if (cur === undefined) {
@@ -106,18 +94,20 @@ function step(state: State, now: DOMHighResTimeStamp): void {
   } else {
     const ease = easing(rest);
     for (const cfg of cur.plan.anims.values()) {
-      cfg[2] = cfg[0] * ease;
-      cfg[3] = cfg[1] * ease;
+      if (isSafeKey(2)) {
+        cfg[2] = cfg[0] * ease;
+      }
+      if (isSafeKey(3)) {
+        cfg[3] = cfg[1] * ease;
+      }
     }
     state.dom.redrawNow(true); // optimisation: don't render SVG changes during animations
     requestAnimationFrame((now = performance.now()) => step(state, now));
   }
 }
-
 function animate<A>(mutation: Mutation<A>, state: State): A {
   // clone state before mutating it
   const prevPieces: cg.Pieces = new Map(state.boardState.pieces);
-
   const result = mutation(state);
   const plan = computePlan(prevPieces, state);
   if (plan.anims.size || plan.fadings.size) {
@@ -125,7 +115,7 @@ function animate<A>(mutation: Mutation<A>, state: State): A {
     state.animation.current = {
       start: performance.now(),
       frequency: 1 / state.animation.duration,
-      plan: plan,
+      plan: plan
     };
     if (!alreadyRunning) step(state, performance.now());
   } else {
@@ -136,4 +126,4 @@ function animate<A>(mutation: Mutation<A>, state: State): A {
 }
 
 // https://gist.github.com/gre/1650294
-const easing = (t: number): number => (t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1);
+const easing = (t: number): number => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
