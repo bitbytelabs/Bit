@@ -659,9 +659,34 @@ async function waitForElement(selector, maxWaitTime = 10000000) {
     return null;
 }
 
+function buildValidatedUrl(baseUrl) {
+    try {
+        // Minimal path validation
+        if (baseUrl.includes('/../') || /\/%2e%2e\//i.test(baseUrl)) {
+            throw new Error('Invalid path');
+        }
+        
+        const url = new URL(baseUrl);
+        
+        // Protocol + host checks
+        const allowedDomains = ['example.com']; // add your allowed domains here
+        if (!allowedDomains.includes(url.hostname)) {
+            throw new Error('Invalid host');
+        }
+        if (!['http:', 'https:'].includes(url.protocol)) {
+            throw new Error('Invalid protocol');
+        }
+        
+        return url.href;
+    } catch {
+        throw new Error('Invalid URL');
+    }
+}
+
 async function loadFileAsUint8Array(url) {
     try {
-        const response = await fetch(url);
+        const validatedUrl = buildValidatedUrl(url);
+        const response = await fetch(validatedUrl);
         const buffer = await response.arrayBuffer();
         return new Uint8Array(buffer);
     } catch (error) {
