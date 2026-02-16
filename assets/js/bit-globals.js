@@ -669,7 +669,7 @@ function buildValidatedUrl(baseUrl) {
         const url = new URL(baseUrl);
         
         // Protocol + host checks
-        const allowedDomains = ['example.com']; // add your allowed domains here
+        const allowedDomains = ['cdn.jsdelivr.net', 'unpkg.com', 'cdnjs.cloudflare.com']; // add your allowed domains here
         if (!allowedDomains.includes(url.hostname)) {
             throw new Error('Invalid host');
         }
