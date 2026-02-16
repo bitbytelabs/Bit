@@ -1,3 +1,10 @@
+## [1.12.28](https://github.com/bitbytelabs/Bit/compare/v1.12.27...v1.12.28) (2026-02-16)
+
+
+### Bug Fixes
+
+* **security:** autofix HTTP request might enable SSRF attack ([2ce9d74](https://github.com/bitbytelabs/Bit/commit/2ce9d746edc964dd481240abd3f2f1da0a58d52f))
+
 ## [1.12.27](https://github.com/bitbytelabs/Bit/compare/v1.12.26...v1.12.27) (2026-02-16)
 
 
