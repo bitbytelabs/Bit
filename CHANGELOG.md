@@ -1,3 +1,10 @@
+## [1.12.21](https://github.com/bitbytelabs/Bit/compare/v1.12.20...v1.12.21) (2026-02-16)
+
+
+### Bug Fixes
+
+* make autofix scan and patch remote-property findings ([2094e6d](https://github.com/bitbytelabs/Bit/commit/2094e6d0c0283be4d8d9ce391ce4cb4a37d59bb0))
+
 ## [1.12.20](https://github.com/bitbytelabs/Bit/compare/v1.12.19...v1.12.20) (2026-02-16)
 
 
