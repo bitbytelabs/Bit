@@ -102,6 +102,8 @@ var Sf167Web = (() => {
             var Ha,
                 Ia = !1;
             const TRUSTED_MESSAGE_TOKEN = "sf16-7-pthread-message";
+            // Track the first sender that successfully communicates with this worker
+            let MESSAGE_SENDER = null;
             function a(...c) {
                 console.error(...c);
             }
@@ -111,6 +113,7 @@ var Sf167Web = (() => {
             };
             function Qa(c) {
                 if (!c || typeof c !== "object") return !1;
+                // Ensure this is a MessageEvent-like object with a data payload
                 var d = c.data;
                 if (!d || typeof d !== "object") return !1;
                 if (d.trustedToken !== TRUSTED_MESSAGE_TOKEN) return !1;
@@ -126,7 +129,16 @@ var Sf167Web = (() => {
                 );
             }
             function b(c) {
+                // Basic shape and token check
                 if (!Qa(c)) return;
+                // Bind to the first valid sender and reject messages from others
+                if (MESSAGE_SENDER === null) {
+                    // For dedicated workers, c.target is the worker itself; still
+                    // record it so that only the first valid channel is honoured.
+                    MESSAGE_SENDER = c.target || self;
+                } else if (c.target && c.target !== MESSAGE_SENDER) {
+                    return;
+                }
                 try {
                     var d = c.data,
                         e = d.ka;
