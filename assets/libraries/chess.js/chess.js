@@ -1948,7 +1948,7 @@ export const Chess = function (fen) {
     },
 
     set_comment: function (comment) {
-      comments[generate_fen()] = comment.replace('{', '[').replace('}', ']')
+      comments[generate_fen()] = comment.replace(/{/g, '[').replace(/}/g, ']')
     },
 
     delete_comment: function () {
