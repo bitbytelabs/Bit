@@ -426,6 +426,9 @@ var Sf1779Web = (() => {
                 K = 0;
                 var c = $b[a];
                 c || ($b[a] = c = ac.get(a));
+                if (typeof c !== "function") {
+                    throw new Error("Invalid function index in Na: " + a);
+                }
                 a = c(b);
                 0 < K ? (u = a) : bc(a);
             };
