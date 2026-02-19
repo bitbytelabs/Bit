@@ -438,13 +438,14 @@ class UniversalBoardDrawer {
 
     updateDimensions() {
         const boardRect = this.boardElem.getBoundingClientRect(),
-              bodyRect = this.document.body.getBoundingClientRect(); // https://stackoverflow.com/a/62106310
+              bodyRect = this.document.body.getBoundingClientRect(), // https://stackoverflow.com/a/62106310
+              parentRect = this.parentElem?.getBoundingClientRect?.() || bodyRect;
 
         let boardWidth = boardRect.width,
             boardHeight = boardRect.height;
 
-        let boardPositionTop = boardRect.top - bodyRect.top,
-            boardPositionLeft = boardRect.left - (this.ignoreBodyRectLeft ? 0 : bodyRect.left);
+        let boardPositionTop = boardRect.top - parentRect.top,
+            boardPositionLeft = boardRect.left - (this.ignoreBodyRectLeft ? 0 : parentRect.left);
 
         if(this.adjustSizeByDimensions) {
 
