@@ -1,3 +1,10 @@
+## [1.12.30](https://github.com/bitbytelabs/Bit/compare/v1.12.29...v1.12.30) (2026-02-19)
+
+
+### Bug Fixes
+
+* align board overlay with its container ([b06d535](https://github.com/bitbytelabs/Bit/commit/b06d53550ffc5cafbdfed812e4e547e4e0193bc8))
+
 ## [1.12.29](https://github.com/bitbytelabs/Bit/compare/v1.12.28...v1.12.29) (2026-02-17)
 
 
